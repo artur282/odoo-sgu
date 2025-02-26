@@ -1,5 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+    <!-- lista-->
+    <record id="sgu_autoridad_view" model="ir.ui.view">
+        <field name="name">sgu.autoridad.list</field>
+        <field name="model">sgu_autoridad</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="nombre"/>
+                <field name="autoridad" string="Tipo de"/>
+                <field name="institucion"/>
+                <field name="active" string="estado"/>
+            </list>
+        </field>
+    </record>
+    <!-- formulario -->
+    <record id="sgu_autoridad_form_view" model="ir.ui.view">
+        <field name="name">sgu.autoridad.form</field>
+        <field name="model">sgu_autoridad</field>
+        <field name="arch" type="xml">
+            <form string="Asignar Autoridad">
+                <sheet>
+                    <group>
+                        <field name="nombre"/>
+                        <field name="autoridad"/>
+                        <field name="institucion"/>
+                        <field name="active"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+
+ <!-- action -->
     <record id="sgu_autoridad_action" model="ir.actions.act_window">
         <field name="name">Autoridades</field>
         <field name="res_model">sgu_autoridad</field>
