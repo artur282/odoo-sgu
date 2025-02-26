@@ -1,24 +1,32 @@
 from odoo import models, fields
 
 class SguAutoridad(models.Model):
-    _name = 'sgu.autoridad'
+    _name = 'sgu_autoridad'
+    _description = 'Autoridades de la institución'
 
-    autoridades = fields.Char(string='Autoridades')
-    autoriada = fields.Selection(
-        selection='_get_autoridades',
-        string='Autoriada'
+    autoridad = fields.Many2one(
+        'sgu_tipo_autoridad',
+        string='Tipo de autoridad',
+        ondelete='cascade'
+        
     )
-    institucion = fields.Char(string='Institución')
+    institucion = fields.Many2one(
+        'sgu_instituto',
+        string='Institución',
+        ondelete='cascade'
+    )
     nombre = fields.Char(string='Nombre')
     firmaDigital = fields.Image(string='Firma Digital')
 
-    def _get_autoridades(self):
-        autoridades_str = self.autoridades or ''
-        autoridades_list = autoridades_str.split(',')
-        return [(autoridad.strip(), autoridad.strip()) for autoridad in autoridades_list]
+class SguTipoAutoridad(models.Model):
+    _name = 'sgu_tipo_autoridad'
+    _description = 'Tipos de autoridades de la institución'
+
+    tipo = fields.Char(string='Tipo de autoridad')
 
 class SguCarreras(models.Model):
-    _name = 'sgu.carreras'
+    _name = 'sgu_carreras'
+    _description = 'Carreras de la instituto'
 
     codigo = fields.Integer(string='Código')
     carrera = fields.Char(string='Carrera')
@@ -29,7 +37,8 @@ class SguCarreras(models.Model):
     ], string='Modalidad')
 
 class SguInstituto(models.Model):
-    _name = 'sgu.instituto'
+    _name = 'sgu_instituto'
+    _description = 'Institutos de la universidad'   
 
     codigo_opsu = fields.Integer(string='Código OPSU')
     nombre = fields.Char(string='Nombre')

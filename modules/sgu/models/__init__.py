@@ -1,2 +1,2 @@
 
-from . import sgu_models
+from . import sgu_property

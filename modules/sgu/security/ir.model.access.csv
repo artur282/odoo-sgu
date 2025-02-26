@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sgu_autoridad,access_sgu_autoridad,model_sgu_autoridad,,1,1,1,1
+access_sgu_carreras,access_sgu_carreras,model_sgu_carreras,,1,1,1,1
+access_sgu_instituto,access_sgu_instituto,model_sgu_instituto,,1,1,1,1
+access_tipo_autoridad,access_sgu_tipo_autoridad,model_sgu_tipo_autoridad,,1,1,1,1
