@@ -2,36 +2,9 @@
 <odoo>
     <template id="protected_page_template" name="Página Protegida">
         <t t-call="website.layout">
-            <div class="container mt-5" style="background-color: #f8f9fa; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
-                <h2 class="text-center" style="color: #007bff;">Página Protegida</h2>
-                
-                <p class="text-center" style="font-size: 18px;">Bienvenido al <strong>SISTEMA DE GESTIÓN UNIVERSITARIA</strong>.</p>
-                <center>
-                <div>
-                <img src="/api_login/static/src/img/UNERG.png"/>
-                </div>
-                </center>
-
-                <t t-if="item">
-                    <!-- Mostrar los detalles del item -->
-                    <div class="mt-4">
-                        <h3>Detalles del Periodo academico</h3>
-                        <p><strong>ID:</strong> <t t-esc="item.get('id')"/></p>
-                        <p><strong>Periodo:</strong> <t t-esc="item.get('periodo')"/></p>
-                        <p><strong>Estatus:</strong> <t t-esc="item.get('estatus')"/></p>
-                    </div>
-                </t>
-                
-                <t t-if="error">
-                    <!-- Mostrar mensajes de error -->
-                    <div class="alert alert-danger mt-4">
-                        <t t-esc="error"/>
-                    </div>
-                </t>
-                
-                <div class="text-center mt-4">
-                    <a href="/logout_api" class="btn btn-secondary">Cerrar Sesión</a>
-                </div>
+            <div class="container mt-5">
+                <h1>Página Protegida</h1>
+                <p>Bienvenido, has accedido correctamente utilizando la API externa.</p>
             </div>
         </t>
     </template>

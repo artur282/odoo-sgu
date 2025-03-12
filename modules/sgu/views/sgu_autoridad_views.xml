@@ -7,9 +7,8 @@
         <field name="arch" type="xml">
             <list>
                 <field name="nombre"/>
-                <field name="autoridad" string="Tipo de"/>
+                <field name="autoridad" string="Tipo de autoridad" />
                 <field name="institucion"/>
-                <field name="active" string="estado"/>
             </list>
         </field>
     </record>
@@ -24,7 +23,6 @@
                         <field name="nombre"/>
                         <field name="autoridad"/>
                         <field name="institucion"/>
-                        <field name="active"/>
                     </group>
                 </sheet>
             </form>

@@ -6,8 +6,8 @@
     'description': 'Permite a los usuarios iniciar sesión utilizando una API externa.',
     'depends': ['base', 'website'],
     'data': [
-        'views/login_template.xml',
-        'views/protected_page.xml',
+        'views/login_api_template.xml',
+        'views/protected_page_2.xml',
     ],
     'installable': True,
     'application': True,

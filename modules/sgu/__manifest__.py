@@ -17,6 +17,7 @@ modulo del sistema de gestion universitaria
     'data': [ 
         'security/ir.model.access.csv',
         'views/sgu_autoridad_views.xml',
+        'views/sgu_instituto_views.xml',
         'views/sgu_menu.xml',
     ],
     'installable': True,

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- Vista del formulario de inicio de sesión -->
+    <record id="view_login_api_form" model="ir.ui.view">
+        <field name="name">Login API Form</field>
+        <field name="model">login.api.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Iniciar Sesión">
+                <group>
+                    <field name="email" placeholder="Correo electrónico"/>
+                    <field name="password" placeholder="Contraseña" password="True"/>
+                </group>
+                <footer>
+                    <button name="login" type="object" string="Iniciar sesión" class="btn-primary"/>
+                    <button string="Cancelar" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <!-- Acción para abrir el formulario -->
+    <record id="action_login_api" model="ir.actions.act_window">
+        <field name="name">Iniciar Sesión API</field>
+        <field name="res_model">login.api.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_login_api_form"/>
+        <field name="target">new</field>
+    </record>
+
+    <!-- Menú para acceder al formulario -->
+<menuitem id="menu_login_api" name="Iniciar Sesión API" action="action_login_api" parent="base.menu_custom"/>
+</odoo>

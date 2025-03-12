@@ -13,7 +13,7 @@ class APILoginController(http.Controller):
             return request.redirect('/protected_page')
 
         # Mostrar el formulario de inicio de sesión
-        return request.render('api_login.login_template', {})
+        return request.render('api_login.login_api_template', {})
 
     @http.route('/login_api/submit', type='http', auth='public', methods=['POST'], csrf=False)
     def login_api_submit(self, **post):
@@ -48,19 +48,19 @@ class APILoginController(http.Controller):
                 return request.redirect('/protected_page')
             else:
                 # Si las credenciales son inválidas, mostrar mensaje de error
-                return request.render('api_login.login_template', {'error': 'Credenciales inválidas. Por favor, intenta de nuevo.'})
+                return request.render('api_login.login_api_template', {'error': 'Credenciales inválidas. Por favor, intenta de nuevo.'})
 
         except requests.exceptions.HTTPError as e:
-            return request.render('api_login.login_template', {
+            return request.render('api_login.login_api_template', {
                 'error': f'Error de autenticación: {str(e)}',
             })
 
         except requests.exceptions.RequestException as e:
             # Error al conectar con la API externa
-            return request.render('api_login.login_template', {'error': f'Error al conectar con la API externa: {e}'})
+            return request.render('api_login.login_api_template', {'error': f'Error al conectar con la API externa: {e}'})
         except Exception as e:
             # Otro tipo de error
-            return request.render('api_login.login_template', {'error': f'Ocurrió un error: {e}'})
+            return request.render('api_login.login_api_template', {'error': f'Ocurrió un error: {e}'})
 
     @http.route('/protected_page', type='http', auth='public', website=True)
     def protected_page(self, **kw):
@@ -100,20 +100,20 @@ class APILoginController(http.Controller):
             item = result.get('data', {}).get('item', {})
             
             # Pasar los datos a la plantilla
-            return request.render('api_login.protected_page_template', {'item': item})
+            return request.render('api_login.protected_page_template_2', {'item': item})
             
         except requests.exceptions.HTTPError as e:
             # Manejar errores HTTP
             error_message = f'Error al obtener los datos: {e}'
-            return request.render('api_login.protected_page_template', {'error': error_message})
+            return request.render('api_login.protected_page_template_2', {'error': error_message})
         except requests.exceptions.RequestException as e:
             # Manejar errores de conexión
             error_message = f'Error de conexión: {e}'
-            return request.render('api_login.protected_page_template', {'error': error_message})
+            return request.render('api_login.protected_page_template_2', {'error': error_message})
         except Exception as e:
             # Manejar otros errores
             error_message = f'Ocurrió un error: {e}'
-            return request.render('api_login.protected_page_template', {'error': error_message})
+            return request.render('api_login.protected_page_template_2', {'error': error_message})
 
 
     @http.route('/logout_api', type='http', auth='public', website=True)

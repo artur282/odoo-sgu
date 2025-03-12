@@ -1,0 +1,12 @@
+<!ELEMENT odoo (record+)>
+<!ELEMENT record (field+)>
+<!ATTLIST record id NMTOKEN #REQUIRED>
+<!ATTLIST record model NMTOKEN #REQUIRED>
+<!ELEMENT field (#PCDATA|list|form)*>
+<!ATTLIST field name NMTOKEN #REQUIRED>
+<!ATTLIST field type NMTOKEN #IMPLIED>
+<!ELEMENT list (field+)>
+<!ELEMENT form (sheet)>
+<!ATTLIST form string CDATA #REQUIRED>
+<!ELEMENT sheet (group)>
+<!ELEMENT group (field+)>

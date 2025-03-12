@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <menuitem id="sgu_autoridad_menu_root" name="SGU"/>
-    <menuitem id="sgu_autoridad_menu" name="Instituto" parent="sgu_autoridad_menu_root">
-        <menuitem id="sgu_autoridad_model_menu_action" action="sgu_autoridad_action"/>
+    <menuitem id="sgu_menu_root" name="SGU">
+        <menuitem id="sgu_sub_menu" name="Instituto">
+            <menuitem id="sgu_autoridad_model_menu_action" action="sgu.sgu_autoridad_action"/>
+            <menuitem id="sgu_instituto_model_menu_action" action="sgu.sgu_instituto_action"/>
+        </menuitem>
     </menuitem>
 </odoo>
