@@ -4,6 +4,7 @@
         <menuitem id="sgu_sub_menu" name="Instituto">
             <menuitem id="sgu_autoridad_model_menu_action" action="sgu.sgu_autoridad_action"/>
             <menuitem id="sgu_instituto_model_menu_action" action="sgu.sgu_instituto_action"/>
+            <menuitem id="sgu_carreras_model_menu_action" action="sgu.sgu_carreras_action"/>
         </menuitem>
     </menuitem>
 </odoo>
