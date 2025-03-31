@@ -9,6 +9,7 @@
                 <field name="nombre"/>
                 <field name="autoridad" string="Tipo de autoridad" />
                 <field name="institucion"/>
+                <field name="fecha"/>
             </list>
         </field>
     </record>
@@ -23,6 +24,7 @@
                         <field name="nombre"/>
                         <field name="autoridad"/>
                         <field name="institucion"/>
+                        <field name="fecha"/>
                     </group>
                 </sheet>
             </form>

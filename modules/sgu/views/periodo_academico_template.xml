@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- lista-->
+    <record id="periodo_academico_view" model="ir.ui.view">
+        <field name="name">periodo.academico.list</field>
+        <field name="model">periodo_academico</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="ano"/>
+                <field name="tipo" string="Tipo de periodo" />
+                <field name="periodo"/>
+                <field name="status"/>
+            </list>
+        </field>
+    </record>
+    <!-- formulario -->
+    <record id="periodo_academico_form_view" model="ir.ui.view">
+        <field name="name">periodo.academico.form</field>
+        <field name="model">periodo_academico</field>
+        <field name="arch" type="xml">
+            <form string="Asignar periodo academico">
+                <sheet>
+                    <group>
+                        <field name="ano"/>
+                        <field name="tipo"/>
+                        <field name="periodo"/>
+                        <field name="status"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+ <!-- action -->
+    <record id="periodo_academico_action" model="ir.actions.act_window">
+        <field name="name">Periodo academico</field>
+        <field name="res_model">periodo_academico</field>
+        <field name="view_mode">list,form</field> 
+    </record>
+ </odoo>

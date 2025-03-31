@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- lista-->
+    <record id="user_registration_view" model="ir.ui.view">
+        <field name="name">user.registration.list</field>
+        <field name="model">user_registration</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="primer_nombre"/>
+                <field name="segundo_nombre"/>
+                <field name="primer_apellido"/>
+                <field name="segundo_apellido"/>
+                <field name="cedula"/>
+                <field name="correo"/>
+                <field name="genero"/>
+                <field name="fecha_nacimiento"/>
+                <field name="discapacidad"/>
+                <field name="etnia"/>
+                <field name="telefono"/>
+                <field name="grupo_usuario"/>
+            </list>
+        </field>
+    </record>
+    <!-- formulario -->
+    <record id="user_registration_form_view" model="ir.ui.view">
+        <field name="name">user.registration.form</field>
+        <field name="model">user_registration</field>
+        <field name="arch" type="xml">
+            <form string="Asignar periodo academico">
+                <sheet>
+                    <group>
+                <field name="primer_nombre"/>
+                <field name="segundo_nombre"/>
+                <field name="primer_apellido"/>
+                <field name="segundo_apellido"/>
+                <field name="cedula"/>
+                <field name="correo"/>
+                <field name="genero"/>
+                <field name="fecha_nacimiento"/>
+                <field name="discapacidad"/>
+                <field name="etnia"/>
+                <field name="telefono"/>
+                <field name="grupo_usuario"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+ <!-- action -->
+    <record id="user_registration_action" model="ir.actions.act_window">
+        <field name="name">Usuarios</field>
+        <field name="res_model">user_registration</field>
+        <field name="view_mode">list,form</field> 
+    </record>
+ </odoo>

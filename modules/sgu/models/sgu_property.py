@@ -10,6 +10,7 @@ class SguAutoridad(models.Model):
     nombre = fields.Char(string='Nombre', required=True)
     firmaDigital = fields.Image(string='Firma Digital', required=True)
     active = fields.Boolean(default=True, string='Estatus', required=True)
+    fecha = fields.Date(string='Fecha de nombramiento', required=True, defafault=fields.Date.today())
 
 
 class SguTipoAutoridad(models.Model):
@@ -24,6 +25,7 @@ class SguTipoAutoridad(models.Model):
 class SguCarreras(models.Model):
     _name = 'sgu_carreras'
     _description = 'Carreras de la instituto'
+    _rec_name = 'carrera'
 
     codigo = fields.Integer(string='Código', required=True)
     carrera = fields.Char(string='Carrera', required=True)
@@ -47,3 +49,12 @@ class SguInstituto(models.Model):
     telefono = fields.Char(string='Teléfono', required=True)
     correo = fields.Char(string='Correo', required=True)
     active = fields.Boolean(default=True, required=True)
+
+class SguAreas(models.Model):
+    _name = 'sgu_areas'
+    _description = 'areas de la instucion'
+    _rec_name = 'nombre'
+
+    nombre = fields.Char(string='Nombre', required=True)
+    codigo= fields.Integer(string='Codigo', required=True)
+    carrera = fields.Many2one('sgu_carreras', string='Carrera', required=True)

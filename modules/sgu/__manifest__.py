@@ -16,9 +16,12 @@ modulo del sistema de gestion universitaria
     'depends': ['base'],
     'data': [ 
         'security/ir.model.access.csv',
+        'views/periodo_academico_template.xml',
+        'views/user_registration_views.xml',
         'views/sgu_autoridad_views.xml',
         'views/sgu_instituto_views.xml',
         'views/sgu_carreras_views.xml',
+        'views/sgu_areas_views.xml',
         'views/sgu_menu.xml',
     ],
     'installable': True,
