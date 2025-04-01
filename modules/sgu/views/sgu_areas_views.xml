@@ -8,7 +8,6 @@
             <list>
                 <field name="nombre"/>
                 <field name="codigo"/>
-                <field name="carrera"/>
             </list>
         </field>
     </record>
@@ -22,7 +21,6 @@
                     <group>
                         <field name="nombre"/>
                         <field name="codigo"/>
-                        <field name="carrera"/>
                     </group>
                 </sheet>
             </form>

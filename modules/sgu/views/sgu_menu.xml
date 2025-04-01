@@ -3,11 +3,13 @@
     <menuitem id="sgu_menu_root" name="SGU">
     
         <menuitem id="sgu_sub_menu1" name="Instituto">
-            <menuitem id="sgu_areas_model_menu_action" action="sgu.sgu_areas_action"/>
-            <menuitem id="sgu_autoridad_model_menu_action" action="sgu.sgu_autoridad_action"/>
-            <menuitem id="sgu_instituto_model_menu_action" action="sgu.sgu_instituto_action"/>
-            <menuitem id="sgu_carreras_model_menu_action" action="sgu.sgu_carreras_action"/>
-            <menuitem id="sgu_areas_model_menu_action" action="sgu.sgu_areas_action"/>
+            <menuitem id="sgu_institucion_model_menu_action" action="sgu.sgu_instituciones_action" sequence="1"/>
+            <menuitem id="sgu_sede_model_menu_action" action="sgu.sgu_sedes_action" sequence="2"/>
+            <menuitem id="sgu_areas_model_menu_action" action="sgu.sgu_areas_action" sequence="3"/>
+            <menuitem id="sgu_carreras_model_menu_action" action="sgu.sgu_carreras_action" sequence="4"/>
+            <menuitem id="sgu_autoridad_model_menu_action" action="sgu.sgu_autoridad_action" sequence="5"/>
+            <menuitem id="sgu_nivel_academico_model_menu_action" action="sgu.sgu_nivel_academico_action" sequence="6"/>
+            <menuitem id="sgu_modalidad_model_menu_action" action="sgu.sgu_modalidad_action" sequence="7"/>
         </menuitem>
 
         <menuitem id="sgu_sub_menu2" name="Usuarios">

@@ -1,45 +1,71 @@
-<?xml version="1.0" encoding="utf-8"?>
-
 <odoo>
-    <!-- lista-->
-    <record id="sgu_instituto_view" model="ir.ui.view">
-        <field name="name">sgu.instituto.list</field>
-        <field name="model">sgu_instituto</field>
-        <field name="arch" type="xml">
-            <list>
-                <field name="nombre"/>
-                <field name="descripcion" />
-                <field name="direccion"/>
-                <field name="telefono"/>
-                <field name="correo"/>
-                <field name="codigo_opsu" />
-            </list>
-        </field>
-    </record>
-    <!-- formulario -->
-    <record id="sgu_instituto_form_view" model="ir.ui.view">
+    <record id="view_instituto_form" model="ir.ui.view">
         <field name="name">sgu.instituto.form</field>
-        <field name="model">sgu_instituto</field>
+        <field name="model">sgu_institucion</field>
         <field name="arch" type="xml">
-            <form string="Asignar instituto">
+            <form>
+                <header>
+                </header>
                 <sheet>
+                    <div class="oe_title">
+                        <div style="display: flex; align-items: center;">
+                            <field name="logo" widget="image" class="oe_avatar" style="margin-right: 10px;"/>
+                            <div>
+                                <label for="nombre_institucion" class="oe_edit_only"/>
+                                <h1><field name="nombre_institucion"/></h1>
+                            </div>
+                        </div>
+                    </div>
                     <group>
-                        <field name="nombre"/>
-                        <field name="descripcion" />
-                        <field name="direccion"/>
-                        <field name="telefono"/>
-                        <field name="correo"/>
-                        <field name="codigo_opsu" />
+                        <group string="Información General">
+                            <field name="company_id" options="{'no_create': True}"/>
+                            <field name="partner_id"/>
+                            <field name="codigo_institucion"/>
+                            <field name="descripcion" widget="html"/>
+                        </group>
+                        <group string="Datos de Contacto">
+                            <field name="correo_institucion"/>
+                            <field name="telefono_institucion"/>
+                        </group>
                     </group>
+                    <notebook>
+                        <page string="Instituciones">
+                            <field name="institutos_ids">
+                                <list editable="bottom">
+                                    <field name="nombre_sedes"/>
+                                    <field name="codigo_sede"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Firmas">
+                            <group>
+                                <group string="Firmas Autorizadas">
+                                    <field name="firma_rector" widget="image"/>
+                                    <field name="firma_director" widget="image"/>
+                                    <field name="firma_secretaria" widget="image"/>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
                 </sheet>
             </form>
         </field>
     </record>
 
-    <!-- action -->
-    <record id="sgu_instituto_action" model="ir.actions.act_window">
-        <field name="name">Institutos</field>
-        <field name="res_model">sgu_instituto</field>
+    <record id="view_instituto_list" model="ir.ui.view">
+        <field name="name">sgu.instituto.list</field>
+        <field name="model">sgu_institucion</field>
+        <field name="arch" type="xml">
+            <list string="Institutos">
+                <field name="nombre_institucion"/>
+                <field name="codigo_institucion"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="sgu_instituciones_action" model="ir.actions.act_window">
+        <field name="name">Instituciones</field>
+        <field name="res_model">sgu_institucion</field>
         <field name="view_mode">list,form</field> 
     </record>
 </odoo>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- lista-->
+    <record id="sgu_nivel_academico_view" model="ir.ui.view">
+        <field name="name">sgu.nivel.academico.list</field>
+        <field name="model">sgu_nivel_academico</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="nivel" string="Nivel academico"/>
+                <field name="active" string="status de modalidas" />
+            </list>
+        </field>
+    </record>
+    <!-- formulario -->
+    <record id="sgu_nivel_academico_form_view" model="ir.ui.view">
+        <field name="name">sgu.nivel.academico.form</field>
+        <field name="model">sgu_nivel_academico</field>
+        <field name="arch" type="xml">
+            <form string="Asignar Nivel Academico">
+                <sheet>
+                    <group>
+                        <field name="nivel" string="Nivel academico"/>
+                        <field name="active" string="status de modalidas" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+
+ <!-- action -->
+    <record id="sgu_nivel_academico_action" model="ir.actions.act_window">
+        <field name="name">Nivele academico</field>
+        <field name="res_model">sgu_nivel_academico</field>
+        <field name="view_mode">list,form</field> 
+    </record>
+ </odoo>

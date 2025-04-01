@@ -1,0 +1,66 @@
+<odoo>
+    <record id="view_sede_form" model="ir.ui.view">
+        <field name="name">sgu.sede.form</field>
+        <field name="model">sgu_sedes</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <div style="display: flex; align-items: center;">
+                            <field name="logo" widget="image" class="oe_avatar" style="margin-right: 10px;"/>
+                            <div>
+                                <label for="nombre_sedes" class="oe_edit_only"/>
+                                <h1><field name="nombre_sedes"/></h1>
+                            </div>
+                        </div>
+                    </div>
+                    <notebook>
+                        <page string="Información General">
+                            <group>
+                                <field name="instituciones_id"/>
+                                <field name="codigo_sede"/>
+                                <field name="estado_id"/> <!-- Dominio eliminado -->
+                                <field name="municipio"/>
+                                <field name="parroquia"/>
+                                <field name="direccion"/>
+                            </group>
+                        </page>
+                        <page string="Datos de Contacto">
+                            <group>
+                                <field name="correo_sede"/>
+                                <field name="telefono_sede"/>
+                                <field name="partner_id"/> <!-- Nuevo campo -->
+                            </group>
+                        </page>
+                        <page string="Firma">
+                            <group>
+                                <field name="firma_coordinador" widget="image"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_sede_list" model="ir.ui.view">
+        <field name="name">sgu.sede.list</field>
+        <field name="model">sgu_sedes</field>
+        <field name="arch" type="xml">
+            <list string="Sedes">
+                <field name="instituciones_id"/>
+                <field name="nombre_sedes"/>
+                <field name="codigo_sede"/>
+                <field name="estado_id"/> <!-- Nuevo campo en la vista de lista -->
+            </list>
+        </field>
+    </record>
+
+    <record id="sgu_sedes_action" model="ir.actions.act_window">
+        <field name="name">Sedes</field>
+        <field name="res_model">sgu_sedes</field>
+        <field name="view_mode">list,form</field> 
+    </record>
+</odoo>

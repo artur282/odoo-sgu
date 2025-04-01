@@ -6,9 +6,12 @@
         <field name="model">sgu_carreras</field>
         <field name="arch" type="xml">
             <list>
-                <field name="codigo"/>
                 <field name="carrera"/>
-                <field name="modalidad"/>
+                <field name="codigo"/>
+                <field name="sede" />
+                <field name="area_carrea"/>
+                <field name="modalidad_carrera"/>
+                <field name="nivel_academico"/>
             </list>
         </field>
     </record>
@@ -20,9 +23,12 @@
             <form string="Asignar Carrera">
                 <sheet>
                     <group>
-                        <field name="codigo"/>
                         <field name="carrera"/>
-                        <field name="modalidad"/>
+                        <field name="codigo"/>
+                        <field name="sede"/>
+                        <field name="area_carrea"/>
+                        <field name="modalidad_carrera"/>
+                        <field name="nivel_academico"/>
                     </group>
                 </sheet>
             </form>
