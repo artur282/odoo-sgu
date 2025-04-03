@@ -6,11 +6,11 @@ class Sedes(models.Model):
     _description = 'Sedes de la institución'
     _rec_name = 'nombre_sedes'
 
-    company_id = fields.Many2one('res.company', string='Compañía', copy=False)
-    partner_id = fields.Many2one('res.partner', string='Contacto', auto_join=True)
+
     instituciones_id = fields.Many2one('sgu_institucion', string='Institución', required=True, ondelete='cascade', index=True)
     codigo_sede = fields.Integer(string='Código de la sede', required=True)
     nombre_sedes = fields.Char(string='Nombre de la sede', required=True, index=True)
+    carreras_ids = fields.One2many('sgu_carreras', 'sede', string='Carreras')
     
 
     ESTADOS_VENEZUELA = [
@@ -54,6 +54,7 @@ class Sedes(models.Model):
     
     firma_coordinador = fields.Binary(string='Firma del Coordinador DACE Sectorial')
     logo = fields.Binary(string='Logo de la Sede')
+    active = fields.Boolean(string="Activo", default=True)
 
     # Restricciones y validaciones
     @api.constrains('codigo_sede')
@@ -74,31 +75,3 @@ class Sedes(models.Model):
             if record.telefono_sede and not record.telefono_sede.isdigit():
                 raise ValidationError("El teléfono de la sede debe contener solo números.")
 
-    # Creación y actualización de registros
-    # @api.model
-    # def create(self, vals):
-    #     universidad = self.env['sgu_institucion'].browse(vals['universidad_id'])
-    #     vals['company_id'] = universidad.company_id.id
-    #     partner = self.env['res.partner'].create({
-    #         'name': vals.get('nombre_sedes', 'Sede'),
-    #     })
-    #     vals['partner_id'] = partner.id
-    #     return super(Sedes, self).create(vals)
-
-    # def write(self, vals):
-    #     if 'nombre_sedes' in vals or 'logo' in vals:
-    #         company_vals = {}
-    #         if 'nombre_sedes' in vals:
-    #             company_vals['name'] = vals['nombre_sedes']
-    #         if 'logo' in vals:
-    #             company_vals['logo'] = vals['logo']
-    #         self.company_id.write(company_vals)
-    #         partner_vals = {
-    #             'name': vals.get('nombre_sedes', self.partner_id.name),
-    #         }
-    #         self.partner_id.write(partner_vals)
-    #     return super(Sedes, self).write(vals)
-
-    # def unlink(self):
-    #     self.partner_id.unlink()
-    #     return super(Sedes, self).unlink()

@@ -7,8 +7,7 @@ class Institucion(models.Model):
     _description = 'Institución Universitaria'
     _rec_name = 'nombre_institucion'
 
-    company_id = fields.Many2one('res.company', string='Compañía', copy=False)
-    partner_id = fields.Many2one('res.partner', string='Contacto', auto_join=True)
+
     nombre_institucion = fields.Char(string='Nombre de la Institución', required=True, index=True)
     logo = fields.Binary(string='Logo', help="Logo de la institución (formato imagen)")
     codigo_institucion = fields.Integer(string='Código de la Institución', required=True)
@@ -23,6 +22,7 @@ class Institucion(models.Model):
     institutos_ids = fields.One2many('sgu_sedes', 'instituciones_id', string='Sedes')
     descripcion = fields.Html(string='Descripción')
     institutos_count = fields.Integer(string='Número de Institutos', compute='_compute_institutos_count')
+    active = fields.Boolean(string="Activo", default=True)
 
     # Restricciones y validaciones
     _sql_constraints = [

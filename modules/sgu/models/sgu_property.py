@@ -35,6 +35,9 @@ class SguCarreras(models.Model):
     area_carrea = fields.Many2one('sgu_areas', string='Area', required=True)
     nivel_academico = fields.Many2one('sgu_nivel_academico', string='Nivel académico', required=True)
     sede = fields.Many2one('sgu_sedes', string='Sede', required=True)
+    active = fields.Boolean(string="Activo", default=True)
+    pensum = fields.Many2one('university.pensum', string='Pensum', required=True)
+
 
 class SguAreas(models.Model):
     _name = 'sgu_areas'
@@ -43,6 +46,9 @@ class SguAreas(models.Model):
 
     nombre = fields.Char(string='Nombre', required=True)
     codigo= fields.Integer(string='Codigo', required=True)
+    carrera_area = fields.One2many('sgu_carreras', 'area_carrea', string='Carreras')
+    
+    active = fields.Boolean(string="Activo", default=True)
     
 class SguModalidad(models.Model):
     _name = 'sgu_modalidad'

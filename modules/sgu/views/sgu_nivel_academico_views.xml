@@ -7,7 +7,7 @@
         <field name="arch" type="xml">
             <list>
                 <field name="nivel" string="Nivel academico"/>
-                <field name="active" string="status de modalidas" />
+                <field name="active" string="Estatus " />
             </list>
         </field>
     </record>
@@ -20,7 +20,7 @@
                 <sheet>
                     <group>
                         <field name="nivel" string="Nivel academico"/>
-                        <field name="active" string="status de modalidas" />
+                        <field name="active" string="Estatus " />
                     </group>
                 </sheet>
             </form>
@@ -31,7 +31,7 @@
 
  <!-- action -->
     <record id="sgu_nivel_academico_action" model="ir.actions.act_window">
-        <field name="name">Nivele academico</field>
+        <field name="name">Niveles academicos</field>
         <field name="res_model">sgu_nivel_academico</field>
         <field name="view_mode">list,form</field> 
     </record>

@@ -31,8 +31,16 @@
                             <group>
                                 <field name="correo_sede"/>
                                 <field name="telefono_sede"/>
-                                <field name="partner_id"/> <!-- Nuevo campo -->
                             </group>
+                        </page>
+                        <page string="Carreras">
+                        <field name="carreras_ids">
+                            <list>
+                                <field name="codigo"/>
+                                <field name="carrera"/>
+                                <field name="modalidad_carrera"/>
+                            </list>
+                        </field>
                         </page>
                         <page string="Firma">
                             <group>
@@ -64,3 +72,5 @@
         <field name="view_mode">list,form</field> 
     </record>
 </odoo>
+
+<!-- datos de contacto a informacion general y agregar areas -->

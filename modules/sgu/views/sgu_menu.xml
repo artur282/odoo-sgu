@@ -1,23 +1,115 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <menuitem id="sgu_menu_root" name="SGU">
-    
-        <menuitem id="sgu_sub_menu1" name="Instituto">
-            <menuitem id="sgu_institucion_model_menu_action" action="sgu.sgu_instituciones_action" sequence="1"/>
-            <menuitem id="sgu_sede_model_menu_action" action="sgu.sgu_sedes_action" sequence="2"/>
-            <menuitem id="sgu_areas_model_menu_action" action="sgu.sgu_areas_action" sequence="3"/>
-            <menuitem id="sgu_carreras_model_menu_action" action="sgu.sgu_carreras_action" sequence="4"/>
-            <menuitem id="sgu_autoridad_model_menu_action" action="sgu.sgu_autoridad_action" sequence="5"/>
-            <menuitem id="sgu_nivel_academico_model_menu_action" action="sgu.sgu_nivel_academico_action" sequence="6"/>
-            <menuitem id="sgu_modalidad_model_menu_action" action="sgu.sgu_modalidad_action" sequence="7"/>
+    <!-- Menú principal del módulo SGU -->
+    <menuitem 
+        id="sgu_menu_root" 
+        name="Sistema de Gestión Universitaria (SGU)" 
+        sequence="10">
+        
+        <!-- INSTITUTO -->
+        <!-- Submenú principal para la gestión del Instituto -->
+        <menuitem 
+            id="sgu_sub_menu1" 
+            name="Instituto" 
+            sequence="10">
+            
+            <!-- Configuración Académica -->
+            <!-- Submenú para gestionar configuraciones académicas -->
+            <menuitem 
+                id="sgu_submenu_academico" 
+                name="Configuración Académica" 
+                sequence="20">
+                
+                <!-- Menú para gestionar niveles académicos -->
+                <menuitem 
+                    id="sgu_nivel_academico_model_menu_action" 
+                    action="sgu.sgu_nivel_academico_action" 
+                    sequence="10"
+                    
+                />
+                <!-- Menú para gestionar modalidades -->
+                <menuitem 
+                    id="sgu_modalidad_model_menu_action" 
+                    action="sgu.sgu_modalidad_action" 
+                    sequence="20"
+                />
+                <!-- Menú para gestionar carreras -->
+                <menuitem 
+                    id="sgu_carreras_model_menu_action" 
+                    action="sgu.sgu_carreras_action" 
+                    sequence="30"
+                />
+                
+            </menuitem>
+
+            <!-- Estructura Organizativa -->
+            <!-- Submenú para gestionar la estructura organizativa -->
+            <menuitem 
+                id="sgu_submenu_organizativa" 
+                name="Estructura Organizativa" 
+                sequence="10">
+                
+                <!-- Menú para gestionar instituciones -->
+                <menuitem 
+                    id="sgu_institucion_model_menu_action" 
+                    action="sgu.sgu_instituciones_action" 
+                    sequence="10"
+                />
+                <!-- Menú para gestionar sedes -->
+                <menuitem 
+                    id="sgu_sede_model_menu_action" 
+                    action="sgu.sgu_sedes_action" 
+                    sequence="20"
+                />
+                <!-- Menú para gestionar áreas -->
+                <menuitem 
+                    id="sgu_areas_model_menu_action" 
+                    action="sgu.sgu_areas_action" 
+                    sequence="30"
+                />
+                <!-- Menú para gestionar autoridades -->
+                <menuitem 
+                    id="sgu_autoridad_model_menu_action" 
+                    action="sgu.sgu_autoridad_action" 
+                    sequence="40"
+                />
+            </menuitem>
         </menuitem>
 
-        <menuitem id="sgu_sub_menu2" name="Usuarios">
-            <menuitem id="user_registration_model_menu_action" action="user_registration_action"/>
+        <!-- USUARIOS -->
+        <!-- Submenú principal para la gestión de usuarios -->
+        <menuitem 
+            id="sgu_sub_menu2" 
+            name="Gestión de Usuarios" 
+            sequence="20">
+            
+            <!-- Menú para gestionar el registro de usuarios -->
+            <menuitem 
+                id="user_registration_model_menu_action" 
+                action="user_registration_action" 
+                sequence="10"
+            />
         </menuitem>
 
-        <menuitem id="sgu_sub_menu3" name="Procesos">
-            <menuitem id="periodo_academico'_model_menu_action" action="periodo_academico_action"/>
+        <!-- PROCESOS -->
+        <!-- Submenú principal para la gestión de procesos académicos -->
+        <menuitem 
+            id="sgu_sub_menu3" 
+            name="Procesos Académicos" 
+            sequence="30">
+            
+            <!-- Menú para gestionar períodos académicos -->
+            <menuitem 
+                id="periodo_academico_model_menu_action" 
+                action="periodo_academico_action" 
+                sequence="10"
+            />
+            <menuitem 
+                id="pensum_model_menu_action" 
+                action="action_university_pensum" 
+                name="Pensum Universitario"
+                sequence="20"
+            />
         </menuitem>
     </menuitem>
 </odoo>

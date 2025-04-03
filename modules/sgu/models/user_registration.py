@@ -30,3 +30,4 @@ class UserRegistration(models.Model):
                                           ('estudiante','Estudiante'),
                                           ('profesor','Profesor')],
                                          string="Grupo de Usuario", required=True)
+    active = fields.Boolean(string="Activo", default=True)

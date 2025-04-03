@@ -7,11 +7,11 @@
         <field name="arch" type="xml">
             <list>
                 <field name="modalidad"/>
-                <field name="active" string="status de modalidas" />
+                <field name="active" string="Estatus" />
             </list>
         </field>
     </record>
-    <!-- formulario -->
+    <!-- formulario  -->
     <record id="sgu_modalidad_form_view" model="ir.ui.view">
         <field name="name">sgu.modalidad.form</field>
         <field name="model">sgu_modalidad</field>
@@ -20,7 +20,7 @@
                 <sheet>
                     <group>
                         <field name="modalidad"/>
-                        <field name="active" string="status de modalidas" />
+                        <field name="active" string="Estatus" />
                     </group>
                 </sheet>
             </form>

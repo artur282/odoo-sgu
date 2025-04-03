@@ -1,42 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <!-- lista-->
+    <!-- Lista mejorada -->
     <record id="sgu_autoridad_view" model="ir.ui.view">
         <field name="name">sgu.autoridad.list</field>
         <field name="model">sgu_autoridad</field>
         <field name="arch" type="xml">
-            <list>
-                <field name="nombre"/>
-                <field name="autoridad" string="Tipo de autoridad" />
-                <field name="institucion"/>
-                <field name="fecha"/>
+            <list string="Lista de Autoridades">
+                <field name="nombre" string="Nombre Completo"/>
+                <field name="autoridad" string="Tipo de Autoridad"/>
+                <field name="institucion" string="Institución"/>
+                <field name="fecha" string="Fecha de Nombramiento"/>
+                <field name="active" string="Activo"/>
             </list>
         </field>
     </record>
-    <!-- formulario -->
+
+    <!-- Formulario mejorado -->
     <record id="sgu_autoridad_form_view" model="ir.ui.view">
         <field name="name">sgu.autoridad.form</field>
         <field name="model">sgu_autoridad</field>
         <field name="arch" type="xml">
             <form string="Asignar Autoridad">
                 <sheet>
-                    <group>
-                        <field name="nombre"/>
-                        <field name="autoridad"/>
-                        <field name="institucion"/>
-                        <field name="fecha"/>
+                    <group string="Información General">
+                        <field name="nombre" string="Nombre Completo"/>
+                        <field name="autoridad" string="Tipo de Autoridad"/>
+                        <field name="institucion" string="Institución"/>
+                    </group>
+                    <group string="Detalles Adicionales">
+                        <field name="fecha" string="Fecha de Nombramiento"/>
+                        <field name="firmaDigital" string="Firma Digital"/>
+                        <field name="active" string="Activo"/>
                     </group>
                 </sheet>
             </form>
         </field>
     </record>
 
-
-
- <!-- action -->
+    <!-- Acción -->
     <record id="sgu_autoridad_action" model="ir.actions.act_window">
         <field name="name">Autoridades</field>
         <field name="res_model">sgu_autoridad</field>
-        <field name="view_mode">list,form</field> 
+        <field name="view_mode">list,form</field>
     </record>
- </odoo>
+</odoo>

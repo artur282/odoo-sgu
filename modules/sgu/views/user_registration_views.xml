@@ -1,57 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <!-- lista-->
+    <!-- Lista mejorada -->
     <record id="user_registration_view" model="ir.ui.view">
         <field name="name">user.registration.list</field>
         <field name="model">user_registration</field>
         <field name="arch" type="xml">
-            <list>
-                <field name="primer_nombre"/>
-                <field name="segundo_nombre"/>
-                <field name="primer_apellido"/>
-                <field name="segundo_apellido"/>
-                <field name="cedula"/>
-                <field name="correo"/>
-                <field name="genero"/>
-                <field name="fecha_nacimiento"/>
-                <field name="discapacidad"/>
-                <field name="etnia"/>
-                <field name="telefono"/>
-                <field name="grupo_usuario"/>
+            <list string="Usuarios Registrados" decoration-danger="discapacidad == True" decoration-info="grupo_usuario">
+                <field name="primer_nombre" string="Nombre"/>
+                <field name="primer_apellido" string="Apellido"/>
+                <field name="cedula" string="Cédula" widget="badge"/>
+                <field name="correo" widget="email"/>
+                <field name="telefono" widget="phone"/>
+                <field name="grupo_usuario" string="Grupo"/>
+                <field name="active" widget="boolean_button" string="Estatus"/>
             </list>
         </field>
     </record>
-    <!-- formulario -->
+
+    <!-- Formulario mejorado -->
     <record id="user_registration_form_view" model="ir.ui.view">
         <field name="name">user.registration.form</field>
         <field name="model">user_registration</field>
         <field name="arch" type="xml">
-            <form string="Asignar periodo academico">
+            <form string="Registro de Usuario">
                 <sheet>
                     <group>
-                <field name="primer_nombre"/>
-                <field name="segundo_nombre"/>
-                <field name="primer_apellido"/>
-                <field name="segundo_apellido"/>
-                <field name="cedula"/>
-                <field name="correo"/>
-                <field name="genero"/>
-                <field name="fecha_nacimiento"/>
-                <field name="discapacidad"/>
-                <field name="etnia"/>
-                <field name="telefono"/>
-                <field name="grupo_usuario"/>
+                        <group string="Información Personal">
+                            <field name="primer_nombre" required="1"/>
+                            <field name="segundo_nombre"/>
+                            <field name="primer_apellido" required="1"/>
+                            <field name="segundo_apellido"/>
+                            <field name="genero" widget="radio"/>
+                            <field name="fecha_nacimiento" widget="date" options="{'datepicker': {'maxDate': '-18y'}}"/>
+                        </group>
+                        
+                        <group string="Datos de Contacto">
+                            <field name="cedula" required="1" placeholder="Ej: 001-1234567-8"/>
+                            <field name="correo" widget="email" placeholder="ejemplo@dominio.com"/>
+                            <field name="telefono" widget="phone" placeholder="809-555-5555"/>
+                        </group>
                     </group>
+                    
+                    <notebook>
+                        <page string="Detalles Adicionales">
+                            <group>
+                                <field name="discapacidad" widget="boolean_checkbox"/>
+                                <field name="etnia"/>
+                                <field name="active" widget="boolean_button" string="Estatus"/>
+                                <field name="grupo_usuario" options="{'no_open': True}"/>
+                            </group>
+                        </page>
+                    </notebook>
+                    
                 </sheet>
             </form>
         </field>
     </record>
 
-
- <!-- action -->
+    <!-- Acción mejorada -->
     <record id="user_registration_action" model="ir.actions.act_window">
-        <field name="name">Usuarios</field>
+        <field name="name">Gestión de Usuarios</field>
         <field name="res_model">user_registration</field>
-        <field name="view_mode">list,form</field> 
+        <field name="view_mode">list,form</field>
+        <field name="context">{'default_active': True}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Crea un nuevo usuario</p>
+        </field>
     </record>
- </odoo>
+</odoo>

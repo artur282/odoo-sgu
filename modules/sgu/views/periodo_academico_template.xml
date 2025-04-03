@@ -1,41 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <!-- lista-->
+    <!-- lista -->
     <record id="periodo_academico_view" model="ir.ui.view">
         <field name="name">periodo.academico.list</field>
         <field name="model">periodo_academico</field>
         <field name="arch" type="xml">
-            <list>
-                <field name="ano"/>
-                <field name="tipo" string="Tipo de periodo" />
-                <field name="periodo"/>
-                <field name="status"/>
+            <list string="Lista de Periodos Académicos">
+                <field name="ano" string="Periodo Académicos"/>
+                <field name="active" string="estatus"/>
             </list>
         </field>
     </record>
+
     <!-- formulario -->
     <record id="periodo_academico_form_view" model="ir.ui.view">
         <field name="name">periodo.academico.form</field>
         <field name="model">periodo_academico</field>
         <field name="arch" type="xml">
-            <form string="Asignar periodo academico">
+            <form string="Asignar Periodo Académico">
                 <sheet>
                     <group>
-                        <field name="ano"/>
-                        <field name="tipo"/>
-                        <field name="periodo"/>
-                        <field name="status"/>
+                        <field name="ano" string="Año Académico"/>
+                        <field name="active" string="estatus" />
                     </group>
                 </sheet>
             </form>
         </field>
     </record>
 
-
- <!-- action -->
-    <record id="periodo_academico_action" model="ir.actions.act_window">
-        <field name="name">Periodo academico</field>
-        <field name="res_model">periodo_academico</field>
-        <field name="view_mode">list,form</field> 
+    <!-- vista de búsqueda -->
+    <record id="periodo_academico_view_search" model="ir.ui.view">
+        <field name="name">periodo.academico.search</field>
+        <field name="model">periodo_academico</field>
+        <field name="arch" type="xml">
+            <search string="Buscar Periodos Académicos">
+                <field name="ano" string="Año Académico"/>
+                <filter name="active" string="Mostrar inactivos" domain="[('active', '=', False)]"/>
+                <filter name="all" string="Mostrar todos" domain="[('active', 'in', [True, False])]"/>
+            </search>
+        </field>
     </record>
- </odoo>
+
+    <!-- acción -->
+    <record id="periodo_academico_action" model="ir.actions.act_window">
+        <field name="name">Periodos Académicos</field>
+        <field name="res_model">periodo_academico</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

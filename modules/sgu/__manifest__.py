@@ -26,6 +26,7 @@ modulo del sistema de gestion universitaria
         'views/sgu_areas_views.xml',
         'views/sgu_modalidad_views.xml',
         'views/sgu_nivel_academico_views.xml',
+        'views/pensum_views.xml',
         'views/sgu_menu.xml',
     ],
     'installable': True,

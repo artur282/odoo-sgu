@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- VISTA TREE de la cabecera del Pensum -->
+    <record id="view_university_pensum_tree" model="ir.ui.view">
+        <field name="name">university.pensum.tree</field>
+        <field name="model">university.pensum</field>
+        <field name="arch" type="xml">
+            <list string="Pensums">
+                <field name="name"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- VISTA FORM de la cabecera del Pensum -->
+    <record id="view_university_pensum_form" model="ir.ui.view">
+        <field name="name">university.pensum.form</field>
+        <field name="model">university.pensum</field>
+        <field name="arch" type="xml">
+            <form string="Pensum Universitario">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                    </group>
+                    <group>
+                        <!-- One2many que muestra las materias (subjects) -->
+                        <field name="subject_ids">
+                            <!-- Subvista en modo árbol -->
+                            <list editable="bottom" string="Materias">
+                                <field name="semester"/>
+                                <field name="code"/>
+                                <field name="name"/>
+                                <field name="uc"/>
+                                <field name="prelaciones"/>
+                            </list>
+                            <!-- Subvista en modo formulario -->
+                            <form string="Materia">
+                                <group>
+                                    <field name="semester"/>
+                                    <field name="code"/>
+                                    <field name="name"/>
+                                    <field name="uc"/>
+                                    <field name="prelaciones"/>
+                                </group>
+                            </form>
+                        </field>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- ACCIÓN para abrir la vista del pensum en modo árbol y formulario -->
+    <record id="action_university_pensum" model="ir.actions.act_window">
+        <field name="name">Pensum Universitario</field>
+        <field name="res_model">university.pensum</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+</odoo>

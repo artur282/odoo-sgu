@@ -12,26 +12,25 @@
                             <field name="logo" widget="image" class="oe_avatar" style="margin-right: 10px;"/>
                             <div>
                                 <label for="nombre_institucion" class="oe_edit_only"/>
-                                <h1><field name="nombre_institucion"/></h1>
+                                <h1><field name="nombre_institucion" placeholder="Nombre del instituto"/></h1>
                             </div>
                         </div>
                     </div>
                     <group>
                         <group string="Información General">
-                            <field name="company_id" options="{'no_create': True}"/>
-                            <field name="partner_id"/>
-                            <field name="codigo_institucion"/>
-                            <field name="descripcion" widget="html"/>
+                            <field name="codigo_institucion" placeholder="Codigo de instuticon"/>
+                            <field name="descripcion" placeholder="Descripcion de la institucion"/>
+                            <field name="correo_institucion" placeholder="ejemplo@dominio.com"/>
+                            <field name="telefono_institucion" placeholder="0424-000000"/>
                         </group>
-                        <group string="Datos de Contacto">
-                            <field name="correo_institucion"/>
-                            <field name="telefono_institucion"/>
+                        <group string="Areas">
+                        
                         </group>
                     </group>
                     <notebook>
-                        <page string="Instituciones">
-                            <field name="institutos_ids">
-                                <list editable="bottom">
+                        <page string="Sedes">
+                            <field name="institutos_ids" create="false" delete="false">
+                                <list  string="Sedes" >
                                     <field name="nombre_sedes"/>
                                     <field name="codigo_sede"/>
                                 </list>
@@ -44,6 +43,11 @@
                                     <field name="firma_director" widget="image"/>
                                     <field name="firma_secretaria" widget="image"/>
                                 </group>
+                            </group>
+                        </page>
+                        <page string="Estatus de Instituto">
+                            <group>
+                                <field name="active" string="Estatus"/>
                             </group>
                         </page>
                     </notebook>
