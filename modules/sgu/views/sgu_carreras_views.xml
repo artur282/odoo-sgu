@@ -9,7 +9,7 @@
                 <field name="carrera" string="Nombre de la Carrera"/>
                 <field name="codigo" string="Código"/>
                 <field name="sede" string="Sede"/>
-                <field name="area_carrea" string="Área de Carrera"/>
+                <field name="area_carrera" string="Área de Carrera"/>
                 <field name="modalidad_carrera" string="Modalidad"/>
                 <field name="nivel_academico" string="Nivel Académico"/>
                 <field name="active" string="Activo"/>
@@ -32,7 +32,7 @@
                                 <field name="carrera" string="Nombre de la Carrera"/>
                                 <field name="codigo" string="Código"/>
                                 <field name="sede" string="Sede"/>
-                                <field name="area_carrea" string="Área de Carrera"/>
+                                <field name="area_carrera" string="Área de Carrera"/>
                             </group>
                         </page>
                         <page string="Detalles Académicos">

@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <!-- Plantilla 1: Formulario para crear pensum -->
+  <template id="pensum_form_template" name="Pensum Form">
+    <link rel="stylesheet" href="pensum_module/static/src/css/pensum.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"/>
+    <t t-call="website.layout">
+      <div class="oe_structure">
+        <div class="boxForm">
+          <form action="/pensum/save" method="post" class="form">
+          <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+            <div class="inputBox">
+              <select name="semestre" id="select" required="true">
+                <option value="1">Semestre 1</option>
+                <option value="2">Semestre 2</option>
+                <option value="3">Semestre 3</option>
+                <option value="4">Semestre 4</option>
+                <option value="5">Semestre 5</option>
+              </select>
+              <label for="select">Semestre</label>
+            </div>
+            <div class="cajacontent">
+              <div class="boxBoxInput">
+                <div class="inputBox">
+                  <input type="text" name="codigo" id="codigo" required="true"/>
+                  <label for="codigo">Código</label>
+                </div>
+                <div class="inputBox">
+                  <input type="text" name="asignatura" id="asignatura" required="true"/>
+                  <label for="asignatura">Asignatura</label>
+                </div>
+                <div class="inputBox">
+                  <input type="number" name="uc" id="uc" required="true"/>
+                  <label for="uc">U.C</label>
+                </div>
+                <div class="inputBox">
+  <select name="prelacion" id="prelacion">
+    <option value="">-- Seleccione prelación (opcional) --</option>
+    <t t-foreach="records" t-as="record">
+      <option t-att-value="record.id">
+        <t t-esc="record.asignatura"/>
+      </option>
+    </t>
+  </select>
+  <label for="prelacion">Prelaciones</label>
+</div>
+
+              </div>
+            </div>
+            <!-- Botón para agregar nuevos registros en el formulario -->
+            <i class="fa-solid fa-plus mas" style="cursor:pointer;"></i>
+            <div class="boxButton">
+              <button type="submit">Guardar</button>
+              <button type="reset">Cancelar</button>
+              <button type="button" onclick="window.location.href='/pensum/view'">Vista Pre.</button>
+            </div>
+          </form>
+          <script>
+            document.addEventListener('DOMContentLoaded', function () {
+              const aggMateria = document.querySelector('.mas');
+              const form = document.querySelector('.cajacontent');
+              const materia = `<div class="boxBoxInput">
+                <div class="inputBox">
+                  <input type="text" name="codigo_extra[]" required="true"/>
+                  <label>Código</label>
+                </div>
+                <div class="inputBox">
+                  <input type="text" name="asignatura_extra[]" required="true"/>
+                  <label>Asignatura</label>
+                </div>
+                <div class="inputBox">
+                  <input type="number" name="uc_extra[]" required="true"/>
+                  <label>U.C</label>
+                </div>
+                <div class="inputBox">
+  <select name="prelacion" id="prelacion">
+    <option value="">-- Seleccione prelación (opcional) --</option>
+    <t t-foreach="records" t-as="record">
+      <option t-att-value="record.id">
+        <t t-esc="record.asignatura"/>
+      </option>
+    </t>
+  </select>
+  <label for="prelacion">Prelaciones</label>
+</div>
+
+              </div>`;
+
+              aggMateria.addEventListener('click', function () {
+                form.insertAdjacentHTML('beforeend', materia);
+              });
+            });
+          </script>
+        </div>
+      </div>
+    </t>
+  </template>
+
+  <!-- Plantilla 2: Vista Previa con tabla de registros -->
+  <template id="pensum_view_template" name="Pensum View">
+    <t t-call="website.layout">
+      <div class="oe_structure">
+        <div class="boxTable">
+          <button onclick="window.location.href='/pensum/';">Ir a Ejemplo</button>
+          <table border="1" class="table">
+            <thead class="thead">
+              <tr>
+                <th>Semestre</th>
+                <th>Código</th>
+                <th>Asignatura</th>
+                <th>U.C</th>
+                <th>Prelaciones</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody class="tbody">
+              <t t-foreach="records" t-as="record">
+                <tr>
+                  <td><t t-esc="record.semestre"/></td>
+                  <td><t t-esc="record.codigo"/></td>
+                  <td><t t-esc="record.asignatura"/></td>
+                  <td><t t-esc="record.uc"/></td>
+                  <td><t t-esc="record.prelacion"/></td>
+                  <td>
+                    <a href="#">Editar</a>
+                  </td>
+                </tr>
+              </t>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </t>
+  </template>
+</odoo>

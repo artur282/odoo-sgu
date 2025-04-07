@@ -81,13 +81,19 @@
         <menuitem 
             id="sgu_sub_menu2" 
             name="Gestión de Usuarios" 
-            sequence="20">
+            sequence="30">
             
             <!-- Menú para gestionar el registro de usuarios -->
             <menuitem 
                 id="user_registration_model_menu_action" 
                 action="user_registration_action" 
-                sequence="10"
+                sequence="10"   
+            />
+
+            <menuitem 
+                id="admission_model_menu_action" 
+                action="action_student_career_registration" 
+                sequence="20"
             />
         </menuitem>
 

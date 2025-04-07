@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- VISTA LISTA del Registro de Carrera para Estudiantes -->
+    <record id="view_student_career_registration_list" model="ir.ui.view">
+        <field name="name">student.career.registration.list</field>
+        <field name="model">student.career.registration</field>
+        <field name="arch" type="xml">
+            <list string="Registros de Carrera">
+                <field name="student_id" widget="many2one_avatar_user"/>
+                <field name="carrera_id"/>
+                <field name="cohorte"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- VISTA FORM del Registro de Carrera para Estudiantes -->
+    <record id="view_student_career_registration_form" model="ir.ui.view">
+        <field name="name">student.career.registration.form</field>
+        <field name="model">student.career.registration</field>
+        <field name="arch" type="xml">
+            <form string="Registro de Carrera para Estudiantes">
+                <sheet>
+                    <group>
+                        <field name="student_id"/>
+                        <field name="carrera_id"/>
+                        <field name="cohorte"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- ACCIÓN para abrir el Registro de Carrera para Estudiantes -->
+    <record id="action_student_career_registration" model="ir.actions.act_window">
+        <field name="name">Admision de estudiante</field>
+        <field name="res_model">student.career.registration</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

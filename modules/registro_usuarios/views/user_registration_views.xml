@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <!-- Vista de lista (list) -->
+  <record id="view_user_registration_tree" model="ir.ui.view">
+    <field name="name">user.registration.list</field>
+    <field name="model">user.registration</field>
+    <field name="type">list</field>
+    <field name="arch" type="xml">
+      <list string="Registros de Usuarios">
+        <field name="primer_nombre"/>
+        <field name="segundo_nombre"/>
+        <field name="primer_apellido"/>
+        <field name="segundo_apellido"/>
+        <field name="cedula"/>
+        <field name="correo"/>
+        <field name="genero"/>
+        <field name="fecha_nacimiento"/>
+        <field name="discapacidad"/>
+        <field name="etnia"/>
+        <field name="telefono"/>
+        <field name="grupo_usuario"/>
+      </list>
+    </field>
+  </record>
+
+  <!-- Vista de formulario (form) -->
+  <record id="view_user_registration_form" model="ir.ui.view">
+    <field name="name">user.registration.form</field>
+    <field name="model">user.registration</field>
+    <field name="type">form</field>
+    <field name="arch" type="xml">
+      <form string="Registro de Usuario">
+        <sheet>
+          <group>
+            <field name="primer_nombre"/>
+            <field name="segundo_nombre"/>
+            <field name="primer_apellido"/>
+            <field name="segundo_apellido"/>
+            <field name="cedula"/>
+            <field name="correo"/>
+            <field name="genero"/>
+            <field name="fecha_nacimiento"/>
+            <field name="discapacidad"/>
+            <field name="etnia"/>
+            <field name="telefono"/>
+            <field name="grupo_usuario"/>
+          </group>
+        </sheet>
+      </form>
+    </field>
+  </record>
+
+  <!-- Acción de ventana para abrir el modelo con las vistas predeterminadas -->
+  <record id="action_user_registration" model="ir.actions.act_window">
+    <field name="name">Registro de Usuarios</field>
+    <field name="res_model">user.registration</field>
+    <field name="view_mode">list,form</field>
+    <field name="help" type="html">
+      <p class="oe_view_nocontent_create">
+        Haz clic para crear un nuevo registro.
+      </p>
+    </field>
+  </record>
+
+  <!-- Menú para acceder a la acción desde el backend -->
+  <menuitem id="menu_user_registration_root" name="Registro de Usuarios" sequence="10"/>
+  <menuitem id="menu_user_registration" name="Usuarios Registrados" parent="menu_user_registration_root"
+            action="action_user_registration" sequence="10"/>
+</odoo>
+
+

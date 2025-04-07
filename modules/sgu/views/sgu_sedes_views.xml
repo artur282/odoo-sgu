@@ -19,26 +19,32 @@
                     <notebook>
                         <page string="Información General">
                             <group>
-                                <field name="instituciones_id"/>
-                                <field name="codigo_sede"/>
-                                <field name="estado_id"/> <!-- Dominio eliminado -->
-                                <field name="municipio"/>
-                                <field name="parroquia"/>
-                                <field name="direccion"/>
+                                <field name="instituciones_id" placeholder="Institucion"/>
+                                <field name="codigo_sede" placeholder="Codigo de sede"/>
+                                <field name="estado_id" placeholder="Estado"/> <!-- Dominio eliminado -->
+                                <field name="municipio" placeholder="Municipio"/>
+                                <field name="parroquia" placeholder="Parroquia"/>
+                                <field name="direccion" placeholder="Direccion"/>
+                                <field name="correo_sede" placeholder="Correo electronico"/>
+                                <field name="telefono_sede" placeholder="Telefono"/>
                             </group>
                         </page>
-                        <page string="Datos de Contacto">
-                            <group>
-                                <field name="correo_sede"/>
-                                <field name="telefono_sede"/>
-                            </group>
+                        <page string="Areas">
+                            <field name="areas_ids">
+                            <list>
+                                <field name="nombre" string="area"/>
+                                <field name="codigo" string="codigo de area"/>
+                            </list>
+                            </field>
                         </page>
                         <page string="Carreras">
                         <field name="carreras_ids">
                             <list>
-                                <field name="codigo"/>
                                 <field name="carrera"/>
-                                <field name="modalidad_carrera"/>
+                                <field name="area_carrera" string="Area"/>
+                                <field name="nivel_academico" string="Nivel academico"/>
+                                <field name="modalidad_carrera" string="Modalidad"/>
+                                <field name="codigo"/>
                             </list>
                         </field>
                         </page>

@@ -10,7 +10,9 @@ class Sedes(models.Model):
     instituciones_id = fields.Many2one('sgu_institucion', string='Institución', required=True, ondelete='cascade', index=True)
     codigo_sede = fields.Integer(string='Código de la sede', required=True)
     nombre_sedes = fields.Char(string='Nombre de la sede', required=True, index=True)
-    carreras_ids = fields.One2many('sgu_carreras', 'sede', string='Carreras')
+    # En SguSedes:
+    carreras_ids = fields.One2many('sgu_carreras', 'sede', string='Carreras')  # Si es necesario 
+    areas_ids = fields.One2many('sgu_areas', 'sede_id', string='Áreas asociadas')
     
 
     ESTADOS_VENEZUELA = [

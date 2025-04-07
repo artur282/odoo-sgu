@@ -1,10 +1,11 @@
 from odoo import models, fields
 
 class UserRegistration(models.Model):
+
+
     
-    _name = 'user_registration'
+    _name = 'user.registration'
     _description = 'Registro de Usuarios'
-    _rec_name = 'cedula'
 
     primer_nombre   = fields.Char(string="Primer Nombre", required=True)
     segundo_nombre  = fields.Char(string="Segundo Nombre", required=True)
@@ -31,22 +32,3 @@ class UserRegistration(models.Model):
                                           ('estudiante','Estudiante'),
                                           ('profesor','Profesor')],
                                          string="Grupo de Usuario", required=True)
-    active = fields.Boolean(string="Activo", default=True)
-
-
-class StudentCareerRegistration(models.Model):
-    _name = 'student.career.registration'
-    _description = 'Registro de Carrera para Estudiantes'
-    _rec_name = 'student_id'
-    student_id = fields.Many2one(
-        'user_registration',
-        string='Estudiante',
-        required=True,
-        domain=[('grupo_usuario', '=', 'estudiante')]
-    )
-    carrera_id = fields.Many2one(
-        'sgu_carreras',
-        string='Carrera',
-        required=True
-    )
-    cohorte = fields.Char(string='Cohorte', required=True)

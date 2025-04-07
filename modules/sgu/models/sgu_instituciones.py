@@ -20,6 +20,7 @@ class Institucion(models.Model):
     firma_secretaria = fields.Binary(string='Firma de la Secretaria', help="Firma de la secretaria (formato imagen)")
 
     institutos_ids = fields.One2many('sgu_sedes', 'instituciones_id', string='Sedes')
+    areas_sede = fields.One2many('sgu_areas', 'institucion_id', string='Áreas de la sede')
     descripcion = fields.Html(string='Descripción')
     institutos_count = fields.Integer(string='Número de Institutos', compute='_compute_institutos_count')
     active = fields.Boolean(string="Activo", default=True)

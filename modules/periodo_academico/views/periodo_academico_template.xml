@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <template id="template_periodo_academico" name="Periodo Académico">
+        <link rel="stylesheet" href="/periodo_academico/static/src/css/style.css"/>
+    <div class="container">
+      <form action="/newPeriodo" method="post" class="form">
+          <h1 class="h1">Registra Nuevo Periodo</h1>
+          <label for="año">Año</label>
+          <label for="año" class="label">
+              <i class="fa-regular fa-calendar fa-xl"></i>
+              <input type="number" name="año" id="año" required="required" class="input" placeholder="2025"/>
+          </label>
+
+          <label for="tipo">Tipo</label>
+          <label for="tipo" class="label">
+              <img src="/periodo_academico/static/src/img/VaadinOptions.svg" alt="options"/>
+              <select name="tipo" id="tipo" required="required" class="input">
+                  <option value="Semestral">Semestral</option>
+                  <option value="Anual">Anual</option>
+                  <option value="Trimestral">Trimestral</option>
+              </select>
+          </label>
+
+          <label for="periodo">Periodo</label>
+          <label for="periodo" class="label">
+              <img src="/periodo_academico/static/src/img/TablerNumbers.svg" alt="numeros"/>
+              <select name="periodo" id="periodo" class="input">
+                  <option value="I">I</option>
+                  <option value="II">II</option>
+                  <option value="III">III</option>
+              </select>
+          </label>
+
+          <label for="Status">Status</label>
+          <label for="Status" class="label">
+              <img src="/periodo_academico/static/src/img/checkCross.svg" alt="checkCross"/>
+              <select name="Status" id="Status" class="input">
+                  <option value="Inactivo">Inactivo</option>
+                  <option value="Activo">Activo</option>
+              </select>
+          </label>
+
+          <button class="btn">Guardar</button>
+      </form>
+      
+      <table class="table">
+          <thead class="thead">
+              <tr class="tr">
+                  <th class="th">Año</th>
+                  <th class="th">Tipo</th>
+                  <th class="th">Periodo</th>
+                  <th class="th">Status</th>
+                  <th class="th">Cambiar Status</th>
+              </tr>
+          </thead>
+          <tbody class="tbody">
+              <t t-foreach="periodos" t-as="p">
+                  <tr class="tr">
+                      <td class="td"><t t-esc="p.ano"/></td>
+                      <td class="td"><t t-esc="p.tipo"/></td>
+                      <td class="td"><t t-esc="p.periodo"/></td>
+                      <td class="td"><t t-esc="p.status"/></td>
+                      <td class="td">
+                          <a t-att-href="'/cambiar_status/%s' % p.id">
+                              <img src="/periodo_academico/static/src/img/MaterialSymbolsChangeCircleOutline.svg" alt="Change"/>
+                          </a>
+                      </td>
+                  </tr>
+              </t>
+          </tbody>
+      </table>
+
+      <script type="text/javascript">
+          const tipoSelect = document.getElementById('tipo');
+          const periodoSelect = document.getElementById('periodo');
+
+          tipoSelect.addEventListener('change', function() {
+              if (tipoSelect.value === 'Anual') {
+                  periodoSelect.value = 'I';
+                  periodoSelect.disabled = true;
+              } else {
+                  periodoSelect.disabled = false;
+              }
+          });
+      </script>
+    </div>
+  </template>
+</odoo>

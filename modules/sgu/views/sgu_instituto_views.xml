@@ -20,11 +20,10 @@
                         <group string="Información General">
                             <field name="codigo_institucion" placeholder="Codigo de instuticon"/>
                             <field name="descripcion" placeholder="Descripcion de la institucion"/>
+                        </group>
+                        <group string="Informacion de contacto">
                             <field name="correo_institucion" placeholder="ejemplo@dominio.com"/>
                             <field name="telefono_institucion" placeholder="0424-000000"/>
-                        </group>
-                        <group string="Areas">
-                        
                         </group>
                     </group>
                     <notebook>

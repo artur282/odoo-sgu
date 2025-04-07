@@ -32,22 +32,22 @@ class SguCarreras(models.Model):
     carrera = fields.Char(string='Carrera', required=True)
     modalidad_carrera = fields.Many2one('sgu_modalidad', string='Modalidad', required=True)
     active = fields.Boolean(default=True, required=True)
-    area_carrea = fields.Many2one('sgu_areas', string='Area', required=True)
+    area_carrera = fields.Many2one('sgu_areas', string='Area', required=True)
     nivel_academico = fields.Many2one('sgu_nivel_academico', string='Nivel académico', required=True)
     sede = fields.Many2one('sgu_sedes', string='Sede', required=True)
-    active = fields.Boolean(string="Activo", default=True)
     pensum = fields.Many2one('university.pensum', string='Pensum', required=True)
 
 
 class SguAreas(models.Model):
     _name = 'sgu_areas'
-    _description = 'areas de la instucion'
+    _description = 'Áreas de la institución'
     _rec_name = 'nombre'
 
     nombre = fields.Char(string='Nombre', required=True)
-    codigo= fields.Integer(string='Codigo', required=True)
-    carrera_area = fields.One2many('sgu_carreras', 'area_carrea', string='Carreras')
-    
+    codigo = fields.Integer(string='Código', required=True)
+    carrera_area = fields.One2many('sgu_carreras', 'area_carrera', string='Carreras')
+    sede_id = fields.Many2one('sgu_sedes', string='Sede') 
+    institucion_id = fields.Many2one('sgu_institucion', string='Institución', ondelete='cascade')
     active = fields.Boolean(string="Activo", default=True)
     
 class SguModalidad(models.Model):

@@ -11,3 +11,4 @@ access_sgu_modalidad,sgu_modalidad,model_sgu_modalidad,,1,1,1,1
 access_sgu_nivel_academico,sgu_nivel_academico,model_sgu_nivel_academico,,1,1,1,1
 access_university_pensum,university_pensum,model_university_pensum,,1,1,1,1
 access_university_pensum_subject,university_pensum_subject,model_university_pensum_subject,,1,1,1,1
+access_student_career_registration,student_career_registration,model_student_career_registration,,1,1,1,1
