@@ -1,0 +1,46 @@
+<odoo>
+<data>
+
+        <record id="procesos_form_view" model="ir.ui.view">
+            <field name="name">procesos.form.view</field>
+            <field name="model">prueba1.procesos</field>
+            <field name="arch" type="xml">
+                <form string="Procesos">
+                    <sheet>
+                        <group>
+                            <field name="proceso" placeholder="Nombre del proceso"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="procesos_list_view" model="ir.ui.view">
+            <field name="name">procesos.list.view</field>
+            <field name="model">prueba1.procesos</field>
+            <field name="arch" type="xml">
+                <list string="Procesos">
+                    <field name='proceso'/>
+                </list>
+            </field>
+        </record>
+        
+        <record id="procesos_search_view" model="ir.ui.view">
+            <field name="name">procesos.search.view</field>
+            <field name="model">prueba1.procesos</field>
+            <field name="arch" type="xml">
+                <search string="Procesos">
+                    <field name="proceso"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="procesos_action" model="ir.actions.act_window">
+            <field name="name">Procesos</field>
+            <field name="res_model">prueba1.procesos</field>
+            <field name="view_mode">list,form</field>
+            <field name="search_view_id" ref="procesos_search_view"/>
+        </record>
+
+</data>
+</odoo>

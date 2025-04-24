@@ -29,7 +29,8 @@ class UserRegistration(models.Model):
                                           ('admin','Admin'),
                                           ('operador','Operador'),
                                           ('estudiante','Estudiante'),
-                                          ('profesor','Profesor')],
+                                          ('profesor','Profesor'),
+                                          ('autoridad','Autoridad')],
                                          string="Grupo de Usuario", required=True)
     active = fields.Boolean(string="Activo", default=True)
 

@@ -1,16 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+    <!-- Vista de búsqueda -->
+    <record id="sgu_autoridad_search_view" model="ir.ui.view">
+        <field name="name">sgu.autoridad.search</field>
+        <field name="model">sgu_autoridad</field>
+        <field name="arch" type="xml">
+            <search string="Buscar Autoridades">
+                <field name="nombre" string="Nombre" filter_domain="[('nombre', 'ilike', self)]"/>
+                <field name="autoridad" string="Tipo de Autoridad"/>
+                <field name="institucion" string="Institución"/>
+                <separator/>
+                <filter string="Activas" name="active" domain="[('active', '=', True)]"/>
+                <filter string="Inactivas" name="inactive" domain="[('active', '=', False)]"/>
+                <group expand="0" string="Agrupar Por">
+                    <filter string="Autoridad" name="group_by_autoridad" context="{'group_by': 'autoridad'}"/>
+                    <filter string="Institución" name="group_by_institucion" context="{'group_by': 'institucion'}"/>
+                    <filter string="Mes" name="group_by_month" context="{'group_by': 'fecha:month'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
     <!-- Lista mejorada -->
     <record id="sgu_autoridad_view" model="ir.ui.view">
         <field name="name">sgu.autoridad.list</field>
         <field name="model">sgu_autoridad</field>
         <field name="arch" type="xml">
-            <list string="Lista de Autoridades">
+            <list string="Lista de Autoridades" default_order="fecha desc, nombre">
                 <field name="nombre" string="Nombre Completo"/>
                 <field name="autoridad" string="Tipo de Autoridad"/>
                 <field name="institucion" string="Institución"/>
                 <field name="fecha" string="Fecha de Nombramiento"/>
-                <field name="active" string="Activo"/>
+                <field name="active" string="Activo" widget="boolean_toggle"/>
+                <field name="firmaDigital" invisible="1"/>
             </list>
         </field>
     </record>
@@ -22,15 +44,25 @@
         <field name="arch" type="xml">
             <form string="Asignar Autoridad">
                 <sheet>
-                    <group string="Información General">
-                        <field name="nombre" string="Nombre Completo"/>
-                        <field name="autoridad" string="Tipo de Autoridad"/>
-                        <field name="institucion" string="Institución"/>
-                    </group>
-                    <group string="Detalles Adicionales">
-                        <field name="fecha" string="Fecha de Nombramiento"/>
-                        <field name="firmaDigital" string="Firma Digital"/>
-                        <field name="active" string="Activo"/>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive">
+                            <field name="active" widget="boolean_button" options="{'terminology': 'archive'}"/>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="nombre" placeholder="Nombre Completo"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group string="Información General">
+                            <field name="autoridad" string="Tipo de Autoridad"/>
+                            <field name="institucion" string="Institución"/>
+                            <field name="fecha" string="Fecha de Nombramiento"/>
+                        </group>
+                        <group string="Detalles Adicionales">
+                            <field name="firmaDigital" string="Firma Digital"/>
+                        </group>
                     </group>
                 </sheet>
             </form>
@@ -42,5 +74,17 @@
         <field name="name">Autoridades</field>
         <field name="res_model">sgu_autoridad</field>
         <field name="view_mode">list,form</field>
+        <field name="context">{'search_default_active': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Registre una nueva autoridad
+            </p>
+            <p>
+                Cree autoridades para instituciones y asigne sus permisos correspondientes.
+            </p>
+        </field>
+        <field name="limit">20</field>
     </record>
+
+
 </odoo>

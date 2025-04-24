@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Vista de formulario para Periodo Académico -->
+    <record id="view_admision_periodo_form" model="ir.ui.view">
+        <field name="name">admision.periodo.form</field>
+        <field name="model">admision.periodo</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <field name="active" widget="boolean_toggle"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="Ej: 2026-1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="fecha_inicio"/>
+                            <field name="fecha_fin"/>
+                        </group>
+                        <group>
+                            <field name="description"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Procesos" name="procesos">
+                            <field name="proceso_ids" context="{'default_periodo_id': id}">
+                                <list>
+                                    <field name="name"/>
+                                    <field name="tipo"/>
+                                    <field name="fecha_inicio"/>
+                                    <field name="fecha_fin"/>
+                                    <field name="state"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    
+    <!-- Vista de lista para Periodo Académico -->
+    <record id="view_admision_periodo_list" model="ir.ui.view">
+        <field name="name">admision.periodo.list</field>
+        <field name="model">admision.periodo</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="fecha_inicio"/>
+                <field name="fecha_fin"/>
+                <field name="active"/>
+            </list>
+        </field>
+    </record>
+    <!-- Vista de formulario para Proceso de Admisión -->
+    <record id="view_admision_proceso_form" model="ir.ui.view">
+        <field name="name">admision.proceso.form</field>
+        <field name="model">admision.proceso</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_activar" string="Activar" type="object" 
+                            class="oe_highlight" invisible="state != 'draft'"/>
+                    <button name="action_cerrar" string="Cerrar" type="object" 
+                            invisible="state != 'active'"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,active,closed"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_ver_preinscritos" type="object" class="oe_stat_button" icon="fa-users"
+                                invisible="tipo != 'preinscripcion'">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_value"><field name="count_preinscritos"/></span>
+                                <span class="o_stat_text">Preinscritos</span>
+                            </div>
+                        </button>
+                        <button name="action_ver_inscritos" type="object" class="oe_stat_button" icon="fa-graduation-cap"
+                                invisible="tipo != 'inscripcion'">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_value"><field name="count_inscritos"/></span>
+                                <span class="o_stat_text">Inscritos</span>
+                            </div>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="Nombre del proceso"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="tipo"/>
+                            <field name="periodo_id"/>
+                        </group>
+                        <group>
+                            <field name="fecha_inicio"/>
+                            <field name="fecha_fin"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Programas" name="programas" invisible="tipo != 'preinscripcion'">
+                            <p class="text-muted">Si no se seleccionan programas, el proceso aplica para todos.</p>
+                            <field name="programa_ids" widget="many2many_tags"/>
+                        </page>
+                        <page string="Cupos" name="cupos" invisible="tipo != 'preinscripcion'">
+                            <group>
+                                <field name="cupos_opsu"/>
+                                <field name="cupos_especiales"/>
+                            </group>
+                        </page>
+                        <page string="Preinscripciones" name="preinscripciones" invisible="tipo != 'preinscripcion'">
+                            <field name="preinscripcion_ids">
+                                <list>
+                                    <field name="numero_preinscripcion"/>
+                                    <field name="aspirante_id"/>
+                                    <field name="programa_id"/>
+                                    <field name="sede_id"/>
+                                    <field name="fecha_preinscripcion"/>
+                                    <field name="state"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Inscripciones" name="inscripciones" invisible="tipo != 'inscripcion'">
+                            <field name="inscripcion_ids">
+                                <list>
+                                    <field name="numero_inscripcion"/>
+                                    <field name="aspirante_id"/>
+                                    <field name="programa_id"/>
+                                    <field name="sede_id"/>
+                                    <field name="seccion_id"/>
+                                    <field name="fecha_inscripcion"/>
+                                    <field name="state"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    
+    <!-- Vista de lista para Proceso de Admisión -->
+    <record id="view_admision_proceso_list" model="ir.ui.view">
+        <field name="name">admision.proceso.list</field>
+        <field name="model">admision.proceso</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="tipo"/>
+                <field name="periodo_id"/>
+                <field name="fecha_inicio"/>
+                <field name="fecha_fin"/>
+                <field name="state" decoration-success="state == 'active'" decoration-muted="state == 'closed'"/>
+            </list>
+        </field>
+    </record>
+    
+    <!-- Vista de búsqueda para Proceso de Admisión -->
+    <record id="view_admision_proceso_search" model="ir.ui.view">
+        <field name="name">admision.proceso.search</field>
+        <field name="model">admision.proceso</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="periodo_id"/>
+                <filter string="Activos" name="active" domain="[('state', '=', 'active')]"/>
+                <filter string="Borrador" name="draft" domain="[('state', '=', 'draft')]"/>
+                <filter string="Cerrados" name="closed" domain="[('state', '=', 'closed')]"/>
+                <separator/>
+                <filter string="Preinscripción" name="preinscripcion" domain="[('tipo', '=', 'preinscripcion')]"/>
+                <filter string="Inscripción" name="inscripcion" domain="[('tipo', '=', 'inscripcion')]"/>
+                <filter string="Carga de Horarios" name="horarios" domain="[('tipo', '=', 'carga_horarios')]"/>
+                <group expand="0" string="Agrupar por">
+                    <filter string="Periodo" name="group_by_periodo" context="{'group_by': 'periodo_id'}"/>
+                    <filter string="Estado" name="group_by_state" context="{'group_by': 'state'}"/>
+                    <filter string="Tipo" name="group_by_tipo" context="{'group_by': 'tipo'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+    
+    <!-- Acción para Periodo Académico -->
+    <record id="action_admision_periodo" model="ir.actions.act_window">
+        <field name="name">Periodos Académicos</field>
+        <field name="res_model">admision.periodo</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Cree su primer periodo académico
+            </p>
+        </field>
+    </record>
+    
+    <!-- Acción para Proceso de Admisión -->
+    <record id="action_admision_proceso" model="ir.actions.act_window">
+        <field name="name">Procesos de Admisión</field>
+        <field name="res_model">admision.proceso</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Cree su primer proceso de admisión
+            </p>
+        </field>
+    </record>
+</odoo>

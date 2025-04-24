@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_importar_aprobados_wizard_form" model="ir.ui.view">
+        <field name="name">admision.importar.aprobados.wizard.form</field>
+        <field name="model">admision.importar.aprobados.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Importar Listado de Aprobados Especiales">
+                <sheet>
+                    <p class="text-muted">
+                        Este asistente permite importar un archivo CSV con el listado de aspirantes aprobados por casos especiales.
+                        El archivo debe contener al menos las siguientes columnas: cedula, nombres, apellidos, programa, sede.
+                    </p>
+                    <group>
+                        <group>
+                            <field name="archivo" required="1" filename="archivo_nombre"/>
+                            <field name="archivo_nombre" invisible="1"/>
+                            <field name="tipo_aprobacion" required="1"/>
+                        </group>
+                        <group>
+                            <field name="delimitador"/>
+                        </group>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="action_importar" string="Importar" type="object" class="btn-primary"/>
+                    <button string="Cancelar" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    
+    <record id="action_importar_aprobados_wizard" model="ir.actions.act_window">
+        <field name="name">Importar Casos Especiales</field>
+        <field name="res_model">admision.importar.aprobados.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>

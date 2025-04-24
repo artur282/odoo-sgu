@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Vista de formulario para Inscripción -->
+    <record id="view_admision_inscripcion_form" model="ir.ui.view">
+        <field name="name">admision.inscripcion.form</field>
+        <field name="model">admision.inscripcion</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_confirmar" string="Confirmar Inscripción" type="object" 
+                            class="oe_highlight" invisible="state != 'draft'"/>
+                    <button name="action_convertir_estudiante" string="Convertir a Estudiante" 
+                            type="object" class="oe_highlight" 
+                            invisible="state != 'confirmed'"/>
+                    <button name="action_imprimir_constancia" string="Imprimir Constancia" 
+                            type="object" invisible="state != 'confirmed'"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,confirmed"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="numero_inscripcion" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="aspirante_id"/>
+                            <field name="proceso_id"/>
+                            <field name="fecha_inscripcion"/>
+                        </group>
+                        <group>
+                            <field name="programa_id"/>
+                            <field name="sede_id"/>
+                            <field name="seccion_id" options="{'no_create': True}"/>
+                            <field name="preinscripcion_id" options="{'no_create': True}"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Documentos" name="documentos">
+                            <group>
+                                <group string="Documentación Requerida">
+                                    <field name="doc_cedula"/>
+                                    <field name="doc_titulo"/>
+                                    <field name="doc_notas"/>
+                                    <field name="doc_fotos"/>
+                                    <field name="doc_partida"/>
+                                    <field name="doc_otros"/>
+                                </group>
+                                <group>
+                                    <field name="documentacion_completa"/>
+                                    <field name="nota_documental"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Información Operativa" name="operativo">
+                            <group>
+                                <group>
+                                    <field name="usuario_inscripcion_id" readonly="1"/>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    
+    <!-- Vista de lista para Inscripción -->
+    <record id="view_admision_inscripcion_list" model="ir.ui.view">
+        <field name="name">admision.inscripcion.list</field>
+        <field name="model">admision.inscripcion</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="numero_inscripcion"/>
+                <field name="aspirante_id"/>
+                <field name="proceso_id"/>
+                <field name="programa_id"/>
+                <field name="sede_id"/>
+                <field name="seccion_id"/>
+                <field name="fecha_inscripcion"/>
+                <field name="documentacion_completa"/>
+                <field name="state" decoration-info="state == 'draft'" decoration-success="state == 'confirmed'"/>
+            </list>
+        </field>
+    </record>
+    
+    <!-- Vista de búsqueda para Inscripción -->
+    <record id="view_admision_inscripcion_search" model="ir.ui.view">
+        <field name="name">admision.inscripcion.search</field>
+        <field name="model">admision.inscripcion</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="numero_inscripcion"/>
+                <field name="aspirante_id"/>
+                <field name="programa_id"/>
+                <field name="sede_id"/>
+                <field name="seccion_id"/>
+                <field name="proceso_id"/>
+                <filter string="Borrador" name="draft" domain="[('state', '=', 'draft')]"/>
+                <filter string="Confirmada" name="confirmed" domain="[('state', '=', 'confirmed')]"/>
+                <filter string="Documentación Completa" name="docs_complete" domain="[('documentacion_completa', '=', True)]"/>
+                <group expand="0" string="Agrupar por">
+                    <filter string="Aspirante" name="group_by_aspirante" context="{'group_by': 'aspirante_id'}"/>
+                    <filter string="Programa" name="group_by_programa" context="{'group_by': 'programa_id'}"/>
+                    <filter string="Sede" name="group_by_sede" context="{'group_by': 'sede_id'}"/>
+                    <filter string="Sección" name="group_by_seccion" context="{'group_by': 'seccion_id'}"/>
+                    <filter string="Proceso" name="group_by_proceso" context="{'group_by': 'proceso_id'}"/>
+                    <filter string="Fecha" name="group_by_fecha" context="{'group_by': 'fecha_inscripcion'}"/>
+                    <filter string="Estado" name="group_by_state" context="{'group_by': 'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+    
+    <!-- Acción para Inscripción -->
+    <record id="action_admision_inscripcion" model="ir.actions.act_window">
+        <field name="name">Inscripciones</field>
+        <field name="res_model">admision.inscripcion</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No hay inscripciones registradas
+            </p>
+            <p>
+                Aquí se mostrarán las inscripciones formales de los aspirantes.
+            </p>
+        </field>
+    </record>
+</odoo>

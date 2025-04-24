@@ -1,0 +1,65 @@
+<odoo>
+    <data>
+        <record id="asignacion_proceso_carrera_form_view" model="ir.ui.view">
+            <field name="name">prueba1.asignacionprocesocarrera.form</field>
+            <field name="model">prueba1.asignacionprocesocarrera</field>
+            <field name="arch" type="xml">
+                <form string="Asignar Proceso a Carrera">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="periodo_id"/>
+                                <field name="carrera_id"/>
+                            </group>
+                            <group>
+                                <field name="proceso_id"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="asignacion_proceso_carrera_list_view" model="ir.ui.view">
+            <field name="name">prueba1.asignacionprocesocarrera.list</field>
+            <field name="model">prueba1.asignacionprocesocarrera</field>
+            <field name="arch" type="xml">
+                <list string="Asignaciones de Procesos a Carreras">
+                    <field name="periodo_id" widget="many2one"/>
+                    <field name="carrera_id" widget="many2one"/>
+                    <field name="proceso_id" widget="many2one"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="asignacion_proceso_carrera_search_view" model="ir.ui.view">
+            <field name="name">prueba1.asignacionprocesocarrera.search</field>
+            <field name="model">prueba1.asignacionprocesocarrera</field>
+            <field name="arch" type="xml">
+                <search string="Buscar Asignaciones">
+                    <field name="periodo_id"/>
+                    <field name="carrera_id"/>
+                    <field name="proceso_id"/>
+                    <group expand="0" string="Agrupar Por">
+                        <filter name="group_by_periodo" string="Periodo" domain="[]" context="{'group_by': 'periodo_id'}"/>
+                        <filter name="group_by_carrera" string="Carrera" domain="[]" context="{'group_by': 'carrera_id'}"/>
+                        <filter name="group_by_proceso" string="Proceso" domain="[]" context="{'group_by': 'proceso_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="asignacion_proceso_carrera_action" model="ir.actions.act_window">
+            <field name="name">Asignar Procesos a Carreras</field>
+            <field name="res_model">prueba1.asignacionprocesocarrera</field>
+            <field name="view_mode">list,form</field>
+            <field name="search_view_id" ref="asignacion_proceso_carrera_search_view"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Crear una nueva asignación de proceso a carrera
+                </p>
+            </field>
+        </record>
+        
+    </data>
+</odoo>

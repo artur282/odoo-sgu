@@ -1,0 +1,28 @@
+header {
+    background-color: #007BFF;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+header h2 {
+    margin: 0;
+}
+
+.oe_title {
+    border-bottom: 2px solid #007BFF;
+    padding-bottom: 10px;
+}
+
+.oe_avatar {
+    margin-right: 10px;
+    border: 2px solid #007BFF;
+}
+
+.oe_title h1 {
+    color: #007BFF;
+}
+
+.notebook-page {
+    background-color: #E3F2FD;
+}

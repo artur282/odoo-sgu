@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="action_report_constancia_estudio" model="ir.actions.report">
+            <field name="name">Constancia de Estudio</field>
+            <field name="model">admision.aspirante</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">admision.report_constancia_estudio</field>
+            <field name="report_file">admision.report_constancia_estudio</field>
+            <field name="print_report_name">'Constancia de Estudio - %s' % (object.cedula)</field>
+            <field name="binding_model_id" ref="model_admision_aspirante"/>
+            <field name="binding_type">report</field>
+        </record>
+
+        <template id="report_constancia_estudio">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="web.external_layout">
+                        <div class="page">
+                            <h2 class="text-center mb-4">CONSTANCIA DE ESTUDIO</h2>
+                            <h4 class="text-center mb-4">Universidad Nacional Experimental de los Llanos Centrales Rómulo Gallegos</h4>
+
+                            <p class="text-justify mt-5">
+                                Quien suscribe, Director(a) de Control de Estudios de la Universidad Nacional Experimental 
+                                de los Llanos Centrales Rómulo Gallegos, por medio de la presente hace constar que:
+                            </p>
+
+                            <p class="text-center mt-4">
+                                <strong>
+                                    <span t-field="o.partner_id.name" style="text-transform: uppercase;"/>
+                                </strong>
+                                <br/>
+                                Titular de la Cédula de Identidad:
+                                <strong>
+                                    <span t-field="o.cedula"/>
+                                </strong>
+                            </p>
+
+                            <p class="text-justify mt-4">
+                                Es estudiante regular de esta Casa de Estudios, cursando actualmente la carrera de
+                                <strong><span t-field="o.programa_id.name"/></strong> en la sede de 
+                                <strong><span t-field="o.sede_id.name"/></strong>.
+                            </p>
+                            
+                            <p class="text-justify mt-4">
+                                Esta constancia se expide a solicitud de la parte interesada, en 
+                                <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%d')"/> días del mes de 
+                                <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%B')"/> de 
+                                <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y')"/>.
+                            </p>
+
+                            <div class="row mt-5">
+                                <div class="col-12 text-center">
+                                    <p class="mt-5 pt-5">_________________________</p>
+                                    <p>Director(a) de Control de Estudios</p>
+                                    <p>Universidad Nacional Experimental de los Llanos Centrales Rómulo Gallegos</p>
+                                </div>
+                            </div>
+                            
+                            <div class="text-center mt-5">
+                                <p><strong>Fecha de emisión:</strong> <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%d/%m/%Y %H:%M:%S')"/></p>
+                                <small>Esta constancia no es válida sin el sello y firma autorizada.</small>
+                            </div>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

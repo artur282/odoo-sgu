@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Menú Principal del Sistema de Admisión -->
+    <menuitem id="menu_admision_root" 
+              name="Admisión" 
+              web_icon="admision,static/description/icon.png" 
+              sequence="20"/>
+
+    <!-- Menú Configuración -->
+    <menuitem id="menu_admision_configuracion" 
+              name="Configuración" 
+              parent="menu_admision_root" 
+              sequence="100" 
+              groups="sgu_admision.group_super_usuario"/>
+
+    <!-- Submenú Periodos y Procesos -->
+    <menuitem id="menu_admision_periodo" 
+              name="Periodos Académicos" 
+              action="sgu_admision.action_admision_periodo" 
+              parent="menu_admision_configuracion" 
+              sequence="10"/>
+
+    <menuitem id="menu_admision_proceso" 
+              name="Procesos de Admisión" 
+              action="sgu_admision.action_admision_proceso" 
+              parent="menu_admision_configuracion" 
+              sequence="20"/>
+
+    <!-- Menú Principal Aspirantes -->
+    <menuitem id="menu_admision_aspirantes" 
+              name="Aspirantes" 
+              parent="menu_admision_root" 
+              sequence="10"/>
+
+    <menuitem id="menu_admision_aspirante_item" 
+              name="Aspirantes" 
+              action="sgu_admision.action_admision_aspirante" 
+              parent="menu_admision_aspirantes" 
+              sequence="10"/>
+
+    <menuitem id="menu_admision_preinscripcion_item" 
+              name="Preinscripciones" 
+              action="sgu_admision.action_admision_preinscripcion" 
+              parent="menu_admision_aspirantes" 
+              sequence="20"/>
+
+    <menuitem id="menu_admision_inscripcion_item" 
+              name="Inscripciones" 
+              action="sgu_admision.action_admision_inscripcion" 
+              parent="menu_admision_aspirantes" 
+              sequence="30"/>
+
+    <!-- Menú para importaciones -->
+    <menuitem id="menu_admision_importar" 
+              name="Importar" 
+              parent="menu_admision_aspirantes" 
+              sequence="90" 
+              groups="sgu_admision.group_super_usuario,sgu_admision.group_admin"/>
+
+    <menuitem id="menu_admision_importar_opsu" 
+              name="Importar Listado OPSU" 
+              action="sgu_admision.action_importar_opsu_wizard" 
+              parent="menu_admision_importar" 
+              sequence="10"/>
+
+    <menuitem id="menu_admision_importar_aprobados" 
+              name="Importar Casos Especiales" 
+              action="sgu_admision.action_importar_aprobados_wizard" 
+              parent="menu_admision_importar" 
+              sequence="20"/>
+
+    <!-- Menú Gestión Académica -->
+    <menuitem id="menu_admision_academico" 
+              name="Gestión Académica" 
+              parent="menu_admision_root" 
+              sequence="20"/>
+
+    <menuitem id="menu_admision_programa_item" 
+              name="Programas Académicos" 
+              action="sgu_admision.action_admision_programa" 
+              parent="menu_admision_academico" 
+              sequence="10"/>
+
+    <menuitem id="menu_admision_sede_item" 
+              name="Sedes" 
+              action="sgu_admision.action_admision_sede" 
+              parent="menu_admision_academico" 
+              sequence="20"/>
+
+    <menuitem id="menu_admision_seccion_item" 
+              name="Secciones" 
+              action="sgu_admision.action_admision_seccion" 
+              parent="menu_admision_academico" 
+              sequence="30"/>
+
+    <menuitem id="menu_admision_horario_item" 
+              name="Horarios" 
+              action="sgu_admision.action_admision_horario" 
+              parent="menu_admision_academico" 
+              sequence="40"/>
+</odoo>

@@ -1,38 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <!-- lista-->
+    <!-- lista -->
     <record id="sgu_modalidad_view" model="ir.ui.view">
         <field name="name">sgu.modalidad.list</field>
         <field name="model">sgu_modalidad</field>
         <field name="arch" type="xml">
-            <list>
+            <list decoration-danger="not active" decoration-success="active">
                 <field name="modalidad"/>
-                <field name="active" string="Estatus" />
+                <field name="active" widget="boolean_toggle" string="Estatus" />
             </list>
         </field>
     </record>
-    <!-- formulario  -->
+    
+    <!-- formulario -->
     <record id="sgu_modalidad_form_view" model="ir.ui.view">
         <field name="name">sgu.modalidad.form</field>
         <field name="model">sgu_modalidad</field>
         <field name="arch" type="xml">
             <form string="Asignar Modalidad">
                 <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="modalidad" placeholder="Nombre de la modalidad"/>
+                        </h1>
+                    </div>
                     <group>
-                        <field name="modalidad"/>
-                        <field name="active" string="Estatus" />
+                        <field name="active" string="Estatus" widget="boolean_toggle"/>
                     </group>
                 </sheet>
             </form>
         </field>
     </record>
 
+    <!-- vista de búsqueda -->
+    <record id="sgu_modalidad_search_view" model="ir.ui.view">
+        <field name="name">sgu.modalidad.search</field>
+        <field name="model">sgu_modalidad</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="modalidad"/>
+                <filter string="Activas" name="active" domain="[('active', '=', True)]"/>
+                <filter string="Inactivas" name="inactive" domain="[('active', '=', False)]"/>
+                <group expand="0" string="Agrupar Por">
+                    <filter string="Estatus" name="group_by_active" context="{'group_by': 'active'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
 
-
- <!-- action -->
+    <!-- action -->
     <record id="sgu_modalidad_action" model="ir.actions.act_window">
         <field name="name">Modalidades</field>
         <field name="res_model">sgu_modalidad</field>
-        <field name="view_mode">list,form</field> 
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="sgu_modalidad_search_view"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Crea tu primera modalidad
+            </p>
+            <p>
+                Define las diferentes modalidades disponibles en el sistema.
+            </p>
+        </field>
     </record>
- </odoo>
+</odoo>

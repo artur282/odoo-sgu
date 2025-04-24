@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <!-- VISTA TREE de la cabecera del Pensum -->
-    <record id="view_university_pensum_tree" model="ir.ui.view">
-        <field name="name">university.pensum.tree</field>
+    <!-- VISTA LIST de la cabecera del Pensum -->
+    <record id="view_university_pensum_list" model="ir.ui.view">
+        <field name="name">university.pensum.list</field>
         <field name="model">university.pensum</field>
         <field name="arch" type="xml">
             <list string="Pensums">
@@ -24,7 +24,7 @@
                     <group>
                         <!-- One2many que muestra las materias (subjects) -->
                         <field name="subject_ids">
-                            <!-- Subvista en modo árbol -->
+                            <!-- Subvista en modo lista -->
                             <list editable="bottom" string="Materias">
                                 <field name="semester"/>
                                 <field name="code"/>
@@ -49,7 +49,7 @@
         </field>
     </record>
 
-    <!-- ACCIÓN para abrir la vista del pensum en modo árbol y formulario -->
+    <!-- ACCIÓN para abrir la vista del pensum en modo lista y formulario -->
     <record id="action_university_pensum" model="ir.actions.act_window">
         <field name="name">Pensum Universitario</field>
         <field name="res_model">university.pensum</field>

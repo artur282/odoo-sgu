@@ -1,0 +1,49 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_admision_proceso_super,admision.proceso super,model_admision_proceso,group_super_usuario,1,1,1,1
+access_admision_proceso_admin,admision.proceso admin,model_admision_proceso,group_admin,1,1,1,0
+access_admision_proceso_operador,admision.proceso operador,model_admision_proceso,group_operador,1,0,0,0
+
+access_admision_aspirante_super,admision.aspirante super,model_admision_aspirante,group_super_usuario,1,1,1,1
+access_admision_aspirante_admin,admision.aspirante admin,model_admision_aspirante,group_admin,1,1,1,0
+access_admision_aspirante_operador_autoridad,admision.aspirante autoridad,model_admision_aspirante,group_operador_autoridad,1,1,1,0
+access_admision_aspirante_operador_admin,admision.aspirante operador admin,model_admision_aspirante,group_operador_admin,1,1,1,0
+access_admision_aspirante_operador,admision.aspirante operador,model_admision_aspirante,group_operador,1,1,0,0
+access_admision_aspirante_aspirante,admision.aspirante aspirante,model_admision_aspirante,group_aspirante,1,1,0,0
+access_admision_aspirante_estudiante,admision.aspirante estudiante,model_admision_aspirante,group_estudiante,1,0,0,0
+
+access_admision_preinscripcion_super,admision.preinscripcion super,model_admision_preinscripcion,group_super_usuario,1,1,1,1
+access_admision_preinscripcion_admin,admision.preinscripcion admin,model_admision_preinscripcion,group_admin,1,1,1,0
+access_admision_preinscripcion_operador_admin,admision.preinscripcion operador admin,model_admision_preinscripcion,group_operador_admin,1,1,1,0
+access_admision_preinscripcion_operador,admision.preinscripcion operador,model_admision_preinscripcion,group_operador,1,0,0,0
+access_admision_preinscripcion_aspirante,admision.preinscripcion aspirante,model_admision_preinscripcion,group_aspirante,1,1,1,0
+
+access_admision_inscripcion_super,admision.inscripcion super,model_admision_inscripcion,group_super_usuario,1,1,1,1
+access_admision_inscripcion_admin,admision.inscripcion admin,model_admision_inscripcion,group_admin,1,1,1,0
+access_admision_inscripcion_operador_admin,admision.inscripcion operador admin,model_admision_inscripcion,group_operador_admin,1,1,1,0
+access_admision_inscripcion_operador,admision.inscripcion operador,model_admision_inscripcion,group_operador,1,1,1,0
+access_admision_inscripcion_estudiante,admision.inscripcion estudiante,model_admision_inscripcion,group_estudiante,1,0,0,0
+
+access_admision_programa_super,admision.programa super,model_admision_programa,group_super_usuario,1,1,1,1
+access_admision_programa_admin,admision.programa admin,model_admision_programa,group_admin,1,1,0,0
+access_admision_programa_operador,admision.programa operador,model_admision_programa,group_operador,1,0,0,0
+access_admision_programa_aspirante,admision.programa aspirante,model_admision_programa,group_aspirante,1,0,0,0
+access_admision_programa_estudiante,admision.programa estudiante,model_admision_programa,group_estudiante,1,0,0,0
+
+access_admision_sede_super,admision.sede super,model_admision_sede,group_super_usuario,1,1,1,1
+access_admision_sede_admin,admision.sede admin,model_admision_sede,group_admin,1,0,0,0
+access_admision_sede_operador,admision.sede operador,model_admision_sede,group_operador,1,0,0,0
+access_admision_sede_aspirante,admision.sede aspirante,model_admision_sede,group_aspirante,1,0,0,0
+access_admision_sede_estudiante,admision.sede estudiante,model_admision_sede,group_estudiante,1,0,0,0
+
+access_admision_seccion_super,admision.seccion super,model_admision_seccion,group_super_usuario,1,1,1,1
+access_admision_seccion_admin,admision.seccion admin,model_admision_seccion,group_admin,1,1,1,0
+access_admision_seccion_operador,admision.seccion operador,model_admision_seccion,group_operador,1,0,0,0
+access_admision_seccion_estudiante,admision.seccion estudiante,model_admision_seccion,group_estudiante,1,0,0,0
+
+access_admision_horario_super,admision.horario super,model_admision_horario,group_super_usuario,1,1,1,1
+access_admision_horario_admin,admision.horario admin,model_admision_horario,group_admin,1,1,1,0
+access_admision_horario_operador,admision.horario operador,model_admision_horario,group_operador,1,0,0,0
+access_admision_horario_estudiante,admision.horario estudiante,model_admision_horario,group_estudiante,1,0,0,0
+
+access_admision_importar_opsu_wizard,access_admision_importar_opsu_wizard,model_admision_importar_opsu_wizard,group_super_usuario,1,1,1,1
+access_admision_importar_aprobados_wizard,access_admision_importar_aprobados_wizard,model_admision_importar_aprobados_wizard,group_super_usuario,1,1,1,1

@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Vista de formulario para Preinscripción -->
+    <record id="view_admision_preinscripcion_form" model="ir.ui.view">
+        <field name="name">admision.preinscripcion.form</field>
+        <field name="model">admision.preinscripcion</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_confirmar" string="Confirmar" type="object" 
+                            class="oe_highlight" invisible="state != 'draft'"/>
+                    <button name="action_borrador" string="Volver a Borrador" type="object"
+                            invisible="state != 'confirmed'"/>
+                    <button name="action_imprimir_comprobante" string="Imprimir Comprobante" 
+                            type="object" invisible="state != 'confirmed'"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,confirmed"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="numero_preinscripcion" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="aspirante_id"/>
+                            <field name="proceso_id"/>
+                            <field name="fecha_preinscripcion"/>
+                        </group>
+                        <group>
+                            <field name="programa_id"/>
+                            <field name="sede_id"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Datos Académicos" name="datos_academicos">
+                            <group>
+                                <group>
+                                    <field name="promedio_bachillerato"/>
+                                    <field name="ano_graduacion"/>
+                                    <field name="institucion_procedencia"/>
+                                </group>
+                                <group>
+                                    <field name="ingreso_familiar"/>
+                                    <field name="trabaja"/>
+                                    <field name="empresa_trabajo" invisible="not trabaja"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Dirección" name="direccion">
+                            <group>
+                                <group>
+                                    <field name="direccion_completa"/>
+                                    <field name="estado"/>
+                                    <field name="municipio"/>
+                                </group>
+                                <group>
+                                    <field name="parroquia"/>
+                                    <field name="codigo_postal"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Contacto de Emergencia" name="contacto">
+                            <group>
+                                <group>
+                                    <field name="contacto_emergencia"/>
+                                    <field name="telefono_emergencia"/>
+                                </group>
+                                <group>
+                                    <field name="relacion_contacto"/>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    
+    <!-- Vista de lista para Preinscripción -->
+    <record id="view_admision_preinscripcion_list" model="ir.ui.view">
+        <field name="name">admision.preinscripcion.list</field>
+        <field name="model">admision.preinscripcion</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="numero_preinscripcion"/>
+                <field name="aspirante_id"/>
+                <field name="proceso_id"/>
+                <field name="programa_id"/>
+                <field name="sede_id"/>
+                <field name="fecha_preinscripcion"/>
+                <field name="state" decoration-info="state == 'draft'" decoration-success="state == 'confirmed'"/>
+            </list>
+        </field>
+    </record>
+    
+    <!-- Vista de búsqueda para Preinscripción -->
+    <record id="view_admision_preinscripcion_search" model="ir.ui.view">
+        <field name="name">admision.preinscripcion.search</field>
+        <field name="model">admision.preinscripcion</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="numero_preinscripcion"/>
+                <field name="aspirante_id"/>
+                <field name="programa_id"/>
+                <field name="sede_id"/>
+                <field name="proceso_id"/>
+                <filter string="Borrador" name="draft" domain="[('state', '=', 'draft')]"/>
+                <filter string="Confirmada" name="confirmed" domain="[('state', '=', 'confirmed')]"/>
+                <group expand="0" string="Agrupar por">
+                    <filter string="Aspirante" name="group_by_aspirante" context="{'group_by': 'aspirante_id'}"/>
+                    <filter string="Programa" name="group_by_programa" context="{'group_by': 'programa_id'}"/>
+                    <filter string="Sede" name="group_by_sede" context="{'group_by': 'sede_id'}"/>
+                    <filter string="Proceso" name="group_by_proceso" context="{'group_by': 'proceso_id'}"/>
+                    <filter string="Estado" name="group_by_state" context="{'group_by': 'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+    
+    <!-- Acción para Preinscripción -->
+    <record id="action_admision_preinscripcion" model="ir.actions.act_window">
+        <field name="name">Preinscripciones</field>
+        <field name="res_model">admision.preinscripcion</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No hay preinscripciones registradas
+            </p>
+            <p>
+                Aquí se mostrarán las preinscripciones realizadas por los aspirantes.
+            </p>
+        </field>
+    </record>
+</odoo>

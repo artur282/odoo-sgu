@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Vista de formulario para Programa -->
+    <record id="view_admision_programa_form" model="ir.ui.view">
+        <field name="name">admision.programa.form</field>
+        <field name="model">admision.programa</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_ver_aspirantes" type="object" class="oe_stat_button" icon="fa-users">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_value"><field name="count_aspirantes"/></span>
+                                <span class="o_stat_text">Aspirantes</span>
+                            </div>
+                        </button>
+                        <button name="action_ver_preinscritos" type="object" class="oe_stat_button" icon="fa-file-text">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_value"><field name="count_preinscritos"/></span>
+                                <span class="o_stat_text">Preinscritos</span>
+                            </div>
+                        </button>
+                        <button name="action_ver_inscritos" type="object" class="oe_stat_button" icon="fa-graduation-cap">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_value"><field name="count_inscritos"/></span>
+                                <span class="o_stat_text">Inscritos</span>
+                            </div>
+                        </button>
+                        <button name="action_ver_estudiantes" type="object" class="oe_stat_button" icon="fa-user-graduate">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_value"><field name="count_estudiantes"/></span>
+                                <span class="o_stat_text">Estudiantes</span>
+                            </div>
+                        </button>
+                        <button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive">
+                            <field name="active" widget="boolean_button"/>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="Nombre del Programa"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="code"/>
+                            <field name="facultad"/>
+                            <field name="nivel"/>
+                        </group>
+                        <group>
+                            <field name="duracion"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Descripción" name="descripcion">
+                            <field name="description" placeholder="Descripción detallada del programa..."/>
+                        </page>
+                        <page string="Sedes" name="sedes">
+                            <field name="sede_ids" widget="many2many_tags"/>
+                        </page>
+                        <page string="Secciones" name="secciones">
+                            <field name="seccion_ids">
+                                <list>
+                                    <field name="name"/>
+                                    <field name="sede_id"/>
+                                    <field name="periodo_id"/>
+                                    <field name="capacidad"/>
+                                    <field name="capacidad_restante"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    
+    <!-- Vista de lista para Programa -->
+    <record id="view_admision_programa_list" model="ir.ui.view">
+        <field name="name">admision.programa.list</field>
+        <field name="model">admision.programa</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="code"/>
+                <field name="name"/>
+                <field name="facultad"/>
+                <field name="nivel"/>
+                <field name="duracion"/>
+                <field name="active" invisible="1"/>
+            </list>
+        </field>
+    </record>
+    
+    <!-- Vista de búsqueda para Programa -->
+    <record id="view_admision_programa_search" model="ir.ui.view">
+        <field name="name">admision.programa.search</field>
+        <field name="model">admision.programa</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="code"/>
+                <field name="facultad"/>
+                <filter string="Pregrado" name="pregrado" domain="[('nivel', '=', 'pregrado')]"/>
+                <filter string="Postgrado" name="postgrado" domain="[('nivel', '=', 'postgrado')]"/>
+                <filter string="Extensión" name="extension" domain="[('nivel', '=', 'extension')]"/>
+                <filter string="Archivados" name="inactive" domain="[('active', '=', False)]"/>
+                <group expand="0" string="Agrupar por">
+                    <filter string="Facultad" name="group_by_facultad" context="{'group_by': 'facultad'}"/>
+                    <filter string="Nivel" name="group_by_nivel" context="{'group_by': 'nivel'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+    
+    <!-- Acción para Programa -->
+    <record id="action_admision_programa" model="ir.actions.act_window">
+        <field name="name">Programas Académicos</field>
+        <field name="res_model">admision.programa</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Cree su primer programa académico
+            </p>
+        </field>
+    </record>
+</odoo>

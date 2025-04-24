@@ -1,50 +1,46 @@
-<?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <!-- lista -->
-    <record id="periodo_academico_view" model="ir.ui.view">
-        <field name="name">periodo.academico.list</field>
-        <field name="model">periodo_academico</field>
-        <field name="arch" type="xml">
-            <list string="Lista de Periodos Académicos">
-                <field name="ano" string="Periodo Académicos"/>
-                <field name="active" string="estatus"/>
-            </list>
-        </field>
-    </record>
+    <data>
+        <record id="periodo_form_view" model="ir.ui.view">
+            <field name="name">periodo.form.view</field>
+            <field name="model">prueba1.periodoa</field>
+            <field name="arch" type="xml">
+                <form string="Periodo Académico">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name='anio' widget="integer"/>
+                                <field name="modalidad"/>
+                            </group>
+                            <group>
+                                <field name="periodo" options="{'attrs': {'readonly': [('modalidad', '=', 'Anual')]}}" />
+                                <field name="estado"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
 
-    <!-- formulario -->
-    <record id="periodo_academico_form_view" model="ir.ui.view">
-        <field name="name">periodo.academico.form</field>
-        <field name="model">periodo_academico</field>
-        <field name="arch" type="xml">
-            <form string="Asignar Periodo Académico">
-                <sheet>
-                    <group>
-                        <field name="ano" string="Año Académico"/>
-                        <field name="active" string="estatus" />
-                    </group>
-                </sheet>
-            </form>
-        </field>
-    </record>
 
-    <!-- vista de búsqueda -->
-    <record id="periodo_academico_view_search" model="ir.ui.view">
-        <field name="name">periodo.academico.search</field>
-        <field name="model">periodo_academico</field>
-        <field name="arch" type="xml">
-            <search string="Buscar Periodos Académicos">
-                <field name="ano" string="Año Académico"/>
-                <filter name="active" string="Mostrar inactivos" domain="[('active', '=', False)]"/>
-                <filter name="all" string="Mostrar todos" domain="[('active', 'in', [True, False])]"/>
-            </search>
-        </field>
-    </record>
+        <record id="periodo_list_view" model="ir.ui.view" >
+            <field name="name">periodo.list.view</field>
+            <field name="model">prueba1.periodoa</field>
+            <field name="arch" type="xml">
+                <list string="Periodo Académico">
+                    <field name='anio' widget="integer" />
+                    <field name='modalidad' />
+                    <field name='periodo' />
+                    <field name='estado' widget="boolean_toggle" />
+                </list>
+            </field>
+        </record>
 
-    <!-- acción -->
-    <record id="periodo_academico_action" model="ir.actions.act_window">
-        <field name="name">Periodos Académicos</field>
-        <field name="res_model">periodo_academico</field>
-        <field name="view_mode">list,form</field>
-    </record>
+        <record id='periodo_action' model='ir.actions.act_window' >
+            <field name='name'>Periodo Académico</field>
+            <field name='res_model'>prueba1.periodoa</field>
+            <field name='view_mode'>list,form</field>
+        </record>
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+    </data>
 </odoo>

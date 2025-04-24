@@ -1,50 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <!-- lista -->
+    <!-- Vista de búsqueda -->
+    <record id="sgu_carreras_search_view" model="ir.ui.view">
+        <field name="name">sgu.carreras.search</field>
+        <field name="model">sgu_carreras</field>
+        <field name="arch" type="xml">
+            <search string="Buscar Carreras">
+                <field name="carrera" string="Carrera" filter_domain="[('carrera', 'ilike', self)]"/>
+                <field name="codigo" string="Código"/>
+                <field name="area_carrera" string="Área"/>
+                <field name="nivel_academico" string="Nivel"/>
+                <separator/>
+                <filter string="Activas" name="active" domain="[('active', '=', True)]"/>
+                <filter string="Inactivas" name="inactive" domain="[('active', '=', False)]"/>
+                <group expand="0" string="Agrupar Por">
+                    <filter string="Área de Carrera" name="area" domain="[]" context="{'group_by': 'area_carrera'}"/>
+                    <filter string="Modalidad" name="modalidad" domain="[]" context="{'group_by': 'modalidad_carrera'}"/>
+                    <filter string="Nivel Académico" name="nivel" domain="[]" context="{'group_by': 'nivel_academico'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Vista de lista (mejorada) -->
     <record id="sgu_carreras_view" model="ir.ui.view">
         <field name="name">sgu.carreras.list</field>
         <field name="model">sgu_carreras</field>
         <field name="arch" type="xml">
-            <list string="Lista de Carreras" create="true" delete="true">
+            <list string="Lista de Carreras" decoration-muted="active == False">
                 <field name="carrera" string="Nombre de la Carrera"/>
                 <field name="codigo" string="Código"/>
-                <field name="sede" string="Sede"/>
                 <field name="area_carrera" string="Área de Carrera"/>
                 <field name="modalidad_carrera" string="Modalidad"/>
                 <field name="nivel_academico" string="Nivel Académico"/>
-                <field name="active" string="Activo"/>
+                <field name="active" string="Activo" widget="boolean_toggle"/>
             </list>
         </field>
     </record>
 
-
-
-    <!-- formulario -->
+    <!-- Vista de formulario (mejorada) -->
     <record id="sgu_carreras_form_view" model="ir.ui.view">
         <field name="name">sgu.carreras.form</field>
         <field name="model">sgu_carreras</field>
         <field name="arch" type="xml">
-            <form string="Asignar Carrera">
+            <form string="Carreras">
                 <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive">
+                            <field name="active" widget="boolean_button" options="{'terminology': 'archive'}"/>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="carrera" placeholder="Nombre de la Carrera"/>
+                        </h1>
+                        <h2>
+                            <field name="codigo" class="oe_inline" placeholder="Código"/>
+                        </h2>
+                    </div>
                     <notebook>
                         <page string="Información General">
                             <group>
-                                <field name="carrera" string="Nombre de la Carrera"/>
-                                <field name="codigo" string="Código"/>
-                                <field name="sede" string="Sede"/>
                                 <field name="area_carrera" string="Área de Carrera"/>
                             </group>
                         </page>
                         <page string="Detalles Académicos">
                             <group>
-                                <field name="modalidad_carrera" string="Modalidad"/>
-                                <field name="nivel_academico" string="Nivel Académico"/>
-                                <field  name="pensum" string="Pensum" />
-                            </group>
-                        </page>
-                        <page string="Estado">
-                            <group>
-                                <field name="active" string="Activo"/>
+                                <group>
+                                    <field name="modalidad_carrera" string="Modalidad"/>
+                                    <field name="nivel_academico" string="Nivel Académico"/>
+                                </group>
+                                <group>
+                                    <field name="pensum" string="Pensum"/>
+                                </group>
                             </group>
                         </page>
                     </notebook>
@@ -53,12 +81,57 @@
         </field>
     </record>
 
-    <!-- acción -->
+    <!-- Vista kanban (agregada) -->
+    <record id="sgu_carreras_kanban_view" model="ir.ui.view">
+        <field name="name">sgu.carreras.kanban</field>
+        <field name="model">sgu_carreras</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <field name="id"/>
+                <field name="carrera"/>
+                <field name="codigo"/>
+                <field name="area_carrera"/>
+                <field name="modalidad_carrera"/>
+                <field name="nivel_academico"/>
+                <field name="pensum"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_global_click o_kanban_record_has_image_fill o_res_partner_kanban">
+                            <div class="o_kanban_image_fill_left d-none d-md-block" t-attf-style="background-image: url(#{kanban_image('sgu_carreras', 'image', record.id.raw_value, placeholder)})" role="img"/>
+                            <div class="oe_kanban_details">
+                                <strong class="o_kanban_record_title">
+                                    <field name="codigo"/> - <field name="carrera"/>
+                                </strong>
+                                <div>
+                                    <field name="area_carrera"/>
+                                </div>
+                                <div>
+                                    <field name="modalidad_carrera"/>
+                                </div>
+                                <div>
+                                    <field name="nivel_academico"/>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <!-- Acción (mejorada) -->
     <record id="sgu_carreras_action" model="ir.actions.act_window">
         <field name="name">Carreras</field>
         <field name="res_model">sgu_carreras</field>
-        <field name="view_mode">list,form</field>
+        <field name="view_mode">kanban,list,form</field>
+        <field name="search_view_id" ref="sgu_carreras_search_view"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Crea tu primera carrera
+            </p>
+            <p>
+                Añade las carreras académicas que ofrece tu institución educativa.
+            </p>
+        </field>
     </record>
 </odoo>
-
-<!-- cambiar asignar sede por carrera-sede -->

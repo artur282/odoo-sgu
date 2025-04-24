@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="action_report_preinscripcion" model="ir.actions.report">
+            <field name="name">Comprobante de Preinscripción</field>
+            <field name="model">admision.preinscripcion</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">admision.report_preinscripcion</field>
+            <field name="report_file">admision.report_preinscripcion</field>
+            <field name="print_report_name">'Preinscripción - %s' % (object.numero_preinscripcion)</field>
+            <field name="binding_model_id" ref="model_admision_preinscripcion"/>
+            <field name="binding_type">report</field>
+        </record>
+
+        <template id="report_preinscripcion">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="web.external_layout">
+                        <div class="page">
+                            <h2 class="text-center mb-4">COMPROBANTE DE PREINSCRIPCIÓN</h2>
+                            <h4 class="text-center mb-4">Universidad Nacional Experimental de los Llanos Centrales Rómulo Gallegos</h4>
+
+                            <div class="row mt-4">
+                                <div class="col-12">
+                                    <table class="table table-bordered">
+                                        <tr>
+                                            <th class="text-center" colspan="2">DATOS DE LA PREINSCRIPCIÓN</th>
+                                        </tr>
+                                        <tr>
+                                            <td width="40%"><strong>Número de Preinscripción:</strong></td>
+                                            <td width="60%"><span t-field="o.numero_preinscripcion"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Fecha:</strong></td>
+                                            <td><span t-field="o.fecha_preinscripcion"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Proceso:</strong></td>
+                                            <td><span t-field="o.proceso_id.name"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Periodo Académico:</strong></td>
+                                            <td><span t-field="o.proceso_id.periodo_id.name"/></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <div class="row mt-4">
+                                <div class="col-12">
+                                    <table class="table table-bordered">
+                                        <tr>
+                                            <th class="text-center" colspan="2">DATOS DEL ASPIRANTE</th>
+                                        </tr>
+                                        <tr>
+                                            <td width="40%"><strong>Cédula de Identidad:</strong></td>
+                                            <td width="60%"><span t-field="o.aspirante_id.cedula"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Apellidos y Nombres:</strong></td>
+                                            <td><span t-field="o.aspirante_id.partner_id.name"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Programa/Carrera:</strong></td>
+                                            <td><span t-field="o.programa_id.name"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Sede:</strong></td>
+                                            <td><span t-field="o.sede_id.name"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Tipo de Asignación:</strong></td>
+                                            <td>
+                                                <t t-if="o.aspirante_id.tipo_asignacion == 'opsu'">OPSU</t>
+                                                <t t-elif="o.aspirante_id.tipo_asignacion == 'rector'">Aprobación Rector</t>
+                                                <t t-elif="o.aspirante_id.tipo_asignacion == 'secretaria'">Aprobación Secretaría</t>
+                                                <t t-elif="o.aspirante_id.tipo_asignacion == 'dace'">Aprobación DACE</t>
+                                                <t t-else="">Aspirante a Cupo</t>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <div class="row mt-4">
+                                <div class="col-12">
+                                    <h5 class="text-center">IMPORTANTE</h5>
+                                    <p class="text-justify">
+                                        Este comprobante certifica que ha completado satisfactoriamente su preinscripción en línea. 
+                                        Para formalizar su inscripción, deberá presentarse en la oficina de Control de Estudios 
+                                        correspondiente a su sede según el cronograma establecido, con la siguiente documentación:
+                                    </p>
+                                    <ul>
+                                        <li>Original y copia de la Cédula de Identidad</li>
+                                        <li>Original y copia del Título de Bachiller</li>
+                                        <li>Original y copia de las Notas Certificadas</li>
+                                        <li>Dos (2) fotografías recientes tipo carné</li>
+                                        <li>Original y copia de la Partida de Nacimiento</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="row mt-5">
+                                <div class="col-6 text-center">
+                                    <p>_________________________</p>
+                                    <p>Firma del Aspirante</p>
+                                </div>
+                                <div class="col-6 text-center">
+                                    <p>_________________________</p>
+                                    <p>Sello de la Institución</p>
+                                </div>
+                            </div>
+                            
+                            <div class="text-center mt-5">
+                                <p><strong>Fecha de impresión:</strong> <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%d/%m/%Y %H:%M:%S')"/></p>
+                                <small>Este comprobante no es válido sin el sello de la institución.</small>
+                            </div>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Vista de formulario para Horario -->
+    <record id="view_admision_horario_form" model="ir.ui.view">
+        <field name="name">admision.horario.form</field>
+        <field name="model">admision.horario</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="seccion_id"/>
+                            <field name="programa_id" readonly="1"/>
+                            <field name="periodo_id" readonly="1"/>
+                            <field name="asignatura"/>
+                        </group>
+                        <group>
+                            <field name="profesor"/>
+                            <field name="aula"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group string="Horario">
+                            <field name="dia_semana"/>
+                            <field name="hora_inicio"/>
+                            <field name="hora_fin"/>
+                            <field name="duracion" readonly="1"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    
+    <!-- Vista de lista para Horario -->
+    <record id="view_admision_horario_list" model="ir.ui.view">
+        <field name="name">admision.horario.list</field>
+        <field name="model">admision.horario</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="seccion_id"/>
+                <field name="asignatura"/>
+                <field name="profesor"/>
+                <field name="aula"/>
+                <field name="dia_semana"/>
+                <field name="hora_inicio"/>
+                <field name="hora_fin"/>
+                <field name="active" invisible="1"/>
+            </list>
+        </field>
+    </record>
+    
+    <!-- Vista de búsqueda para Horario -->
+    <record id="view_admision_horario_search" model="ir.ui.view">
+        <field name="name">admision.horario.search</field>
+        <field name="model">admision.horario</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="asignatura"/>
+                <field name="profesor"/>
+                <field name="seccion_id"/>
+                <field name="programa_id"/>
+                <field name="periodo_id"/>
+                <filter string="Lunes" name="lunes" domain="[('dia_semana', '=', '1')]"/>
+                <filter string="Martes" name="martes" domain="[('dia_semana', '=', '2')]"/>
+                <filter string="Miércoles" name="miercoles" domain="[('dia_semana', '=', '3')]"/>
+                <filter string="Jueves" name="jueves" domain="[('dia_semana', '=', '4')]"/>
+                <filter string="Viernes" name="viernes" domain="[('dia_semana', '=', '5')]"/>
+                <filter string="Sábado" name="sabado" domain="[('dia_semana', '=', '6')]"/>
+                <filter string="Domingo" name="domingo" domain="[('dia_semana', '=', '7')]"/>
+                <group expand="0" string="Agrupar por">
+                    <filter string="Sección" name="group_by_seccion" context="{'group_by': 'seccion_id'}"/>
+                    <filter string="Programa" name="group_by_programa" context="{'group_by': 'programa_id'}"/>
+                    <filter string="Periodo" name="group_by_periodo" context="{'group_by': 'periodo_id'}"/>
+                    <filter string="Día" name="group_by_dia" context="{'group_by': 'dia_semana'}"/>
+                    <filter string="Asignatura" name="group_by_asignatura" context="{'group_by': 'asignatura'}"/>
+                    <filter string="Profesor" name="group_by_profesor" context="{'group_by': 'profesor'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+    
+    <!-- Acción para Horario -->
+    <record id="action_admision_horario" model="ir.actions.act_window">
+        <field name="name">Horarios</field>
+        <field name="res_model">admision.horario</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Cree su primer horario
+            </p>
+        </field>
+    </record>
+</odoo>
