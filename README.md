@@ -4,7 +4,7 @@
 ![Estado](https://img.shields.io/badge/Estado-Desarrollo-blue)
 ![Licencia](https://img.shields.io/badge/Licencia-LGPL--3-orange)
 
-> Sistema de gestión integral para instituciones educativas de nivel superior basado en Odoo 18.0
+> Sistema de gestión Universitaria para instituciones educativas de nivel superior basado en Odoo 18.0
 
 ## 📋 Tabla de Contenidos
 - [Descripción](#descripción)
@@ -22,14 +22,13 @@
 
 ## 📝 Descripción
 
-Este sistema representa una implementación personalizada de Odoo 18.0 específicamente adaptada para la gestión académica y administrativa de instituciones educativas de nivel superior. El SGU integra procesos de gestión académica, administrativa, financiera y de personal en una plataforma única y centralizada.
+Este sistema representa una implementación personalizada de Odoo 18.0 específicamente adaptada para la gestión académica y administrativa de instituciones educativas de nivel superior. El SGU integra procesos de gestión académica, administrativa y de personal en una plataforma única y centralizada.
 
 ## ✨ Características Principales
 
 - **Gestión Académica**: Planes de estudio, asignaturas, calificaciones, horarios
 - **Administración de Estudiantes**: Expedientes, seguimiento académico, proceso de admisión
 - **Gestión de Personal**: Docentes, administrativos, evaluaciones
-- **Administración Financiera**: Colegiaturas, becas, contabilidad institucional
 - **Portal Web**: Acceso para estudiantes, profesores y personal administrativo
 - **Reportes**: Generación de informes académicos y administrativos personalizados
 
