@@ -14,27 +14,26 @@ class AdmisionAspirante(models.Model):
                                  tracking=True, ondelete='cascade')
     
     # Campos relacionados del partner para la vista
-    email = fields.Char(related='partner_id.email', string='Correo Electrónico', readonly=True)
-    phone = fields.Char(related='partner_id.phone', string='Teléfono', readonly=True)
-    mobile = fields.Char(related='partner_id.mobile', string='Móvil', readonly=True)
-    street = fields.Char(related='partner_id.street', string='Calle', readonly=True)
-    street2 = fields.Char(related='partner_id.street2', string='Calle 2', readonly=True)
-    city = fields.Char(related='partner_id.city', string='Ciudad', readonly=True)
-    state_id = fields.Many2one(related='partner_id.state_id', string='Estado/Provincia', readonly=True)
-    zip = fields.Char(related='partner_id.zip', string='Código Postal', readonly=True)
-    country_id = fields.Many2one(related='partner_id.country_id', string='País', readonly=True)
+    email = fields.Char(related='partner_id.email', string='Correo Electrónico', readonly=False)
+    phone = fields.Char(related='partner_id.phone', string='Teléfono', readonly=False)
+    mobile = fields.Char(related='partner_id.mobile', string='Móvil', readonly=False)
+    street = fields.Char(related='partner_id.street', string='Calle', readonly=False)
+    street2 = fields.Char(related='partner_id.street2', string='Calle 2', readonly=False)
+    city = fields.Char(related='partner_id.city', string='Ciudad', readonly=False)
+    state_id = fields.Many2one(related='partner_id.state_id', string='Estado/Provincia', readonly=False)
+    zip = fields.Char(related='partner_id.zip', string='Código Postal', readonly=False)
+    country_id = fields.Many2one(related='partner_id.country_id', string='País', readonly=False)
 
     # Información personal básica (gestionada a través del partner)
     cedula = fields.Char('Cédula de Identidad', required=True, tracking=True, 
                          help="Formato: V-12345678 o E-12345678")
-    display_name = fields.Char(compute='_compute_display_name', store=True)
+    display_name = fields.Char(compute='_compute_display_name', store=True, readonly=False)
     
     # Datos complementarios
     fecha_nacimiento = fields.Date('Fecha de Nacimiento', tracking=True)
     sexo = fields.Selection([
         ('m', 'Masculino'),
-        ('f', 'Femenino'),
-        ('o', 'Otro')
+        ('f', 'Femenino')
     ], string='Sexo', tracking=True)
     etnia = fields.Char('Etnia', tracking=True)
     discapacidad = fields.Boolean('Posee Discapacidad', tracking=True, default=False)
@@ -83,7 +82,7 @@ class AdmisionAspirante(models.Model):
             elif record.partner_id:
                 record.display_name = record.partner_id.name
             else:
-                record.display_name = record.cedula or "Nuevo Aspirante"
+                record.display_name = record.cedula or ""
     
     @api.constrains('cedula')
     def _check_cedula_format(self):

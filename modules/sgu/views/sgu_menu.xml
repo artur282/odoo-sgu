@@ -4,7 +4,7 @@
         <!-- MENÚ PRINCIPAL -->
         <menuitem
             id="sgu_menu_root"
-            name="Sistema de Gestión Universitaria (SGU)"
+            name="Sistema de Gestión Universitaria UNERG"
             sequence="10"/>
 
         <!-- SECCIÓN INSTITUTO -->
@@ -25,15 +25,16 @@
             id="sgu_areas_model_menu_action"
             action="sgu.sgu_areas_action"
             parent="sgu_submenu_organizativa"
-            sequence="10"/>
+            sequence="20"/>
             <menuitem
             id="sgu_sede_model_menu_action"
             action="sgu.sgu_sedes_action"
             parent="sgu_submenu_organizativa"
-            sequence="20"/>
+            sequence="10"/>
             <menuitem
                 id="sgu_carreras_model_menu_action"
                 action="sgu.sgu_carreras_action"
+                name="Programas"
                 parent="sgu_submenu_organizativa"
                 sequence="30"/>
             <menuitem

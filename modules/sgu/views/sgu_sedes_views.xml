@@ -32,35 +32,6 @@
                             <field name="telefono_sede" placeholder="Teléfono"/>
                         </group>
                     </group>
-                    <notebook>
-                        <page string="Información General">
-                            <group>
-                                <group string="Información de Contacto">
-                                    <field name="direccion" placeholder="Dirección"/>
-                                    <field name="correo_sede" placeholder="Correo electrónico" widget="email"/>
-                                    <field name="telefono_sede" placeholder="Teléfono" widget="phone"/>
-                                </group>
-                                <group string="Información Administrativa">
-                                    <field name="active" invisible="1"/>
-                                    <field name="create_date" string="Fecha de Creación" readonly="1"/>
-                                    <field name="write_date" string="Última Modificación" readonly="1"/>
-                                </group>
-                            </group>
-                        </page>
-                        <page string="Áreas">
-                            <field name="areas_ids">
-                                <list editable="bottom">
-                                    <field name="nombre" string="Área"/>
-                                    <field name="codigo" string="Código de Área"/>
-                                </list>
-                            </field>
-                        </page>
-                        <page string="Firma">
-                            <group>
-                                <field name="firma_coordinador" widget="image"/>
-                            </group>
-                        </page>
-                    </notebook>
                 </sheet>
             </form>
         </field>

@@ -11,4 +11,4 @@ class SguCarreras(models.Model):
     active = fields.Boolean(default=True)
     area_carrera = fields.Many2one('sgu_areas', string='Área', required=True)
     nivel_academico = fields.Many2one('sgu_nivel_academico', string='Nivel académico', required=True)
-    pensum = fields.Many2one('university.pensum', string='Pensum', required=True)
+    pensum = fields.Many2one('university.pensum', string='Pensum')

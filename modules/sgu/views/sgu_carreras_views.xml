@@ -52,7 +52,7 @@
                     </div>
                     <div class="oe_title">
                         <h1>
-                            <field name="carrera" placeholder="Nombre de la Carrera"/>
+                            <field name="carrera" placeholder="Nombre del Programa"/>
                         </h1>
                         <h2>
                             <field name="codigo" class="oe_inline" placeholder="Código"/>
@@ -69,9 +69,6 @@
                                 <group>
                                     <field name="modalidad_carrera" string="Modalidad"/>
                                     <field name="nivel_academico" string="Nivel Académico"/>
-                                </group>
-                                <group>
-                                    <field name="pensum" string="Pensum"/>
                                 </group>
                             </group>
                         </page>
@@ -121,16 +118,16 @@
 
     <!-- Acción (mejorada) -->
     <record id="sgu_carreras_action" model="ir.actions.act_window">
-        <field name="name">Carreras</field>
+        <field name="name">Programa</field>
         <field name="res_model">sgu_carreras</field>
         <field name="view_mode">kanban,list,form</field>
         <field name="search_view_id" ref="sgu_carreras_search_view"/>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
-                Crea tu primera carrera
+                Crea tu primer programa
             </p>
             <p>
-                Añade las carreras académicas que ofrece tu institución educativa.
+                Añade los programas académicos que ofrece tu institución educativa.
             </p>
         </field>
     </record>
