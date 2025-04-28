@@ -17,11 +17,11 @@
                     </div>
                     <group>
                         <group>
-                            <field name="fecha_inicio"/>
-                            <field name="fecha_fin"/>
+                            <field name="fecha_inicio" placeholder="Fecha de inicio"/>
+                            <field name="fecha_fin" placeholder="Fecha de fin"/>
                         </group>
                         <group>
-                            <field name="description"/>
+                            <field name="description" placeholder="Descripción del periodo"/>
                         </group>
                     </group>
                     <notebook>
@@ -38,11 +38,6 @@
                         </page>
                     </notebook>
                 </sheet>
-                <div class="oe_chatter">
-                    <field name="message_follower_ids"/>
-                    <field name="activity_ids"/>
-                    <field name="message_ids"/>
-                </div>
             </form>
         </field>
     </record>
@@ -101,8 +96,8 @@
                             <field name="periodo_id"/>
                         </group>
                         <group>
-                            <field name="fecha_inicio"/>
-                            <field name="fecha_fin"/>
+                            <field name="fecha_inicio" placeholder="Fecha de inicio"/>
+                            <field name="fecha_fin" placeholder="Fecha de fin"/>
                         </group>
                     </group>
                     <notebook>
@@ -112,8 +107,8 @@
                         </page>
                         <page string="Cupos" name="cupos" invisible="tipo != 'preinscripcion'">
                             <group>
-                                <field name="cupos_opsu"/>
-                                <field name="cupos_especiales"/>
+                                <field name="cupos_opsu" placeholder="Número de cupos OPSU"/>
+                                <field name="cupos_especiales" placeholder="Número de cupos especiales"/>
                             </group>
                         </page>
                         <page string="Preinscripciones" name="preinscripciones" invisible="tipo != 'preinscripcion'">
@@ -143,11 +138,6 @@
                         </page>
                     </notebook>
                 </sheet>
-                <div class="oe_chatter">
-                    <field name="message_follower_ids"/>
-                    <field name="activity_ids"/>
-                    <field name="message_ids"/>
-                </div>
             </form>
         </field>
     </record>

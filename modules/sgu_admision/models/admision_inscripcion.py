@@ -83,23 +83,24 @@ class AdmisionInscripcion(models.Model):
             if preinscripcion:
                 self.preinscripcion_id = preinscripcion.id
     
-    @api.model
-    def create(self, vals):
-        # Asignar número de inscripción
-        if not vals.get('numero_inscripcion'):
-            vals['numero_inscripcion'] = self.env['ir.sequence'].next_by_code('admision.inscripcion')
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+            # Asignar número de inscripción
+            if not vals.get('numero_inscripcion'):
+                vals['numero_inscripcion'] = self.env['ir.sequence'].next_by_code('admision.inscripcion')
+            
+            # Verificar que el proceso esté activo
+            proceso = self.env['admision.proceso'].browse(vals.get('proceso_id'))
+            if proceso.state != 'active':
+                raise UserError(_('No se puede realizar inscripción en un proceso inactivo.'))
+            
+            # Verificar que la fecha esté dentro del rango del proceso
+            hoy = date.today()
+            if hoy < proceso.fecha_inicio or hoy > proceso.fecha_fin:
+                raise UserError(_('El proceso de inscripción no está disponible en esta fecha.'))
         
-        # Verificar que el proceso esté activo
-        proceso = self.env['admision.proceso'].browse(vals.get('proceso_id'))
-        if proceso.state != 'active':
-            raise UserError(_('No se puede realizar inscripción en un proceso inactivo.'))
-        
-        # Verificar que la fecha esté dentro del rango del proceso
-        hoy = date.today()
-        if hoy < proceso.fecha_inicio or hoy > proceso.fecha_fin:
-            raise UserError(_('El proceso de inscripción no está disponible en esta fecha.'))
-        
-        return super(AdmisionInscripcion, self).create(vals)
+        return super(AdmisionInscripcion, self).create(vals_list)
     
     def action_confirmar(self):
         for record in self:
@@ -124,4 +125,5 @@ class AdmisionInscripcion(models.Model):
     
     def action_imprimir_constancia(self):
         self.ensure_one()
-        return self.env.ref('admision.action_report_inscripcion').report_action(self)
+        # Corregir el nombre del módulo en la referencia del XML ID
+        return self.env.ref('sgu_admision.action_report_inscripcion').report_action(self)

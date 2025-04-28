@@ -26,7 +26,7 @@
                                 <span class="o_stat_text">Inscritos</span>
                             </div>
                         </button>
-                        <button name="action_ver_estudiantes" type="object" class="oe_stat_button" icon="fa-user-graduate">
+                        <button name="action_ver_estudiantes" type="object" class="oe_stat_button" icon="fa-users">
                             <div class="o_field_widget o_stat_info">
                                 <span class="o_stat_value"><field name="count_estudiantes"/></span>
                                 <span class="o_stat_text">Estudiantes</span>
@@ -43,12 +43,12 @@
                     </div>
                     <group>
                         <group>
-                            <field name="code"/>
-                            <field name="facultad"/>
-                            <field name="nivel"/>
+                            <field name="code" placeholder="Código del Programa"/>
+                            <field name="facultad" placeholder="Facultad a la que pertenece"/>
+                            <field name="nivel" placeholder="Nivel Académico (Pregrado, Postgrado, etc.)"/>
                         </group>
                         <group>
-                            <field name="duracion"/>
+                            <field name="duracion" placeholder="Duración en semestres/años"/>
                         </group>
                     </group>
                     <notebook>
@@ -56,16 +56,16 @@
                             <field name="description" placeholder="Descripción detallada del programa..."/>
                         </page>
                         <page string="Sedes" name="sedes">
-                            <field name="sede_ids" widget="many2many_tags"/>
+                            <field name="sede_ids" widget="many2many_tags" placeholder="Seleccione las sedes..." />
                         </page>
                         <page string="Secciones" name="secciones">
                             <field name="seccion_ids">
                                 <list>
-                                    <field name="name"/>
-                                    <field name="sede_id"/>
-                                    <field name="periodo_id"/>
-                                    <field name="capacidad"/>
-                                    <field name="capacidad_restante"/>
+                                    <field name="name" placeholder="Nombre de la sección"/>
+                                    <field name="sede_id" placeholder="Sede de la sección"/>
+                                    <field name="periodo_id" placeholder="Periodo académico"/>
+                                    <field name="capacidad" placeholder="Capacidad total"/>
+                                    <field name="capacidad_restante" placeholder="Capacidad restante"/>
                                 </list>
                             </field>
                         </page>

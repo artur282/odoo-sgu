@@ -65,23 +65,25 @@ class AdmisionPreinscripcion(models.Model):
          'El aspirante ya tiene una preinscripción para este proceso.')
     ]
     
-    @api.model
-    def create(self, vals):
-        # Asignar número de preinscripción
-        if not vals.get('numero_preinscripcion'):
-            vals['numero_preinscripcion'] = self.env['ir.sequence'].next_by_code('admision.preinscripcion')
+    @api.model_create_multi
+    def create(self, vals_list):
+        results = []
+        for vals in vals_list:
+            # Asignar número de preinscripción
+            if not vals.get('numero_preinscripcion'):
+                vals['numero_preinscripcion'] = self.env['ir.sequence'].next_by_code('admision.preinscripcion')
+            
+            # Verificar que el proceso esté activo
+            proceso = self.env['admision.proceso'].browse(vals.get('proceso_id'))
+            if proceso.state != 'active':
+                raise UserError(_('No se puede realizar preinscripción en un proceso inactivo.'))
+            
+            # Verificar que la fecha esté dentro del rango del proceso
+            hoy = date.today()
+            if hoy < proceso.fecha_inicio or hoy > proceso.fecha_fin:
+                raise UserError(_('El proceso de preinscripción no está disponible en esta fecha.'))
         
-        # Verificar que el proceso esté activo
-        proceso = self.env['admision.proceso'].browse(vals.get('proceso_id'))
-        if proceso.state != 'active':
-            raise UserError(_('No se puede realizar preinscripción en un proceso inactivo.'))
-        
-        # Verificar que la fecha esté dentro del rango del proceso
-        hoy = date.today()
-        if hoy < proceso.fecha_inicio or hoy > proceso.fecha_fin:
-            raise UserError(_('El proceso de preinscripción no está disponible en esta fecha.'))
-        
-        return super(AdmisionPreinscripcion, self).create(vals)
+        return super(AdmisionPreinscripcion, self).create(vals_list)
     
     def action_confirmar(self):
         for record in self:

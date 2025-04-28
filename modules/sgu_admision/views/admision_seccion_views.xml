@@ -25,13 +25,13 @@
                     </div>
                     <group>
                         <group>
-                            <field name="programa_id"/>
+                            <field name="programa_id" placeholder="Seleccione el programa"/>
                             <field name="sede_disponible_ids" invisible="1"/>
-                            <field name="sede_id" options="{'no_create': True}"/>
+                            <field name="sede_id" options="{'no_create': True}" placeholder="Seleccione la sede"/>
                         </group>
                         <group>
-                            <field name="periodo_id"/>
-                            <field name="capacidad"/>
+                            <field name="periodo_id" placeholder="Seleccione el periodo"/>
+                            <field name="capacidad" placeholder="Ingrese la capacidad"/>
                             <field name="capacidad_restante"/>
                         </group>
                     </group>

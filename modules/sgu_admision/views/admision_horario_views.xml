@@ -17,18 +17,18 @@
                             <field name="seccion_id"/>
                             <field name="programa_id" readonly="1"/>
                             <field name="periodo_id" readonly="1"/>
-                            <field name="asignatura"/>
+                            <field name="asignatura" placeholder="Nombre de la asignatura"/>
                         </group>
                         <group>
-                            <field name="profesor"/>
-                            <field name="aula"/>
+                            <field name="profesor" placeholder="Nombre del profesor"/>
+                            <field name="aula" placeholder="Número o nombre del aula"/>
                         </group>
                     </group>
                     <group>
                         <group string="Horario">
-                            <field name="dia_semana"/>
-                            <field name="hora_inicio"/>
-                            <field name="hora_fin"/>
+                            <field name="dia_semana" placeholder="Día de la semana"/>
+                            <field name="hora_inicio" placeholder="HH:MM"/>
+                            <field name="hora_fin" placeholder="HH:MM"/>
                             <field name="duracion" readonly="1"/>
                         </group>
                     </group>

@@ -78,5 +78,34 @@
             <field name="domain_force">[('aspirante_id.partner_id.user_id', '=', user.id)]</field>
             <field name="groups" eval="[(4, ref('group_estudiante'))]"/>
         </record>
+
+        <!-- Reglas para Periodo Académico -->
+        <record id="rule_periodo_academico_estudiante" model="ir.rule">
+            <field name="name">Estudiante: acceso a periodos activos</field>
+            <field name="model_id" ref="model_admision_periodo"/>
+            <field name="domain_force">[('active', '=', True)]</field>
+            <field name="groups" eval="[(4, ref('group_estudiante'))]"/>
+        </record>
+
+        <record id="rule_periodo_academico_aspirante" model="ir.rule">
+            <field name="name">Aspirante: acceso a periodos activos</field>
+            <field name="model_id" ref="model_admision_periodo"/>
+            <field name="domain_force">[('active', '=', True)]</field>
+            <field name="groups" eval="[(4, ref('group_aspirante'))]"/>
+        </record>
+
+        <record id="rule_periodo_academico_operador" model="ir.rule">
+            <field name="name">Operador: acceso a periodos</field>
+            <field name="model_id" ref="model_admision_periodo"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(4, ref('group_operador'))]"/>
+        </record>
+
+        <record id="rule_periodo_academico_global" model="ir.rule">
+            <field name="name">Regla global: periodos activos para todos</field>
+            <field name="model_id" ref="model_admision_periodo"/>
+            <field name="global" eval="True"/>
+            <field name="domain_force">['|', ('active', '=', True), ('active', '=', False)]</field>
+        </record>
     </data>
 </odoo>

@@ -24,15 +24,15 @@
                     </div>
                     <group>
                         <group>
-                            <field name="aspirante_id"/>
-                            <field name="proceso_id"/>
-                            <field name="fecha_inscripcion"/>
+                            <field name="aspirante_id" placeholder="Seleccione el aspirante"/>
+                            <field name="proceso_id" placeholder="Seleccione el proceso de admisión"/>
+                            <field name="fecha_inscripcion" placeholder="Fecha de inscripción"/>
                         </group>
                         <group>
-                            <field name="programa_id"/>
-                            <field name="sede_id"/>
-                            <field name="seccion_id" options="{'no_create': True}"/>
-                            <field name="preinscripcion_id" options="{'no_create': True}"/>
+                            <field name="programa_id" placeholder="Seleccione el programa académico"/>
+                            <field name="sede_id" placeholder="Seleccione la sede"/>
+                            <field name="seccion_id" options="{'no_create': True}" placeholder="Seleccione la sección"/>
+                            <field name="preinscripcion_id" options="{'no_create': True}" placeholder="Seleccione la preinscripción (opcional)"/>
                         </group>
                     </group>
                     <notebook>
@@ -48,7 +48,7 @@
                                 </group>
                                 <group>
                                     <field name="documentacion_completa"/>
-                                    <field name="nota_documental"/>
+                                    <field name="nota_documental" placeholder="Observaciones sobre la documentación"/>
                                 </group>
                             </group>
                         </page>
@@ -61,11 +61,6 @@
                         </page>
                     </notebook>
                 </sheet>
-                <div class="oe_chatter">
-                    <field name="message_follower_ids"/>
-                    <field name="activity_ids"/>
-                    <field name="message_ids"/>
-                </div>
             </form>
         </field>
     </record>

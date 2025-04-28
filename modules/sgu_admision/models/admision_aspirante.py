@@ -48,6 +48,8 @@ class AdmisionAspirante(models.Model):
         ('dace', 'DACE'),
         ('aspirante', 'Aspirante a Cupo')
     ], string='Tipo de Asignación', required=True, tracking=True, default='aspirante')
+    codigo_opsu = fields.Char('Código OPSU', tracking=True, 
+                              help="Código de identificación asignado por la OPSU")
     
     # Asignación de programa y sede
     programa_id = fields.Many2one('admision.programa', string='Programa/Carrera', required=True, tracking=True)
@@ -91,24 +93,26 @@ class AdmisionAspirante(models.Model):
                 if not re.match(r'^[VE]-\d{5,10}$', record.cedula):
                     raise ValidationError(_("El formato de la cédula debe ser V-XXXXXXXX o E-XXXXXXXX"))
     
-    @api.model
-    def create(self, vals):
-        # Si viene del portal como aspirante, se crea como tipo 'aspirante'
-        if self.env.context.get('portal'):
-            vals['tipo_asignacion'] = 'aspirante'
+    @api.model_create_multi
+    def create(self, vals_list):
+        result = []
+        for vals in vals_list:
+            # Si viene del portal como aspirante, se crea como tipo 'aspirante'
+            if self.env.context.get('portal'):
+                vals['tipo_asignacion'] = 'aspirante'
+            
+            # Crear o vincular con un partner
+            if not vals.get('partner_id'):
+                partner_vals = {
+                    'name': vals.get('name', 'Nuevo Aspirante'),
+                    'email': vals.get('email'),
+                    'phone': vals.get('phone'),
+                    'mobile': vals.get('mobile'),
+                }
+                partner = self.env['res.partner'].create(partner_vals)
+                vals['partner_id'] = partner.id
         
-        # Crear o vincular con un partner
-        if not vals.get('partner_id'):
-            partner_vals = {
-                'name': vals.get('name', 'Nuevo Aspirante'),
-                'email': vals.get('email'),
-                'phone': vals.get('phone'),
-                'mobile': vals.get('mobile'),
-            }
-            partner = self.env['res.partner'].create(partner_vals)
-            vals['partner_id'] = partner.id
-        
-        return super(AdmisionAspirante, self).create(vals)
+        return super(AdmisionAspirante, self).create(vals_list)
     
     def action_convertir_estudiante(self):
         """Convierte al aspirante en estudiante"""

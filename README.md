@@ -7,6 +7,7 @@
 > Sistema de gestión Universitaria para instituciones educativas de nivel superior basado en Odoo 18.0
 
 ## 📋 Tabla de Contenidos
+
 - [Descripción](#descripción)
 - [Características Principales](#características-principales)
 - [Requisitos del Sistema](#requisitos-del-sistema)
@@ -35,12 +36,14 @@ Este sistema representa una implementación personalizada de Odoo 18.0 específi
 ## 🔧 Requisitos del Sistema
 
 ### Hardware Recomendado
+
 - **Procesador**: 4 núcleos o superior
 - **Memoria RAM**: 8GB mínimo, 16GB recomendado
 - **Almacenamiento**: SSD con al menos 20GB de espacio libre
 - **Conexión a internet**: Requerida para actualizaciones y características en línea
 
 ### Software Necesario
+
 - **Sistema Operativo**: Linux (recomendado), Windows 10/11, macOS
 - **Python**: Versión 3.11 o superior
 - **PostgreSQL**: Versión 12.0 o superior
@@ -52,6 +55,7 @@ Este sistema representa una implementación personalizada de Odoo 18.0 específi
 ### 1. Preparación del Entorno
 
 #### 1.1 Instalar PostgreSQL
+
 ```bash
 # En sistemas basados en Debian/Ubuntu
 sudo apt update
@@ -63,6 +67,7 @@ sudo -u postgres createdb --owner=admin odoo
 ```
 
 #### 1.2 Crear entorno virtual con Python 3.11
+
 ```bash
 # Instalar venv si no está disponible
 sudo apt install python3.11-venv
@@ -75,6 +80,7 @@ venv\Scripts\activate     # En Windows
 ```
 
 ### 2. Clonar el Repositorio e Instalar Dependencias
+
 ```bash
 git clone https://[url-del-repositorio]/odoo-sgu.git
 cd odoo-sgu
@@ -105,17 +111,20 @@ log_handler = [':INFO']
 ## ▶️ Ejecución del Servidor
 
 ### Iniciar el servidor Odoo en modo desarrollo
+
 ```bash
 # Asegúrate de que el entorno virtual está activado
 ./odoo-bin -c odoo.conf --dev=all
 ```
 
 ### Iniciar el servidor en modo producción
+
 ```bash
 ./odoo-bin -c odoo.conf --no-http --workers=4
 ```
 
 ### Opciones de línea de comando útiles
+
 - `--test-enable`: Habilita las pruebas automáticas
 - `--db-filter=^mydb$`: Filtra las bases de datos disponibles
 - `--limit-memory-soft`: Límite de memoria suave (en bytes)
@@ -125,7 +134,7 @@ log_handler = [':INFO']
 
 Una vez iniciado el servidor, puedes acceder a la aplicación a través de:
 
-- **URL**: http://localhost:8069
+- **URL**: <http://localhost:8069>
 - **Credenciales por defecto**:
   - Usuario: admin
   - Contraseña: admin
@@ -142,13 +151,6 @@ odoo-18.0/
 ├── odoo.conf              # Configuración por defecto
 └── requirements.txt       # Dependencias Python
 ```
-
-### Módulos Principales
-- **sgu_academico**: Gestión académica core
-- **sgu_estudiantes**: Administración de estudiantes
-- **sgu_profesores**: Gestión de personal docente
-- **sgu_finanzas**: Administración financiera
-- **sgu_portal**: Portal web integrado
 
 ## 💻 Desarrollo de Módulos
 
@@ -202,13 +204,14 @@ mi_modulo/
 }
 ```
 
-3. **Activar modo desarrollador**: 
+3. **Activar modo desarrollador**:
    - Accede a Odoo
    - Ve a Configuración > Activar modo desarrollador
    - Actualiza la lista de aplicaciones en Aplicaciones > Actualizar lista de aplicaciones
    - Busca e instala tu módulo
 
 ### Mejores prácticas
+
 - Sigue las convenciones de código de Odoo
 - Documenta tu código con docstrings
 - Escribe tests para tus módulos
@@ -227,10 +230,10 @@ mi_modulo/
 | Error de permisos | Verifica los permisos de usuario en el sistema y en la base de datos |
 
 ### Verificar logs
+
 ```bash
 tail -f /var/log/odoo/odoo.log
 ```
-
 
 ## 📄 Licencia
 

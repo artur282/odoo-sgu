@@ -34,7 +34,7 @@ class ImportarOpsuWizard(models.TransientModel):
                 raise UserError(_("El archivo está vacío"))
             
             # Verificar que las columnas requeridas estén presentes
-            required_columns = ['cedula', 'nombres', 'apellidos', 'programa', 'sede']
+            required_columns = ['cedula', 'nombres', 'apellidos', 'programa', 'sede','codigo_opsu']
             found_columns = {col.lower(): i for i, col in enumerate(header)}
             
             missing_columns = []
@@ -67,6 +67,11 @@ class ImportarOpsuWizard(models.TransientModel):
                     apellidos = row[found_columns['apellidos']].strip()
                     programa_nombre = row[found_columns['programa']].strip()
                     sede_nombre = row[found_columns['sede']].strip()
+                    
+                    # Obtener código OPSU si existe en el CSV
+                    codigo_opsu = None
+                    if 'codigo_opsu' in found_columns and row[found_columns['codigo_opsu']]:
+                        codigo_opsu = row[found_columns['codigo_opsu']].strip()
                     
                     # Buscar programa y sede
                     programa = self.env['admision.programa'].search([
@@ -104,6 +109,7 @@ class ImportarOpsuWizard(models.TransientModel):
                             'tipo_asignacion': 'opsu',
                             'programa_id': programa.id,
                             'sede_id': sede.id,
+                            'codigo_opsu': codigo_opsu,
                         })
                         updated += 1
                     else:
@@ -119,6 +125,7 @@ class ImportarOpsuWizard(models.TransientModel):
                             'tipo_asignacion': 'opsu',
                             'programa_id': programa.id,
                             'sede_id': sede.id,
+                            'codigo_opsu': codigo_opsu,
                             'state': 'registrado',
                         })
                         created += 1

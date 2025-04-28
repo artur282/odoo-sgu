@@ -38,12 +38,13 @@ class Institucion(models.Model):
         for record in self:
             record.institutos_count = len(record.institutos_ids)
 
-    @api.model
-    def create(self, vals):
-        institucion = super().create(vals)
-        if not institucion.company_id:
-            institucion.company_id = self.env['res.company'].create({'name': institucion.nombre_institucion})
-        return institucion
+    @api.model_create_multi
+    def create(self, vals_list):
+        instituciones = super().create(vals_list)
+        for institucion in instituciones:
+            if not institucion.company_id:
+                institucion.company_id = self.env['res.company'].create({'name': institucion.nombre_institucion})
+        return instituciones
 
     def write(self, vals):
         res = super().write(vals)

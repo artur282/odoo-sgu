@@ -23,61 +23,56 @@
                     </div>
                     <group>
                         <group>
-                            <field name="aspirante_id"/>
-                            <field name="proceso_id"/>
+                            <field name="aspirante_id" placeholder="Seleccione el aspirante"/>
+                            <field name="proceso_id" placeholder="Seleccione el proceso de admisión"/>
                             <field name="fecha_preinscripcion"/>
                         </group>
                         <group>
-                            <field name="programa_id"/>
-                            <field name="sede_id"/>
+                            <field name="programa_id" placeholder="Seleccione el programa académico"/>
+                            <field name="sede_id" placeholder="Seleccione la sede"/>
                         </group>
                     </group>
                     <notebook>
                         <page string="Datos Académicos" name="datos_academicos">
                             <group>
                                 <group>
-                                    <field name="promedio_bachillerato"/>
-                                    <field name="ano_graduacion"/>
-                                    <field name="institucion_procedencia"/>
+                                    <field name="promedio_bachillerato" placeholder="Ej: 18.5"/>
+                                    <field name="ano_graduacion" placeholder="Ej: 2023"/>
+                                    <field name="institucion_procedencia" placeholder="Nombre de la institución"/>
                                 </group>
                                 <group>
-                                    <field name="ingreso_familiar"/>
+                                    <field name="ingreso_familiar" placeholder="Monto mensual aproximado"/>
                                     <field name="trabaja"/>
-                                    <field name="empresa_trabajo" invisible="not trabaja"/>
+                                    <field name="empresa_trabajo" invisible="not trabaja" placeholder="Nombre de la empresa"/>
                                 </group>
                             </group>
                         </page>
                         <page string="Dirección" name="direccion">
                             <group>
                                 <group>
-                                    <field name="direccion_completa"/>
-                                    <field name="estado"/>
-                                    <field name="municipio"/>
+                                    <field name="direccion_completa" placeholder="Calle, Avenida, Casa/Edificio, Piso, Apto"/>
+                                    <field name="estado" placeholder="Seleccione el estado"/>
+                                    <field name="municipio" placeholder="Seleccione el municipio"/>
                                 </group>
                                 <group>
-                                    <field name="parroquia"/>
-                                    <field name="codigo_postal"/>
+                                    <field name="parroquia" placeholder="Seleccione la parroquia"/>
+                                    <field name="codigo_postal" placeholder="Ej: 1010"/>
                                 </group>
                             </group>
                         </page>
                         <page string="Contacto de Emergencia" name="contacto">
                             <group>
                                 <group>
-                                    <field name="contacto_emergencia"/>
-                                    <field name="telefono_emergencia"/>
+                                    <field name="contacto_emergencia" placeholder="Nombre completo del contacto"/>
+                                    <field name="telefono_emergencia" placeholder="Número de teléfono"/>
                                 </group>
                                 <group>
-                                    <field name="relacion_contacto"/>
+                                    <field name="relacion_contacto" placeholder="Ej: Padre, Madre, Hermano"/>
                                 </group>
                             </group>
                         </page>
                     </notebook>
                 </sheet>
-                <div class="oe_chatter">
-                    <field name="message_follower_ids"/>
-                    <field name="activity_ids"/>
-                    <field name="message_ids"/>
-                </div>
             </form>
         </field>
     </record>

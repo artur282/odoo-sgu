@@ -1,139 +1,121 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <!-- Vista de formulario para Aspirante -->
-    <record id="view_admision_aspirante_form" model="ir.ui.view">
+    <!-- Vista de formulario para aspirantes -->
+    <record id="admision_aspirante_view_form" model="ir.ui.view">
         <field name="name">admision.aspirante.form</field>
         <field name="model">admision.aspirante</field>
         <field name="arch" type="xml">
             <form>
                 <header>
-                    <button name="action_convertir_estudiante" string="Convertir a Estudiante" 
-                            type="object" class="oe_highlight"
-                            invisible="[('state', '!=', 'inscrito')]"/>
-                    <field name="state" widget="statusbar" statusbar_visible="registrado,preinscrito,inscrito,estudiante"/>
+                    <field name="state" widget="statusbar" options="{'clickable': '1'}"/>
+                    <button name="action_convertir_estudiante" string="Convertir en Estudiante" type="object" 
+                            class="oe_highlight" invisible="state != 'inscrito'"/>
                 </header>
                 <sheet>
-                    <div class="oe_button_box" name="button_box">
-                        <button name="action_ver_preinscripciones" type="object" class="oe_stat_button" icon="fa-file-text">
-                            <field name="preinscripcion_ids" string="Preinscripciones" widget="statinfo"/>
-                        </button>
-                        <button name="action_ver_inscripciones" type="object" class="oe_stat_button" icon="fa-graduation-cap">
-                            <field name="inscripcion_ids" string="Inscripciones" widget="statinfo"/>
-                        </button>
-                    </div>
-                    <field name="partner_id" invisible="1"/>
                     <div class="oe_title">
                         <h1>
                             <field name="display_name" readonly="1"/>
                         </h1>
                     </div>
+                    <widget name="web_ribbon" title="Estudiante Activo" invisible="state != 'estudiante'"/>
                     <group>
                         <group>
                             <field name="cedula" placeholder="V-12345678"/>
-                            <field name="partner_id" string="Nombre" required="1"/>
+                            <field name="codigo_opsu" placeholder="Código OPSU"/>
+                            <field name="partner_id"/>
+                            <field name="email" placeholder="ejemplo@dominio.com"/>
+                            <field name="phone" placeholder="+58 212 555 1234"/>
+                            <field name="mobile" placeholder="+58 412 555 1234"/>
+                        </group>
+                        <group>
                             <field name="fecha_nacimiento"/>
                             <field name="sexo"/>
+                            <field name="etnia"/>
+                            <field name="discapacidad"/>
+                            <field name="tipo_discapacidad" invisible="not discapacidad"/>
                         </group>
+                    </group>
+                    <group>
                         <group>
                             <field name="tipo_asignacion"/>
                             <field name="programa_id"/>
                             <field name="sede_id"/>
+                        </group>
+                        <group>
                             <field name="documentos_completos"/>
+                            <field name="notas_documentos" placeholder="Observaciones sobre los documentos"/>
                         </group>
                     </group>
                     <notebook>
-                        <page string="Datos Personales" name="datos_personales">
+                        <page string="Dirección" name="address">
                             <group>
                                 <group>
-                                    <field name="etnia"/>
-                                    <field name="discapacidad"/>
-                                    <field name="tipo_discapacidad" invisible="[('discapacidad', '=', False)]"/>
+                                    <field name="street" placeholder="Calle, Avenida, Sector"/>
+                                    <field name="street2" placeholder="Edificio, Casa, Apartamento"/>
+                                    <field name="city" placeholder="Ciudad"/>
                                 </group>
                                 <group>
-                                    <field name="notas_documentos"/>
+                                    <field name="state_id"/>
+                                    <field name="zip" placeholder="Código Postal"/>
+                                    <field name="country_id"/>
                                 </group>
                             </group>
                         </page>
-                        <page string="Contacto" name="contacto">
-                            <group>
-                                <group>
-                                    <!-- Mostrar campos de contacto directamente -->
-                                    <field name="email" related="partner_id.email" readonly="1"/>
-                                    <field name="phone" related="partner_id.phone" readonly="1"/>
-                                    <field name="mobile" related="partner_id.mobile" readonly="1"/>
-                                </group>
-                                <group>
-                                    <!-- Puedes añadir otros campos de contacto aquí si es necesario -->
-                                </group>
-                            </group>
-                            <separator string="Dirección"/>
-                            <group>
-                                 <group>
-                                     <!-- Mostrar campos de dirección directamente -->
-                                     <field name="street" related="partner_id.street" readonly="1"/>
-                                     <field name="street2" related="partner_id.street2" readonly="1"/>
-                                     <field name="city" related="partner_id.city" readonly="1"/>
-                                 </group>
-                                 <group>
-                                     <field name="state_id" related="partner_id.state_id" readonly="1" options="{'no_open': True, 'no_create': True}"/>
-                                     <field name="zip" related="partner_id.zip" readonly="1"/>
-                                     <field name="country_id" related="partner_id.country_id" readonly="1" options="{'no_open': True, 'no_create': True}"/>
-                                 </group>
-                            </group>
-                        </page>
-                        <page string="Preinscripciones" name="preinscripciones">
-                            <field name="preinscripcion_ids" readonly="1">
+                        <page string="Preinscripciones" name="preinscripciones" invisible="state == 'registrado'">
+                            <field name="preinscripcion_ids">
                                 <list>
                                     <field name="numero_preinscripcion"/>
                                     <field name="proceso_id"/>
                                     <field name="fecha_preinscripcion"/>
-                                    <field name="state"/>
+                                    <field name="programa_id"/>
+                                    <field name="state" decoration-success="state == 'confirmed'" decoration-info="state == 'draft'"/>
                                 </list>
                             </field>
+                            <div class="oe_right">
+                                <button name="action_ver_preinscripciones" string="Ver Preinscripciones" type="object" 
+                                        class="btn-primary" invisible="state == 'registrado'" icon="fa-list"/>
+                            </div>
                         </page>
-                        <page string="Inscripciones" name="inscripciones">
-                            <field name="inscripcion_ids" readonly="1">
+                        <page string="Inscripciones" name="inscripciones" invisible="state in ('registrado', 'preinscrito')">
+                            <field name="inscripcion_ids">
                                 <list>
                                     <field name="numero_inscripcion"/>
                                     <field name="proceso_id"/>
-                                    <field name="seccion_id"/>
                                     <field name="fecha_inscripcion"/>
-                                    <field name="state"/>
+                                    <field name="seccion_id"/>
+                                    <field name="state" decoration-success="state == 'confirmed'" decoration-info="state == 'draft'"/>
                                 </list>
                             </field>
+                            <div class="oe_right">
+                                <button name="action_ver_inscripciones" string="Ver Inscripciones" type="object" 
+                                        class="btn-primary" invisible="state in ('registrado', 'preinscrito')" icon="fa-list"/>
+                            </div>
                         </page>
                     </notebook>
                 </sheet>
-                <div class="oe_chatter">
-                    <field name="message_follower_ids"/>
-                    <field name="activity_ids"/>
-                    <field name="message_ids"/>
-                </div>
             </form>
         </field>
     </record>
-    
-    <!-- Vista de lista para Aspirante -->
-    <record id="view_admision_aspirante_list" model="ir.ui.view">
+
+    <!-- Vista de lista para aspirantes -->
+    <record id="admision_aspirante_view_list" model="ir.ui.view">
         <field name="name">admision.aspirante.list</field>
         <field name="model">admision.aspirante</field>
         <field name="arch" type="xml">
-            <list>
+            <list decoration-success="state == 'estudiante'" decoration-info="state == 'preinscrito'" decoration-warning="state == 'inscrito'">
                 <field name="cedula"/>
                 <field name="partner_id"/>
                 <field name="tipo_asignacion"/>
                 <field name="programa_id"/>
                 <field name="sede_id"/>
-                <field name="state" decoration-info="state == 'registrado'" 
-                       decoration-warning="state == 'preinscrito'" 
-                       decoration-success="state == 'inscrito'" 
-                       decoration-primary="state == 'estudiante'"/>
+                <field name="state" decoration-success="state == 'estudiante'" decoration-info="state == 'preinscrito'" decoration-warning="state == 'inscrito'"/>
+                <field name="documentos_completos"/>
             </list>
         </field>
     </record>
-    
-    <!-- Vista de búsqueda para Aspirante -->
-    <record id="view_admision_aspirante_search" model="ir.ui.view">
+
+    <!-- Vista de búsqueda para aspirantes -->
+    <record id="admision_aspirante_view_search" model="ir.ui.view">
         <field name="name">admision.aspirante.search</field>
         <field name="model">admision.aspirante</field>
         <field name="arch" type="xml">
@@ -142,39 +124,81 @@
                 <field name="partner_id"/>
                 <field name="programa_id"/>
                 <field name="sede_id"/>
-                <filter string="Registrados" name="registrado" domain="[('state', '=', 'registrado')]"/>
-                <filter string="Preinscritos" name="preinscrito" domain="[('state', '=', 'preinscrito')]"/>
-                <filter string="Inscritos" name="inscrito" domain="[('state', '=', 'inscrito')]"/>
-                <filter string="Estudiantes" name="estudiante" domain="[('state', '=', 'estudiante')]"/>
                 <separator/>
-                <filter string="OPSU" name="opsu" domain="[('tipo_asignacion', '=', 'opsu')]"/>
-                <filter string="Rector" name="rector" domain="[('tipo_asignacion', '=', 'rector')]"/>
-                <filter string="Secretaria" name="secretaria" domain="[('tipo_asignacion', '=', 'secretaria')]"/>
-                <filter string="DACE" name="dace" domain="[('tipo_asignacion', '=', 'dace')]"/>
-                <filter string="Aspirante" name="aspirante" domain="[('tipo_asignacion', '=', 'aspirante')]"/>
+                <filter string="Estudiantes Activos" name="estudiantes" domain="[('state', '=', 'estudiante')]"/>
+                <filter string="Inscritos" name="inscritos" domain="[('state', '=', 'inscrito')]"/>
+                <filter string="Preinscritos" name="preinscritos" domain="[('state', '=', 'preinscrito')]"/>
+                <filter string="Registrados" name="registrados" domain="[('state', '=', 'registrado')]"/>
+                <separator/>
+                <filter string="Con Documentos Completos" name="doc_completos" domain="[('documentos_completos', '=', True)]"/>
+                <separator/>
+                <filter string="Asignación OPSU" name="opsu" domain="[('tipo_asignacion', '=', 'opsu')]"/>
+                <filter string="Casos Especiales" name="especiales" domain="[('tipo_asignacion', 'in', ['rector', 'secretaria', 'dace'])]"/>
+                <filter string="Aspirantes a Cupo" name="aspirantes" domain="[('tipo_asignacion', '=', 'aspirante')]"/>
                 <group expand="0" string="Agrupar por">
-                    <filter string="Programa" name="group_by_programa" context="{'group_by': 'programa_id'}"/>
-                    <filter string="Sede" name="group_by_sede" context="{'group_by': 'sede_id'}"/>
-                    <filter string="Estado" name="group_by_state" context="{'group_by': 'state'}"/>
-                    <filter string="Tipo de Asignación" name="group_by_tipo" context="{'group_by': 'tipo_asignacion'}"/>
+                    <filter string="Estado" name="group_state" context="{'group_by': 'state'}"/>
+                    <filter string="Programa" name="group_programa" context="{'group_by': 'programa_id'}"/>
+                    <filter string="Sede" name="group_sede" context="{'group_by': 'sede_id'}"/>
+                    <filter string="Tipo de Asignación" name="group_tipo" context="{'group_by': 'tipo_asignacion'}"/>
                 </group>
             </search>
         </field>
     </record>
-    
-    <!-- Acción para Aspirante -->
+
+    <!-- Vista Kanban para aspirantes -->
+    <record id="admision_aspirante_view_kanban" model="ir.ui.view">
+        <field name="name">admision.aspirante.kanban</field>
+        <field name="model">admision.aspirante</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="state">
+                <field name="id"/>
+                <field name="partner_id"/>
+                <field name="cedula"/>
+                <field name="programa_id"/>
+                <field name="sede_id"/>
+                <field name="state"/>
+                <field name="documentos_completos"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <div class="oe_kanban_details">
+                                <strong><field name="partner_id"/></strong>
+                                <div>
+                                    <span><t t-esc="record.cedula.value"/></span>
+                                </div>
+                                <div>
+                                    <span>Programa: </span>
+                                    <field name="programa_id"/>
+                                </div>
+                                <div>
+                                    <span>Sede: </span>
+                                    <field name="sede_id"/>
+                                </div>
+                                <div t-if="record.documentos_completos.raw_value">
+                                    <span class="badge badge-success">Documentos Completos</span>
+                                </div>
+                                <div t-else="">
+                                    <span class="badge badge-warning">Documentos Pendientes</span>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <!-- Acción para el menú de aspirantes -->
     <record id="action_admision_aspirante" model="ir.actions.act_window">
         <field name="name">Aspirantes</field>
         <field name="res_model">admision.aspirante</field>
-        <field name="view_mode">list,form</field>
+        <field name="view_mode">list,kanban,form</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
-                No hay aspirantes registrados
+                ¡Crea tu primer aspirante!
             </p>
             <p>
-                Aquí se mostrarán los aspirantes a ingresar a la universidad.
-                Pueden ser asignados por OPSU, aprobados por autoridades, o
-                aspirantes regulares.
+                Gestiona los aspirantes a ingresar a la institución.
             </p>
         </field>
     </record>

@@ -40,7 +40,7 @@ class ImportarAprobadosWizard(models.TransientModel):
                 raise UserError(_("El archivo está vacío"))
             
             # Verificar que las columnas requeridas estén presentes
-            required_columns = ['cedula', 'nombres', 'apellidos', 'programa', 'sede']
+            required_columns = ['cedula', 'nombres', 'apellidos', 'programa', 'sede', 'codigo_opsu']
             found_columns = {col.lower(): i for i, col in enumerate(header)}
             
             missing_columns = []
@@ -74,6 +74,11 @@ class ImportarAprobadosWizard(models.TransientModel):
                     programa_nombre = row[found_columns['programa']].strip()
                     sede_nombre = row[found_columns['sede']].strip()
                     
+                    # Obtener código OPSU si existe en el CSV
+                    codigo_opsu = None
+                    if 'codigo_opsu' in found_columns and row[found_columns['codigo_opsu']]:
+                        codigo_opsu = row[found_columns['codigo_opsu']].strip()
+                    
                     # Buscar programa y sede
                     programa = self.env['admision.programa'].search([
                         ('name', '=ilike', programa_nombre)
@@ -106,11 +111,17 @@ class ImportarAprobadosWizard(models.TransientModel):
                             'name': nombres + ' ' + apellidos,
                         })
                         
-                        aspirante.write({
+                        vals_update = {
                             'tipo_asignacion': self.tipo_aprobacion,
                             'programa_id': programa.id,
                             'sede_id': sede.id,
-                        })
+                        }
+                        
+                        # Añadir código OPSU si existe
+                        if codigo_opsu:
+                            vals_update['codigo_opsu'] = codigo_opsu
+                            
+                        aspirante.write(vals_update)
                         updated += 1
                     else:
                         # Crear nuevo partner y aspirante
@@ -119,14 +130,20 @@ class ImportarAprobadosWizard(models.TransientModel):
                             'company_type': 'person',
                         })
                         
-                        self.env['admision.aspirante'].create({
+                        vals_create = {
                             'cedula': cedula,
                             'partner_id': partner.id,
                             'tipo_asignacion': self.tipo_aprobacion,
                             'programa_id': programa.id,
                             'sede_id': sede.id,
                             'state': 'registrado',
-                        })
+                        }
+                        
+                        # Añadir código OPSU si existe
+                        if codigo_opsu:
+                            vals_create['codigo_opsu'] = codigo_opsu
+                            
+                        self.env['admision.aspirante'].create(vals_create)
                         created += 1
                 
                 except Exception as e:

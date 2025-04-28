@@ -70,18 +70,19 @@ class AdmisionHorario(models.Model):
         minutos = int((tiempo_float - horas) * 60)
         return f"{horas:02d}:{minutos:02d}"
     
-    @api.model
-    def create(self, vals):
+    @api.model_create_multi
+    def create(self, vals_list):
         # Verificar conflicto de horarios para la sección
-        if vals.get('seccion_id') and vals.get('dia_semana') and 'hora_inicio' in vals and 'hora_fin' in vals:
-            self._check_conflicto_horario(
-                vals.get('seccion_id'),
-                vals.get('dia_semana'),
-                vals.get('hora_inicio'),
-                vals.get('hora_fin')
-            )
+        for vals in vals_list:
+            if vals.get('seccion_id') and vals.get('dia_semana') and 'hora_inicio' in vals and 'hora_fin' in vals:
+                self._check_conflicto_horario(
+                    vals.get('seccion_id'),
+                    vals.get('dia_semana'),
+                    vals.get('hora_inicio'),
+                    vals.get('hora_fin')
+                )
         
-        return super(AdmisionHorario, self).create(vals)
+        return super(AdmisionHorario, self).create(vals_list)
     
     def write(self, vals):
         # Verificar conflicto de horarios si se modifican los campos relevantes

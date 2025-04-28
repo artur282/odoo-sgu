@@ -8,7 +8,7 @@
                 <sheet>
                     <p class="text-muted">
                         Este asistente permite importar un archivo CSV con el listado de asignados por OPSU.
-                        El archivo debe contener al menos las siguientes columnas: cedula, nombres, apellidos, programa, sede.
+                        El archivo debe contener al menos las siguientes columnas: nombres ,cedula, apellidos, programa, sede,codigo opsu.
                     </p>
                     <group>
                         <group>

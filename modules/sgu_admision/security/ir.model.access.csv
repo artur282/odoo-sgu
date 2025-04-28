@@ -45,5 +45,14 @@ access_admision_horario_admin,admision.horario admin,model_admision_horario,grou
 access_admision_horario_operador,admision.horario operador,model_admision_horario,group_operador,1,0,0,0
 access_admision_horario_estudiante,admision.horario estudiante,model_admision_horario,group_estudiante,1,0,0,0
 
+access_admision_periodo_super,admision.periodo super,model_admision_periodo,group_super_usuario,1,1,1,1
+access_admision_periodo_admin,admision.periodo admin,model_admision_periodo,group_admin,1,1,1,0
+access_admision_periodo_operador_admin,admision.periodo operador admin,model_admision_periodo,group_operador_admin,1,1,1,0
+access_admision_periodo_operador,admision.periodo operador,model_admision_periodo,group_operador,1,0,0,0
+access_admision_periodo_aspirante,admision.periodo aspirante,model_admision_periodo,group_aspirante,1,0,0,0
+access_admision_periodo_estudiante,admision.periodo estudiante,model_admision_periodo,group_estudiante,1,0,0,0
+access_admision_periodo_portal,admision.periodo portal,model_admision_periodo,base.group_portal,1,0,0,0
+access_admision_periodo_public,admision.periodo public,model_admision_periodo,base.group_public,1,0,0,0
+
 access_admision_importar_opsu_wizard,access_admision_importar_opsu_wizard,model_admision_importar_opsu_wizard,group_super_usuario,1,1,1,1
 access_admision_importar_aprobados_wizard,access_admision_importar_aprobados_wizard,model_admision_importar_aprobados_wizard,group_super_usuario,1,1,1,1

@@ -25,14 +25,14 @@
                     </div>
                     <group>
                         <group>
-                            <field name="code"/>
-                            <field name="municipio"/>
-                            <field name="estado"/>
+                            <field name="code" placeholder="Código de la Sede"/>
+                            <field name="municipio" placeholder="Municipio"/>
+                            <field name="estado" placeholder="Estado"/>
                         </group>
                         <group>
-                            <field name="telefono"/>
-                            <field name="email"/>
-                            <field name="director"/>
+                            <field name="telefono" placeholder="Número de teléfono"/>
+                            <field name="email" placeholder="Correo electrónico"/>
+                            <field name="director" placeholder="Nombre del Director"/>
                         </group>
                     </group>
                     <notebook>
@@ -40,7 +40,7 @@
                             <field name="direccion" placeholder="Dirección completa de la sede..."/>
                         </page>
                         <page string="Programas" name="programas">
-                            <field name="programa_ids" widget="many2many_tags"/>
+                            <field name="programa_ids" widget="many2many_tags" placeholder="Seleccionar programas..."/>
                         </page>
                         <page string="Aspirantes" name="aspirantes">
                             <group>
