@@ -1,90 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <!-- Vista de búsqueda -->
-    <record id="sgu_autoridad_search_view" model="ir.ui.view">
-        <field name="name">sgu.autoridad.search</field>
-        <field name="model">sgu_autoridad</field>
-        <field name="arch" type="xml">
-            <search string="Buscar Autoridades">
-                <field name="nombre" string="Nombre" filter_domain="[('nombre', 'ilike', self)]"/>
-                <field name="autoridad" string="Tipo de Autoridad"/>
-                <field name="institucion" string="Institución"/>
-                <separator/>
-                <filter string="Activas" name="active" domain="[('active', '=', True)]"/>
-                <filter string="Inactivas" name="inactive" domain="[('active', '=', False)]"/>
-                <group expand="0" string="Agrupar Por">
-                    <filter string="Autoridad" name="group_by_autoridad" context="{'group_by': 'autoridad'}"/>
-                    <filter string="Institución" name="group_by_institucion" context="{'group_by': 'institucion'}"/>
-                    <filter string="Mes" name="group_by_month" context="{'group_by': 'fecha:month'}"/>
-                </group>
-            </search>
-        </field>
-    </record>
-
-    <!-- Lista mejorada -->
-    <record id="sgu_autoridad_view" model="ir.ui.view">
-        <field name="name">sgu.autoridad.list</field>
-        <field name="model">sgu_autoridad</field>
-        <field name="arch" type="xml">
-            <list string="Lista de Autoridades" default_order="fecha desc, nombre">
-                <field name="nombre" string="Nombre Completo"/>
-                <field name="autoridad" string="Tipo de Autoridad"/>
-                <field name="institucion" string="Institución"/>
-                <field name="fecha" string="Fecha de Nombramiento"/>
-                <field name="active" string="Activo" widget="boolean_toggle"/>
-                <field name="firmaDigital" invisible="1"/>
-            </list>
-        </field>
-    </record>
-
-    <!-- Formulario mejorado -->
-    <record id="sgu_autoridad_form_view" model="ir.ui.view">
-        <field name="name">sgu.autoridad.form</field>
-        <field name="model">sgu_autoridad</field>
-        <field name="arch" type="xml">
-            <form string="Asignar Autoridad">
-                <sheet>
-                    <div class="oe_button_box" name="button_box">
-                        <button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive">
-                            <field name="active" widget="boolean_button" options="{'terminology': 'archive'}"/>
-                        </button>
-                    </div>
-                    <div class="oe_title">
-                        <h1>
-                            <field name="nombre" placeholder="Nombre Completo"/>
-                        </h1>
-                    </div>
-                    <group>
-                        <group string="Información General">
-                            <field name="autoridad" string="Tipo de Autoridad"/>
-                            <field name="institucion" string="Institución"/>
-                            <field name="fecha" string="Fecha de Nombramiento"/>
+    <data>
+        <!-- Vista de formulario para autoridades -->
+        <record id="view_sgu_autoridad_form" model="ir.ui.view">
+            <field name="name">sgu.autoridad.form</field>
+            <field name="model">sgu.autoridad</field>
+            <field name="arch" type="xml">
+                <form string="Autoridad">
+                    <sheet>
+                        <field name="firma" widget="image" class="oe_avatar"/>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only"/>
+                            <h1><field name="name" placeholder="Nombre completo"/></h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="cargo"/>
+                                <field name="sede_id"/>
+                                <field name="email"/>
+                                <field name="active"/>
+                            </group>
+                            <group>
+                                <field name="fecha_inicio_cargo"/>
+                                <field name="fecha_fin_cargo"/>
+                                <field name="telefono"/>
+                                <field name="puede_firmar_documentos"/>
+                            </group>
                         </group>
-                        <group string="Detalles Adicionales">
-                            <field name="firmaDigital" string="Firma Digital"/>
-                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Vista tree para autoridades -->
+        <record id="view_sgu_autoridad_tree" model="ir.ui.view">
+            <field name="name">sgu.autoridad.list</field>
+            <field name="model">sgu.autoridad</field>
+            <field name="arch" type="xml">
+                <list string="Autoridades">
+                    <field name="name"/>
+                    <field name="cargo"/>
+                    <field name="sede_id"/>
+                    <field name="email"/>
+                    <field name="puede_firmar_documentos"/>
+                    <field name="active"/>
+                </list>
+            </field>
+        </record>
+
+        <!-- Vista search para autoridades -->
+        <record id="view_sgu_autoridad_search" model="ir.ui.view">
+            <field name="name">sgu.autoridad.search</field>
+            <field name="model">sgu.autoridad</field>
+            <field name="arch" type="xml">
+                <search string="Buscar autoridades">
+                    <field name="name" string="Nombre" filter_domain="[('name', 'ilike', self)]"/>
+                    <field name="cargo"/>
+                    <field name="sede_id"/>
+                    <filter string="Puede firmar" name="puede_firmar" domain="[('puede_firmar_documentos', '=', True)]"/>
+                    <filter string="Activos" name="active" domain="[('active', '=', True)]"/>
+                    <filter string="Inactivos" name="inactive" domain="[('active', '=', False)]"/>
+                    <group expand="0" string="Agrupar por">
+                        <filter name="group_by_cargo" string="Cargo" context="{'group_by': 'cargo'}"/>
+                        <filter name="group_by_sede" string="Sede" context="{'group_by': 'sede_id'}"/>
                     </group>
-                </sheet>
-            </form>
-        </field>
-    </record>
+                </search>
+            </field>
+        </record>
 
-    <!-- Acción -->
-    <record id="sgu_autoridad_action" model="ir.actions.act_window">
-        <field name="name">Autoridades</field>
-        <field name="res_model">sgu_autoridad</field>
-        <field name="view_mode">list,form</field>
-        <field name="context">{'search_default_active': 1}</field>
-        <field name="help" type="html">
-            <p class="o_view_nocontent_smiling_face">
-                Registre una nueva autoridad
-            </p>
-            <p>
-                Cree autoridades para instituciones y asigne sus permisos correspondientes.
-            </p>
-        </field>
-        <field name="limit">20</field>
-    </record>
-
-
+        <!-- Acción para autoridades -->
+        <record id="action_sgu_autoridad" model="ir.actions.act_window">
+            <field name="name">Autoridades</field>
+            <field name="res_model">sgu.autoridad</field>
+            <field name="view_mode">list,form</field>
+            <field name="search_view_id" ref="view_sgu_autoridad_search"/>
+            <field name="context">{'search_default_active': 1}</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Registrar una nueva autoridad
+                </p>
+            </field>
+        </record>
+    </data>
 </odoo>

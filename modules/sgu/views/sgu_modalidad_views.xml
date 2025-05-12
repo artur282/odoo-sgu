@@ -1,66 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <!-- lista -->
-    <record id="sgu_modalidad_view" model="ir.ui.view">
-        <field name="name">sgu.modalidad.list</field>
-        <field name="model">sgu_modalidad</field>
-        <field name="arch" type="xml">
-            <list decoration-danger="not active" decoration-success="active">
-                <field name="modalidad"/>
-                <field name="active" widget="boolean_toggle" string="Estatus" />
-            </list>
-        </field>
-    </record>
-    
-    <!-- formulario -->
-    <record id="sgu_modalidad_form_view" model="ir.ui.view">
-        <field name="name">sgu.modalidad.form</field>
-        <field name="model">sgu_modalidad</field>
-        <field name="arch" type="xml">
-            <form string="Asignar Modalidad">
-                <sheet>
-                    <div class="oe_title">
-                        <h1>
-                            <field name="modalidad" placeholder="Nombre de la modalidad"/>
-                        </h1>
-                    </div>
-                    <group>
-                        <field name="active" string="Estatus" widget="boolean_toggle"/>
-                    </group>
-                </sheet>
-            </form>
-        </field>
-    </record>
+    <data>
+        <!-- Vista de formulario para modalidades -->
+        <record id="view_sgu_modalidad_form" model="ir.ui.view">
+            <field name="name">sgu.modalidad.form</field>
+            <field name="model">sgu.modalidad</field>
+            <field name="arch" type="xml">
+                <form string="Modalidad">
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="modalidad" class="oe_edit_only"/>
+                            <h1><field name="modalidad" placeholder="Nombre de la modalidad"/></h1>
+                        </div>
+                        <group>
+                            <field name="descripcion"/>
+                            <field name="active"/>
+                        </group>
+                        <notebook>
+                            <page string="Carreras">
+                                <field name="carrera_ids" readonly="1">
+                                    <list>
+                                        <field name="name"/>
+                                        <field name="codigo"/>
+                                        <field name="nivel_academico_id"/>
+                                        <field name="area_id"/>
+                                    </list>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
 
-    <!-- vista de búsqueda -->
-    <record id="sgu_modalidad_search_view" model="ir.ui.view">
-        <field name="name">sgu.modalidad.search</field>
-        <field name="model">sgu_modalidad</field>
-        <field name="arch" type="xml">
-            <search>
-                <field name="modalidad"/>
-                <filter string="Activas" name="active" domain="[('active', '=', True)]"/>
-                <filter string="Inactivas" name="inactive" domain="[('active', '=', False)]"/>
-                <group expand="0" string="Agrupar Por">
-                    <filter string="Estatus" name="group_by_active" context="{'group_by': 'active'}"/>
-                </group>
-            </search>
-        </field>
-    </record>
+        <!-- Vista tree para modalidades -->
+        <record id="view_sgu_modalidad_tree" model="ir.ui.view">
+            <field name="name">sgu.modalidad.list</field>
+            <field name="model">sgu.modalidad</field>
+            <field name="arch" type="xml">
+                <list string="Modalidades">
+                    <field name="modalidad"/>
+                    <field name="active"/>
+                </list>
+            </field>
+        </record>
 
-    <!-- action -->
-    <record id="sgu_modalidad_action" model="ir.actions.act_window">
-        <field name="name">Modalidades</field>
-        <field name="res_model">sgu_modalidad</field>
-        <field name="view_mode">list,form</field>
-        <field name="search_view_id" ref="sgu_modalidad_search_view"/>
-        <field name="help" type="html">
-            <p class="o_view_nocontent_smiling_face">
-                Crea tu primera modalidad
-            </p>
-            <p>
-                Define las diferentes modalidades disponibles en el sistema.
-            </p>
-        </field>
-    </record>
+        <!-- Vista search para modalidades -->
+        <record id="view_sgu_modalidad_search" model="ir.ui.view">
+            <field name="name">sgu.modalidad.search</field>
+            <field name="model">sgu.modalidad</field>
+            <field name="arch" type="xml">
+                <search string="Buscar modalidades">
+                    <field name="modalidad" string="Modalidad" filter_domain="[('modalidad', 'ilike', self)]"/>
+                    <filter string="Activas" name="active" domain="[('active', '=', True)]"/>
+                    <filter string="Inactivas" name="inactive" domain="[('active', '=', False)]"/>
+                </search>
+            </field>
+        </record>
+
+        <!-- Acción para modalidades -->
+        <record id="action_sgu_modalidad" model="ir.actions.act_window">
+            <field name="name">Modalidades</field>
+            <field name="res_model">sgu.modalidad</field>
+            <field name="view_mode">list,form</field>
+            <field name="search_view_id" ref="view_sgu_modalidad_search"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Crear una nueva modalidad
+                </p>
+            </field>
+        </record>
+    </data>
 </odoo>

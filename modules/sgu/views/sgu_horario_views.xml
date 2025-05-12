@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Vista de formulario para horarios -->
+        <record id="view_sgu_horario_form" model="ir.ui.view">
+            <field name="name">sgu.horario.form</field>
+            <field name="model">sgu.horario</field>
+            <field name="arch" type="xml">
+                <form string="Horario">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="seccion_id"/>
+                                <field name="asignatura"/>
+                                <field name="profesor"/>
+                                <field name="aula"/>
+                            </group>
+                            <group>
+                                <field name="dia_semana"/>
+                                <field name="hora_inicio" widget="float_time"/>
+                                <field name="hora_fin" widget="float_time"/>
+                                <field name="duracion" widget="float_time"/>
+                                <field name="active"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Vista tree para horarios -->
+        <record id="view_sgu_horario_tree" model="ir.ui.view">
+            <field name="name">sgu.horario.list</field>
+            <field name="model">sgu.horario</field>
+            <field name="arch" type="xml">
+                <list string="Horarios">
+                    <field name="seccion_id"/>
+                    <field name="asignatura"/>
+                    <field name="profesor"/>
+                    <field name="aula"/>
+                    <field name="dia_semana"/>
+                    <field name="hora_inicio" widget="float_time"/>
+                    <field name="hora_fin" widget="float_time"/>
+                    <field name="duracion" widget="float_time" sum="Total"/>
+                    <field name="active"/>
+                </list>
+            </field>
+        </record>
+
+        <!-- Vista calendar para horarios -->
+        <record id="view_sgu_horario_calendar" model="ir.ui.view">
+            <field name="name">sgu.horario.calendar</field>
+            <field name="model">sgu.horario</field>
+            <field name="arch" type="xml">
+                <calendar string="Horarios" date_start="hora_inicio" date_stop="hora_fin" color="asignatura" mode="week">
+                    <field name="asignatura"/>
+                    <field name="profesor"/>
+                    <field name="aula"/>
+                </calendar>
+            </field>
+        </record>
+
+        <!-- Vista search para horarios -->
+        <record id="view_sgu_horario_search" model="ir.ui.view">
+            <field name="name">sgu.horario.search</field>
+            <field name="model">sgu.horario</field>
+            <field name="arch" type="xml">
+                <search string="Buscar horarios">
+                    <field name="seccion_id"/>
+                    <field name="asignatura"/>
+                    <field name="profesor"/>
+                    <field name="aula"/>
+                    <filter string="Lunes" name="lunes" domain="[('dia_semana', '=', '1')]"/>
+                    <filter string="Martes" name="martes" domain="[('dia_semana', '=', '2')]"/>
+                    <filter string="Miércoles" name="miercoles" domain="[('dia_semana', '=', '3')]"/>
+                    <filter string="Jueves" name="jueves" domain="[('dia_semana', '=', '4')]"/>
+                    <filter string="Viernes" name="viernes" domain="[('dia_semana', '=', '5')]"/>
+                    <filter string="Sábado" name="sabado" domain="[('dia_semana', '=', '6')]"/>
+                    <filter string="Domingo" name="domingo" domain="[('dia_semana', '=', '7')]"/>
+                    <filter string="Activos" name="active" domain="[('active', '=', True)]"/>
+                    <group expand="0" string="Agrupar por">
+                        <filter name="group_by_seccion" string="Sección" context="{'group_by': 'seccion_id'}"/>
+                        <filter name="group_by_asignatura" string="Asignatura" context="{'group_by': 'asignatura'}"/>
+                        <filter name="group_by_profesor" string="Profesor" context="{'group_by': 'profesor'}"/>
+                        <filter name="group_by_dia" string="Día" context="{'group_by': 'dia_semana'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!-- Acción para horarios -->
+        <record id="action_sgu_horario" model="ir.actions.act_window">
+            <field name="name">Horarios</field>
+            <field name="res_model">sgu.horario</field>
+            <field name="view_mode">list,form,calendar</field>
+            <field name="search_view_id" ref="view_sgu_horario_search"/>
+            <field name="context">{'search_default_active': 1}</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Registrar un nuevo horario
+                </p>
+            </field>
+        </record>
+    </data>
+</odoo>

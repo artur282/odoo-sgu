@@ -1,26 +1,23 @@
-from odoo import models, fields
+# -*- coding: utf-8 -*-
 
-class SguAutoridad(models.Model):
-    _name = 'sgu_autoridad'
-    _description = 'Autoridades de la institución'
+from odoo import models, fields, api
 
-    autoridad = fields.Many2one('sgu_tipo_autoridad', string='Tipo de autoridad', required=True)
-    institucion = fields.Many2one('sgu_institucion', string='Institución', required=True)
-    nombre = fields.Char(string='Nombre', required=True)
-    firmaDigital = fields.Image(string='Firma Digital', required=True)
-    active = fields.Boolean(default=True, string='Estatus', required=True)
-    fecha = fields.Date(string='Fecha de nombramiento', required=True)
-    user_id = fields.Many2one(
-        'user_registration',
-        string='Usuario',
-        domain=[('grupo_usuario', '=', 'autoridad')],
-        required=True
-    )
+class Autoridad(models.Model):
+    _name = 'sgu.autoridad'
+    _description = 'Autoridad universitaria'
+    _rec_name = 'name'
 
-class SguTipoAutoridad(models.Model):
-    _name = 'sgu_tipo_autoridad'
-    _description = 'Tipos de autoridades de la institución'
-    _rec_name = 'tipo'
+    name = fields.Char('Nombre completo', required=True)
+    cargo = fields.Char('Cargo', required=True)
+    firma = fields.Binary('Firma digital')
+    email = fields.Char('Correo electrónico')
+    active = fields.Boolean('Activo', default=True)
 
-    tipo = fields.Char(string='Tipo de autoridad', required=True)
-    active = fields.Boolean(default=True, required=True)
+    # Relaciones
+    sede_id = fields.Many2one('sgu.sede', 'Sede asignada')
+    
+    # Campos adicionales útiles
+    fecha_inicio_cargo = fields.Date('Fecha inicio del cargo')
+    fecha_fin_cargo = fields.Date('Fecha fin del cargo')
+    telefono = fields.Char('Teléfono')
+    puede_firmar_documentos = fields.Boolean('Puede firmar documentos', default=True)

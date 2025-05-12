@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Vista de formulario para procesos académicos -->
+        <record id="view_sgu_proceso_form" model="ir.ui.view">
+            <field name="name">sgu.proceso.form</field>
+            <field name="model">sgu.proceso</field>
+            <field name="arch" type="xml">
+                <form string="Proceso Académico">
+                    <header>
+                        <button name="action_activate" string="Activar" type="object" 
+                                class="oe_highlight" invisible="state != 'draft'"/>
+                        <button name="action_close" string="Cerrar" type="object" 
+                                class="oe_highlight" invisible="state != 'active'"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,active,closed"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only"/>
+                            <h1><field name="name" placeholder="Nombre del proceso"/></h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="tipo"/>
+                                <field name="periodo_id"/>
+                                <field name="fecha_inicio"/>
+                                <field name="fecha_fin"/>
+                            </group>
+                            <group>
+                                <field name="descripcion"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Carreras Aplicables" invisible="tipo != 'inscripcion'">
+                                <field name="carrera_ids" widget="many2many_tags"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Vista tree para procesos académicos -->
+        <record id="view_sgu_proceso_tree" model="ir.ui.view">
+            <field name="name">sgu.proceso.list</field>
+            <field name="model">sgu.proceso</field>
+            <field name="arch" type="xml">
+                <list string="Procesos Académicos" decoration-info="state=='draft'" decoration-success="state=='active'" decoration-muted="state=='closed'">
+                    <field name="name"/>
+                    <field name="tipo"/>
+                    <field name="periodo_id"/>
+                    <field name="fecha_inicio"/>
+                    <field name="fecha_fin"/>
+                    <field name="state"/>
+                </list>
+            </field>
+        </record>
+
+        <!-- Vista calendar para procesos académicos -->
+        <record id="view_sgu_proceso_calendar" model="ir.ui.view">
+            <field name="name">sgu.proceso.calendar</field>
+            <field name="model">sgu.proceso</field>
+            <field name="arch" type="xml">
+                <calendar string="Procesos Académicos" date_start="fecha_inicio" date_stop="fecha_fin" color="tipo" mode="month">
+                    <field name="name"/>
+                    <field name="tipo"/>
+                    <field name="state"/>
+                </calendar>
+            </field>
+        </record>
+
+        <!-- Vista search para procesos académicos -->
+        <record id="view_sgu_proceso_search" model="ir.ui.view">
+            <field name="name">sgu.proceso.search</field>
+            <field name="model">sgu.proceso</field>
+            <field name="arch" type="xml">
+                <search string="Buscar procesos académicos">
+                    <field name="name" string="Proceso" filter_domain="[('name', 'ilike', self)]"/>
+                    <field name="periodo_id"/>
+                    <filter string="Borrador" name="draft" domain="[('state', '=', 'draft')]"/>
+                    <filter string="Activos" name="active" domain="[('state', '=', 'active')]"/>
+                    <filter string="Cerrados" name="closed" domain="[('state', '=', 'closed')]"/>
+                    <separator/>
+
+                    <filter string="Inscripciones" name="inscripcion" domain="[('tipo', '=', 'inscripcion')]"/>
+                    <filter string="Carga de Horarios" name="carga_horario" domain="[('tipo', '=', 'carga_horario')]"/>
+                    <filter string="Carga de Notas" name="carga_notas" domain="[('tipo', '=', 'carga_notas')]"/>
+                    <filter string="Retiro de Materias" name="retiro" domain="[('tipo', '=', 'retiro')]"/>
+                    <group expand="0" string="Agrupar por">
+                        <filter name="group_by_periodo" string="Periodo" context="{'group_by': 'periodo_id'}"/>
+                        <filter name="group_by_tipo" string="Tipo" context="{'group_by': 'tipo'}"/>
+                        <filter name="group_by_state" string="Estado" context="{'group_by': 'state'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!-- Acción para procesos académicos -->
+        <record id="action_sgu_proceso" model="ir.actions.act_window">
+            <field name="name">Procesos Académicos</field>
+            <field name="res_model">sgu.proceso</field>
+            <field name="view_mode">list,form,calendar</field>
+            <field name="search_view_id" ref="view_sgu_proceso_search"/>
+            <field name="context">{'search_default_draft': 1, 'search_default_active': 1}</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Crear un nuevo proceso académico
+                </p>
+            </field>
+        </record>
+    </data>
+</odoo>

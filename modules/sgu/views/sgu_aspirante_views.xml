@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Vista de formulario para aspirantes -->
+        <record id="view_sgu_aspirante_form" model="ir.ui.view">
+            <field name="name">sgu.aspirante.form</field>
+            <field name="model">sgu.aspirante</field>
+            <field name="arch" type="xml">
+                <form string="Aspirante">
+                    <header>
+                        <field name="state" widget="statusbar" statusbar_visible="registrado,inscrito,estudiante"/>
+                        <button name="crear_estudiante" string="Convertir en Estudiante" 
+                                type="object" class="oe_highlight" 
+                                invisible="state != 'inscrito'"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="cedula" placeholder="Cédula de identidad"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group string="Datos personales">
+                                <field name="primer_nombre"/>
+                                <field name="segundo_nombre"/>
+                                <field name="primer_apellido"/>
+                                <field name="segundo_apellido"/>
+                                <field name="genero"/>
+                                <field name="fecha_nacimiento"/>
+                                <field name="etnia"/>
+                                <field name="discapacidad"/>
+                                <field name="tipo_discapacidad" invisible="not discapacidad"/>
+                            </group>
+                            <group string="Datos de contacto">
+                                <field name="email"/>
+                                <field name="telefono"/>
+                                <field name="phone"/>
+                                <field name="mobile"/>
+                                <field name="direccion_completa"/>
+                                <field name="contacto_emergencia"/>
+                            </group>
+                        </group>
+                        <group string="Datos académicos">
+                            <field name="tipo_asignacion"/>
+                            <field name="codigo_opsu" invisible="tipo_asignacion != 'opsu'"/>
+                            <field name="carrera_id"/>
+                            <field name="sede_id"/>
+                            <field name="active"/>
+                        </group>
+                        <notebook>
+                            <page string="Inscripciones" invisible="state in ['registrado', 'preinscrito']">
+                                <field name="inscripcion_ids">
+                                    <list>
+                                        <field name="numero_inscripcion"/>
+                                        <field name="proceso_id"/>
+                                        <field name="fecha_inscripcion"/>
+                                        <field name="seccion_id"/>
+                                        <field name="state"/>
+                                        <field name="documentacion_completa"/>
+                                    </list>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Vista tree para aspirantes -->
+        <record id="view_sgu_aspirante_tree" model="ir.ui.view">
+            <field name="name">sgu.aspirante.list</field>
+            <field name="model">sgu.aspirante</field>
+            <field name="arch" type="xml">
+                <list string="Aspirantes" decoration-info="state=='registrado'" 
+                      decoration-primary="state=='preinscrito'" 
+                      decoration-success="state=='inscrito'" 
+                      decoration-muted="state=='estudiante'">
+                    <field name="cedula"/>
+                    <field name="primer_nombre"/>
+                    <field name="primer_apellido"/>
+                    <field name="carrera_id"/>
+                    <field name="sede_id"/>
+                    <field name="tipo_asignacion" readonly="1"/>
+                    <field name="state"/>
+                    <field name="active" invisible="1"/>
+                </list>
+            </field>
+        </record>
+
+        <!-- Vista search para aspirantes -->
+        <record id="view_sgu_aspirante_search" model="ir.ui.view">
+            <field name="name">sgu.aspirante.search</field>
+            <field name="model">sgu.aspirante</field>
+            <field name="arch" type="xml">
+                <search string="Buscar aspirantes">
+                    <field name="cedula" string="Cédula" filter_domain="[('cedula', 'ilike', self)]"/>
+                    <field name="primer_nombre" string="Nombre" filter_domain="['|', ('primer_nombre', 'ilike', self), ('segundo_nombre', 'ilike', self)]"/>
+                    <field name="primer_apellido" string="Apellido" filter_domain="['|', ('primer_apellido', 'ilike', self), ('segundo_apellido', 'ilike', self)]"/>
+                    <field name="codigo_opsu"/>
+                    <field name="carrera_id"/>
+                    <field name="sede_id"/>
+                    <filter string="Registrados" name="registrados" domain="[('state', '=', 'registrado')]"/>
+                    <filter string="Preinscritos" name="preinscritos" domain="[('state', '=', 'preinscrito')]"/>
+                    <filter string="Inscritos" name="inscritos" domain="[('state', '=', 'inscrito')]"/>
+                    <filter string="Estudiantes" name="estudiantes" domain="[('state', '=', 'estudiante')]"/>
+                    <filter string="OPSU" name="opsu" domain="[('tipo_asignacion', '=', 'opsu')]"/>
+                    <filter string="Casos especiales" name="especiales" domain="[('tipo_asignacion', 'in', ['rector', 'secretaria', 'dace'])]"/>
+                    <filter string="Activos" name="active" domain="[('active', '=', True)]"/>
+                    <group expand="0" string="Agrupar por">
+                        <filter name="group_by_carrera" string="Carrera" context="{'group_by': 'carrera_id'}"/>
+                        <filter name="group_by_sede" string="Sede" context="{'group_by': 'sede_id'}"/>
+                        <filter name="group_by_estado" string="Estado" context="{'group_by': 'state'}"/>
+                        <filter name="group_by_tipo" string="Tipo de asignación" context="{'group_by': 'tipo_asignacion'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!-- Acción para aspirantes -->
+        <record id="action_sgu_aspirante" model="ir.actions.act_window">
+            <field name="name">Aspirantes</field>
+            <field name="res_model">sgu.aspirante</field>
+            <field name="view_mode">list,form</field>
+            <field name="search_view_id" ref="view_sgu_aspirante_search"/>
+            <field name="context">{'search_default_active': 1}</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Registrar un nuevo aspirante
+                </p>
+            </field>
+        </record>
+    </data>
+</odoo>

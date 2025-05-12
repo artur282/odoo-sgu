@@ -1,72 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <!-- lista mejorada -->
-    <record id="sgu_nivel_academico_view" model="ir.ui.view">
-        <field name="name">sgu.nivel.academico.list</field>
-        <field name="model">sgu_nivel_academico</field>
-        <field name="arch" type="xml">
-            <list string="Niveles Académicos" default_order="nivel asc">
-                <field name="nivel" string="Nivel académico"/>
-                <field name="active" string="Estatus" widget="boolean_toggle"/>
-            </list>
-        </field>
-    </record>
-    
-    <!-- formulario mejorado -->
-    <record id="sgu_nivel_academico_form_view" model="ir.ui.view">
-        <field name="name">sgu.nivel.academico.form</field>
-        <field name="model">sgu_nivel_academico</field>
-        <field name="arch" type="xml">
-            <form string="Nivel Académico">
-                <sheet>
-                    <div class="oe_title">
-                        <h1>
-                            <field name="nivel" placeholder="Nombre del nivel académico"/>
-                        </h1>
-                    </div>
-                    <group>
+    <data>
+        <!-- Vista de formulario para niveles académicos -->
+        <record id="view_sgu_nivel_academico_form" model="ir.ui.view">
+            <field name="name">sgu.nivel.academico.form</field>
+            <field name="model">sgu.nivel.academico</field>
+            <field name="arch" type="xml">
+                <form string="Nivel Académico">
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="nivel" class="oe_edit_only"/>
+                            <h1><field name="nivel" placeholder="Nombre del nivel académico"/></h1>
+                        </div>
                         <group>
-                            <field name="active" widget="boolean_toggle"/>
+                            <field name="descripcion"/>
+                            <field name="active"/>
                         </group>
-                        <group>
-                            <field name="create_date" readonly="1"/>
-                            <field name="write_date" readonly="1"/>
-                        </group>
-                    </group>
-                </sheet>
-            </form>
-        </field>
-    </record>
+                        <notebook>
+                            <page string="Carreras">
+                                <field name="carrera_ids" readonly="1">
+                                    <list>
+                                        <field name="name"/>
+                                        <field name="codigo"/>
+                                        <field name="modalidad_id"/>
+                                        <field name="area_id"/>
+                                    </list>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
 
-    <!-- vista de búsqueda -->
-    <record id="sgu_nivel_academico_search_view" model="ir.ui.view">
-        <field name="name">sgu.nivel.academico.search</field>
-        <field name="model">sgu_nivel_academico</field>
-        <field name="arch" type="xml">
-            <search string="Buscar Nivel Académico">
-                <field name="nivel"/>
-                <filter string="Activos" name="active" domain="[('active','=',True)]"/>
-                <filter string="Inactivos" name="inactive" domain="[('active','=',False)]"/>
-                <group expand="0" string="Agrupar Por">
-                    <filter string="Estatus" name="group_by_active" context="{'group_by': 'active'}"/>
-                </group>
-            </search>
-        </field>
-    </record>
+        <!-- Vista tree para niveles académicos -->
+        <record id="view_sgu_nivel_academico_tree" model="ir.ui.view">
+            <field name="name">sgu.nivel.academico.list</field>
+            <field name="model">sgu.nivel.academico</field>
+            <field name="arch" type="xml">
+                <list string="Niveles Académicos">
+                    <field name="nivel"/>
+                    <field name="active"/>
+                </list>
+            </field>
+        </record>
 
-    <!-- action mejorada -->
-    <record id="sgu_nivel_academico_action" model="ir.actions.act_window">
-        <field name="name">Niveles Académicos</field>
-        <field name="res_model">sgu_nivel_academico</field>
-        <field name="view_mode">list,form</field>
-        <field name="search_view_id" ref="sgu_nivel_academico_search_view"/>
-        <field name="help" type="html">
-            <p class="o_view_nocontent_smiling_face">
-                Crea tu primer nivel académico
-            </p>
-            <p>
-                Defina los diferentes niveles académicos de su sistema.
-            </p>
-        </field>
-    </record>
+        <!-- Vista search para niveles académicos -->
+        <record id="view_sgu_nivel_academico_search" model="ir.ui.view">
+            <field name="name">sgu.nivel.academico.search</field>
+            <field name="model">sgu.nivel.academico</field>
+            <field name="arch" type="xml">
+                <search string="Buscar niveles académicos">
+                    <field name="nivel" string="Nivel" filter_domain="[('nivel', 'ilike', self)]"/>
+                    <filter string="Activos" name="active" domain="[('active', '=', True)]"/>
+                    <filter string="Inactivos" name="inactive" domain="[('active', '=', False)]"/>
+                </search>
+            </field>
+        </record>
+
+        <!-- Acción para niveles académicos -->
+        <record id="action_sgu_nivel_academico" model="ir.actions.act_window">
+            <field name="name">Niveles Académicos</field>
+            <field name="res_model">sgu.nivel.academico</field>
+            <field name="view_mode">list,form</field>
+            <field name="search_view_id" ref="view_sgu_nivel_academico_search"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Crear un nuevo nivel académico
+                </p>
+            </field>
+        </record>
+    </data>
 </odoo>

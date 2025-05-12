@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Secuencias para entidades principales -->
+    <record id="seq_institucion" model="ir.sequence">
+        <field name="name">Institución</field>
+        <field name="code">sgu.institucion</field>
+        <field name="prefix">INST-%(year)s-</field>
+        <field name="padding">4</field>
+    </record>
+    <record id="seq_sede" model="ir.sequence">
+        <field name="name">Sede</field>
+        <field name="code">sgu.sede</field>
+        <field name="prefix">SEDE-%(year)s-</field>
+        <field name="padding">3</field>
+    </record>
+    <record id="seq_nivel_academico" model="ir.sequence">
+        <field name="name">Nivel Académico</field>
+        <field name="code">sgu.nivel.academico</field>
+        <field name="prefix">NIVEL-%(year)s-</field>
+        <field name="padding">2</field>
+    </record>
+    <record id="seq_modalidad" model="ir.sequence">
+        <field name="name">Modalidad</field>
+        <field name="code">sgu.modalidad</field>
+        <field name="prefix">MOD-%(year)s-</field>
+        <field name="padding">2</field>
+    </record>
+    <record id="seq_area" model="ir.sequence">
+        <field name="name">Área</field>
+        <field name="code">sgu.area</field>
+        <field name="prefix">AREA-%(year)s-</field>
+        <field name="padding">2</field>
+    </record>
+    <record id="seq_carrera" model="ir.sequence">
+        <field name="name">Carrera</field>
+        <field name="code">sgu.carrera</field>
+        <field name="prefix">CARR-%(year)s-</field>
+        <field name="padding">3</field>
+    </record>
+
+    <!-- Datos de ejemplo para entidades principales -->
+    <record id="sgu_institucion_demo" model="sgu.institucion">
+        <field name="name">Unerg</field>
+        <field name="codigo">UEJ</field>
+        <field name="direccion">Av. Principal 123</field>
+        <field name="telefono">12345678</field>
+        <field name="email">uej@uej.edu.ve</field>
+    </record>
+    <record id="sgu_sede_demo" model="sgu.sede">
+        <field name="name">San juan de los morros</field>
+        <field name="institucion_id" ref="sgu_institucion_demo"/>
+        <field name="codigo_sede">12354</field>
+        <field name="direccion_sede">Av. Principal 123</field>
+        <field name="telefono_sede">12345678</field>
+        <field name="correo_sede">sjlm@uej.edu.ve</field>
+    </record>
+    <record id="sgu_nivel_academico_demo" model="sgu.nivel.academico">
+        <field name="nivel">licenciatura</field>
+    </record>
+    <record id="sgu_modalidad_demo" model="sgu.modalidad">
+        <field name="modalidad">semestral</field>
+    </record>
+    <record id="sgu_area_demo" model="sgu.area">
+        <field name="name">Ingenieria</field>
+        <field name="codigo">ING</field>
+    </record>
+    <record id="sgu_carrera_demo" model="sgu.carrera">
+        <field name="name">Ingeniería en Sistemas</field>
+        <field name="codigo">ING-SIST</field>
+        <field name="nivel_academico_id" ref="sgu_nivel_academico_demo"/>
+        <field name="modalidad_id" ref="sgu_modalidad_demo"/>
+        <field name="area_id" ref="sgu_area_demo"/>
+    </record>
+</odoo>

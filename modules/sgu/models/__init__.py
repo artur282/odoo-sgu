@@ -1,14 +1,19 @@
-from . import (
-    periodo_academico,
-    user_registration,
-    sgu_instituciones,
-    sgu_sedes,
-    pensum,
-    sgu_carreras,
-    sgu_autoridad,
-    sgu_modalidad,
-    sgu_nivel_academico,
-    sgu_asignar_carrera_sede,
-    sgu_areas,
-    asignacion_Procesos,
-)
+# -*- coding: utf-8 -*-
+
+from . import sgu_institucion
+from . import sgu_sede
+from . import sgu_nivel_academico
+from . import sgu_modalidad
+from . import sgu_area
+from . import sgu_carrera
+from . import sgu_periodo
+from . import sgu_proceso
+from . import sgu_pensum
+from . import sgu_pensum_subject
+from . import sgu_autoridad
+from . import sgu_carrera_sede
+from . import sgu_horario
+from . import sgu_seccion
+from . import sgu_usuarios
+from . import sgu_aspirante
+from . import sgu_inscripcion

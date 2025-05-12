@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Vista de formulario para pensum -->
+        <record id="view_sgu_pensum_form" model="ir.ui.view">
+            <field name="name">sgu.pensum.form</field>
+            <field name="model">sgu.pensum</field>
+            <field name="arch" type="xml">
+                <form string="Pensum">
+                    <header>
+                        <button name="toggle_vigencia" string="Cambiar vigencia" type="object" class="oe_highlight"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only"/>
+                            <h1><field name="name" placeholder="Nombre del pensum"/></h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="carrera_id"/>
+                                <field name="fecha_aprobacion"/>
+                            </group>
+                            <group>
+                                <field name="vigente"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Materias">
+                                <field name="subject_ids">
+                                    <list editable="bottom">
+                                        <field name="code"/>
+                                        <field name="name"/>
+                                        <field name="semester"/>
+                                        <field name="uc"/>
+                                        <field name="horas_teoricas"/>
+                                        <field name="horas_practicas"/>
+                                        <field name="horas_totales" sum="Total de horas"/>
+                                        <field name="prelaciones"/>
+                                    </list>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Vista tree para pensum -->
+        <record id="view_sgu_pensum_tree" model="ir.ui.view">
+            <field name="name">sgu.pensum.list</field>
+            <field name="model">sgu.pensum</field>
+            <field name="arch" type="xml">
+                <list string="Pensums" decoration-success="vigente==True" decoration-muted="vigente==False">
+                    <field name="name"/>
+                    <field name="carrera_id"/>
+                    <field name="fecha_aprobacion"/>
+                    <field name="vigente"/>
+                </list>
+            </field>
+        </record>
+
+        <!-- Vista search para pensum -->
+        <record id="view_sgu_pensum_search" model="ir.ui.view">
+            <field name="name">sgu.pensum.search</field>
+            <field name="model">sgu.pensum</field>
+            <field name="arch" type="xml">
+                <search string="Buscar pensum">
+                    <field name="name" string="Pensum" filter_domain="[('name', 'ilike', self)]"/>
+                    <field name="carrera_id"/>
+                    <filter string="Vigentes" name="vigentes" domain="[('vigente', '=', True)]"/>
+                    <filter string="No vigentes" name="no_vigentes" domain="[('vigente', '=', False)]"/>
+                    <group expand="0" string="Agrupar por">
+                        <filter name="group_by_carrera" string="Carrera" context="{'group_by': 'carrera_id'}"/>
+                        <filter name="group_by_vigencia" string="Vigencia" context="{'group_by': 'vigente'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!-- Acción para pensum -->
+        <record id="action_sgu_pensum" model="ir.actions.act_window">
+            <field name="name">Pensums</field>
+            <field name="res_model">sgu.pensum</field>
+            <field name="view_mode">list,form</field>
+            <field name="search_view_id" ref="view_sgu_pensum_search"/>
+            <field name="context">{'search_default_vigentes': 1}</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Crear un nuevo pensum
+                </p>
+            </field>
+        </record>
+    </data>
+</odoo>

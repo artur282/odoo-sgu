@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Vista de formulario para inscripciones -->
+        <record id="view_sgu_inscripcion_form" model="ir.ui.view">
+            <field name="name">sgu.inscripcion.form</field>
+            <field name="model">sgu.inscripcion</field>
+            <field name="arch" type="xml">
+                <form string="Inscripción">
+                    <header>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,confirmed"/>
+                        <button name="action_confirm" string="Confirmar Inscripción" 
+                                type="object" class="oe_highlight" 
+                                invisible="state == 'confirmed'"/>
+                        <button name="print_constancia" string="Imprimir Constancia" 
+                                type="object" class="oe_highlight"
+                                invisible="state != 'confirmed'"/>
+                        <button name="convertir_a_estudiante" string="Convertir en Estudiante" 
+                                type="object" class="oe_highlight"
+                                invisible="state != 'confirmed'"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="numero_inscripcion" readonly="1" placeholder="Número de inscripción"/>
+                            </h1>
+                        </div>
+                        <div class="oe_title">
+                            <h2>
+                                <field name="numero_expediente" readonly="1" placeholder="Número de expediente"/>
+                            </h2>
+                        </div>
+                        <group>
+                            <group string="Información General">
+                                <field name="aspirante_id" domain="[('state', 'in', ['registrado', 'preinscrito'])]"/>
+                                <field name="proceso_id"/>
+                                <field name="fecha_inscripcion"/>
+                                <field name="usuario_inscripcion_id" readonly="1"/>
+                            </group>
+                            <group string="Datos Académicos">
+                                <field name="carrera_id" readonly="1"/>
+                                <field name="sede_id" readonly="1"/>
+                                <field name="seccion_id"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Documentación Requerida">
+                                <group>
+                                    <field name="documentacion_completa" readonly="1"/>
+                                    <field name="doc_cedula"/>
+                                    <field name="doc_titulo"/>
+                                    <field name="doc_notas"/>
+                                    <field name="doc_fotos"/>
+                                    <field name="doc_partida"/>
+                                    <field name="registro_opsu_entregado"/>
+                                </group>
+                            </page>
+                            <page string="Datos del Aspirante">
+                            <field name="aspirante_id" readonly="1">
+                                <list>
+                                    <field name='primer_nombre' readonly="1"/>
+                                    <field name='segundo_nombre' readonly="1" />
+                                    <field name='primer_apellido' readonly="1" />
+                                    <field name='segundo_apellido' readonly="1" />
+                                    <field name="cedula" readonly="1"/>
+                                    <field name="genero" readonly="1" />
+                                    <field name='tipo_asignacion' readonly="1" />
+                                </list>
+                            </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Vista tree para inscripciones -->
+        <record id="view_sgu_inscripcion_tree" model="ir.ui.view">
+            <field name="name">sgu.inscripcion.list</field>
+            <field name="model">sgu.inscripcion</field>
+            <field name="arch" type="xml">
+                <list string="Inscripciones" decoration-info="state=='draft'" decoration-success="state=='confirmed'">
+                    <field name="numero_inscripcion"/>
+                    <field name="numero_expediente"/>
+                    <field name="aspirante_id"/>
+                    <field name="carrera_id"/>
+                    <field name="sede_id"/>
+                    <field name="seccion_id"/>
+                    <field name="fecha_inscripcion"/>
+                    <field name="documentacion_completa"/>
+                    <field name="state"/>
+                </list>
+            </field>
+        </record>
+
+        <!-- Vista search para inscripciones -->
+        <record id="view_sgu_inscripcion_search" model="ir.ui.view">
+            <field name="name">sgu.inscripcion.search</field>
+            <field name="model">sgu.inscripcion</field>
+            <field name="arch" type="xml">
+                <search string="Buscar inscripciones">
+                    <field name="numero_inscripcion"/>
+                    <field name="numero_expediente"/>
+                    <field name="aspirante_id" string="Aspirante"/>
+                    <field name="carrera_id"/>
+                    <field name="sede_id"/>
+                    <field name="seccion_id"/>
+                    <filter string="Borradores" name="draft" domain="[('state', '=', 'draft')]"/>
+                    <filter string="Confirmadas" name="confirmed" domain="[('state', '=', 'confirmed')]"/>
+                    <filter string="Documentación completa" name="doc_completa" domain="[('documentacion_completa', '=', True)]"/>
+                    <filter string="Documentación incompleta" name="doc_incompleta" domain="[('documentacion_completa', '=', False)]"/>
+                    <group expand="0" string="Agrupar por">
+                        <filter name="group_by_carrera" string="Carrera" context="{'group_by': 'carrera_id'}"/>
+                        <filter name="group_by_sede" string="Sede" context="{'group_by': 'sede_id'}"/>
+                        <filter name="group_by_seccion" string="Sección" context="{'group_by': 'seccion_id'}"/>
+                        <filter name="group_by_proceso" string="Proceso" context="{'group_by': 'proceso_id'}"/>
+                        <filter name="group_by_state" string="Estado" context="{'group_by': 'state'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!-- Acción para inscripciones -->
+        <record id="action_sgu_inscripcion" model="ir.actions.act_window">
+            <field name="name">Inscripciones</field>
+            <field name="res_model">sgu.inscripcion</field>
+            <field name="view_mode">list,form</field>
+            <field name="search_view_id" ref="view_sgu_inscripcion_search"/>
+            <field name="context">{'search_default_draft': 1}</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Crear una nueva inscripción
+                </p>
+            </field>
+        </record>
+    </data>
+</odoo>

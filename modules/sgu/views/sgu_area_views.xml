@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Vista de formulario para áreas -->
+        <record id="view_sgu_area_form" model="ir.ui.view">
+            <field name="name">sgu.area.form</field>
+            <field name="model">sgu.area</field>
+            <field name="arch" type="xml">
+                <form string="Área">
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only"/>
+                            <h1><field name="name" placeholder="Nombre del área"/></h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="codigo"/>
+                                <field name="telefono"/>
+                                <field name="active"/>
+                            </group>
+                            <group>
+                                <field name="descripcion"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Carreras">
+                                <field name="carrera_ids" readonly="1">
+                                    <list>
+                                        <field name="name"/>
+                                        <field name="codigo"/>
+                                        <field name="nivel_academico_id"/>
+                                        <field name="modalidad_id"/>
+                                        <field name="active"/>
+                                    </list>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Vista tree para áreas -->
+        <record id="view_sgu_area_tree" model="ir.ui.view">
+            <field name="name">sgu.area.list</field>
+            <field name="model">sgu.area</field>
+            <field name="arch" type="xml">
+                <list string="Áreas">
+                    <field name="name"/>
+                    <field name="codigo"/>
+                    <field name="telefono"/>
+                    <field name="active"/>
+                </list>
+            </field>
+        </record>
+
+        <!-- Vista search para áreas -->
+        <record id="view_sgu_area_search" model="ir.ui.view">
+            <field name="name">sgu.area.search</field>
+            <field name="model">sgu.area</field>
+            <field name="arch" type="xml">
+                <search string="Buscar áreas">
+                    <field name="name" string="Área" filter_domain="[('name', 'ilike', self)]"/>
+                    <field name="codigo"/>
+                    <filter string="Activas" name="active" domain="[('active', '=', True)]"/>
+                    <filter string="Inactivas" name="inactive" domain="[('active', '=', False)]"/>
+                </search>
+            </field>
+        </record>
+
+        <!-- Acción para áreas -->
+        <record id="action_sgu_area" model="ir.actions.act_window">
+            <field name="name">Áreas</field>
+            <field name="res_model">sgu.area</field>
+            <field name="view_mode">list,form</field>
+            <field name="search_view_id" ref="view_sgu_area_search"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Crear una nueva área
+                </p>
+            </field>
+        </record>
+    </data>
+</odoo>

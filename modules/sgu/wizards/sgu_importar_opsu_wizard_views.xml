@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Vista de formulario para el wizard de importación OPSU -->
+        <record id="view_sgu_importar_opsu_wizard_form" model="ir.ui.view">
+            <field name="name">sgu.importar.opsu.wizard.form</field>
+            <field name="model">sgu.importar.opsu.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Importar Listado OPSU">
+                    <sheet>
+                        <group>
+                            <field name="archivo_csv" filename="archivo_nombre" />
+                            <field name="archivo_nombre" invisible="1" />
+                        </group>
+                        <notebook>
+                            <page string="Configuración de Campos">
+
+                                <group string="Mapeo de columnas">
+                                    <field name="campo_cedula" />
+                                    <field name="campo_nombre1" />
+                                    <field name="campo_nombre2" />
+                                    <field name="campo_apellido1" />
+                                    <field name="campo_apellido2" />
+                                    <field name="campo_codigo_opsu" />
+                                    <field name="campo_genero" />
+                                </group>
+
+                                <div class="alert alert-info" role="alert">
+    <p><strong>Formato esperado:</strong> El archivo CSV debe tener como mínimo las siguientes columnas obligatorias: <br/>
+    <code>cedula, primer_nombre, primer_apellido, carrera, sede, codigo_opsu</code></p>
+    <p>Si el archivo tiene nombres de columnas diferentes, ajuste el mapeo en la configuración de campos.</p>
+    <p>Si falta alguna de estas columnas, la importación no se realizará y se mostrará un error.</p>
+</div>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <footer>
+                        <button name="action_importar" string="Importar" type="object"
+                            class="btn-primary" />
+                        <button string="Cancelar" class="btn-secondary" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <!-- Acción para el wizard de importación OPSU -->
+        <record id="action_sgu_importar_opsu_wizard" model="ir.actions.act_window">
+            <field name="name">Importar Listado OPSU</field>
+            <field name="res_model">sgu.importar.opsu.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+    </data>
+</odoo>

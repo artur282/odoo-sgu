@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Vista de formulario para usuarios del sistema -->
+        <record id="view_sgu_usuarios_form" model="ir.ui.view">
+            <field name="name">sgu.usuarios.form</field>
+            <field name="model">sgu.usuarios</field>
+            <field name="arch" type="xml">
+                <form string="Usuario">
+                    <header>
+                        <button name="crear_usuario_sistema" string="Crear Usuario del Sistema" type="object" 
+                                class="oe_highlight" invisible="not user_id"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="cedula" placeholder="Cédula de identidad"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group string="Datos personales">
+                                <field name="primer_nombre"/>
+                                <field name="segundo_nombre"/>
+                                <field name="primer_apellido"/>
+                                <field name="segundo_apellido"/>
+                                <field name="sexo"/>
+                                <field name="fecha_nacimiento"/>
+                                <field name="etnia"/>
+                            </group>
+                            <group string="Datos de contacto">
+                                <field name="telefono"/>
+                                <field name="email"/>
+                                <field name="direccion"/>
+                                <field name="active"/>
+                            </group>
+                        </group>
+                        <group string="Datos de acceso">
+                            <field name="rol"/>
+                            <field name="user_id"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Vista tree para usuarios del sistema -->
+        <record id="view_sgu_usuarios_tree" model="ir.ui.view">
+            <field name="name">sgu.usuarios.list</field>
+            <field name="model">sgu.usuarios</field>
+            <field name="arch" type="xml">
+                <list string="Usuarios del Sistema">
+                    <field name="cedula"/>
+                    <field name="primer_nombre"/>
+                    <field name="primer_apellido"/>
+                    <field name="rol"/>
+                    <field name="telefono"/>
+                    <field name="email"/>
+                    <field name="user_id"/>
+                    <field name="active"/>
+                </list>
+            </field>
+        </record>
+
+        <!-- Vista search para usuarios del sistema -->
+        <record id="view_sgu_usuarios_search" model="ir.ui.view">
+            <field name="name">sgu.usuarios.search</field>
+            <field name="model">sgu.usuarios</field>
+            <field name="arch" type="xml">
+                <search string="Buscar usuarios">
+                    <field name="cedula" string="Cédula" filter_domain="[('cedula', 'ilike', self)]"/>
+                    <field name="primer_nombre" string="Nombre" filter_domain="['|', ('primer_nombre', 'ilike', self), ('segundo_nombre', 'ilike', self)]"/>
+                    <field name="primer_apellido" string="Apellido" filter_domain="['|', ('primer_apellido', 'ilike', self), ('segundo_apellido', 'ilike', self)]"/>
+                    <field name="email"/>
+                    <filter string="Super Usuarios" name="super_usuario" domain="[('rol', '=', 'super_usuario')]"/>
+                    <filter string="Usuarios Admin" name="usuario_admin" domain="[('rol', '=', 'usuario_admin')]"/>
+                    <filter string="Operadores Admin" name="operador_admin" domain="[('rol', '=', 'operador_admin')]"/>
+                    <filter string="Estudiantes" name="estudiante" domain="[('rol', '=', 'estudiante')]"/>
+                    <filter string="Con usuario del sistema" name="con_usuario" domain="[('user_id', '!=', False)]"/>
+                    <filter string="Sin usuario del sistema" name="sin_usuario" domain="[('user_id', '=', False)]"/>
+                    <filter string="Activos" name="active" domain="[('active', '=', True)]"/>
+                    <group expand="0" string="Agrupar por">
+                        <filter name="group_by_rol" string="Rol" context="{'group_by': 'rol'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!-- Acción para usuarios del sistema -->
+        <record id="action_sgu_usuarios" model="ir.actions.act_window">
+            <field name="name">Usuarios del Sistema</field>
+            <field name="res_model">sgu.usuarios</field>
+            <field name="view_mode">list,form</field>
+            <field name="search_view_id" ref="view_sgu_usuarios_search"/>
+            <field name="context">{'search_default_active': 1}</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Registrar un nuevo usuario
+                </p>
+            </field>
+        </record>
+    </data>
+</odoo>

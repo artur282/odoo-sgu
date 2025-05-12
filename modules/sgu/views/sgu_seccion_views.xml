@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Vista de formulario para secciones -->
+        <record id="view_sgu_seccion_form" model="ir.ui.view">
+            <field name="name">sgu.seccion.form</field>
+            <field name="model">sgu.seccion</field>
+            <field name="arch" type="xml">
+                <form string="Sección">
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="codigo" class="oe_edit_only"/>
+                            <h1><field name="codigo" placeholder="Código de sección"/></h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="carrera_id"/>
+                                <field name="sede_id"/>
+                                <field name="periodo_id"/>
+                            </group>
+                            <group>
+                                <field name="capacidad"/>
+                                <field name="capacidad_restante"/>
+                                <field name="active"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Horarios">
+                                <field name="horario_ids">
+                                    <list>
+                                        <field name="asignatura"/>
+                                        <field name="profesor"/>
+                                        <field name="aula"/>
+                                        <field name="dia_semana"/>
+                                        <field name="hora_inicio" widget="float_time"/>
+                                        <field name="hora_fin" widget="float_time"/>
+                                    </list>
+                                </field>
+                            </page>
+                            <page string="Inscritos">
+                                <field name="inscripcion_ids">
+                                    <list>
+                                        <field name="numero_inscripcion"/>
+                                        <field name="aspirante_id"/>
+                                        <field name="fecha_inscripcion"/>
+                                        <field name="state"/>
+                                        <field name="documentacion_completa"/>
+                                    </list>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Vista tree para secciones -->
+        <record id="view_sgu_seccion_tree" model="ir.ui.view">
+            <field name="name">sgu.seccion.list</field>
+            <field name="model">sgu.seccion</field>
+            <field name="arch" type="xml">
+                <list string="Secciones" decoration-danger="capacidad_restante==0" decoration-warning="capacidad_restante&lt;5">
+                    <field name="codigo"/>
+                    <field name="carrera_id"/>
+                    <field name="sede_id"/>
+                    <field name="periodo_id"/>
+                    <field name="capacidad"/>
+                    <field name="capacidad_restante"/>
+                    <field name="active"/>
+                </list>
+            </field>
+        </record>
+
+        <!-- Vista search para secciones -->
+        <record id="view_sgu_seccion_search" model="ir.ui.view">
+            <field name="name">sgu.seccion.search</field>
+            <field name="model">sgu.seccion</field>
+            <field name="arch" type="xml">
+                <search string="Buscar secciones">
+                    <field name="codigo" string="Código" filter_domain="[('codigo', 'ilike', self)]"/>
+                    <field name="carrera_id"/>
+                    <field name="sede_id"/>
+                    <field name="periodo_id"/>
+                    <filter string="Sin cupo" name="sin_cupo" domain="[('capacidad_restante', '=', 0)]"/>
+                    <filter string="Pocos cupos" name="pocos_cupos" domain="[('capacidad_restante', '&lt;', 5), ('capacidad_restante', '>', 0)]"/>
+                    <filter string="Con cupo disponible" name="con_cupo" domain="[('capacidad_restante', '>', 0)]"/>
+                    <filter string="Activas" name="active" domain="[('active', '=', True)]"/>
+                    <group expand="0" string="Agrupar por">
+                        <filter name="group_by_carrera" string="Carrera" context="{'group_by': 'carrera_id'}"/>
+                        <filter name="group_by_sede" string="Sede" context="{'group_by': 'sede_id'}"/>
+                        <filter name="group_by_periodo" string="Periodo" context="{'group_by': 'periodo_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!-- Acción para secciones -->
+        <record id="action_sgu_seccion" model="ir.actions.act_window">
+            <field name="name">Secciones</field>
+            <field name="res_model">sgu.seccion</field>
+            <field name="view_mode">list,form</field>
+            <field name="search_view_id" ref="view_sgu_seccion_search"/>
+            <field name="context">{'search_default_active': 1}</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Crear una nueva sección
+                </p>
+            </field>
+        </record>
+    </data>
+</odoo>

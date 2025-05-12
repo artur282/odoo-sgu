@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Vista de formulario para carreras por sede -->
+        <record id="view_sgu_carrera_sede_form" model="ir.ui.view">
+            <field name="name">sgu.carrera.sede.form</field>
+            <field name="model">sgu.carrera.sede</field>
+            <field name="arch" type="xml">
+                <form string="Carrera en Sede">
+                    <header>
+                        <button name="action_activate" string="Activar" type="object" 
+                                class="oe_highlight" invisible="state == 'active'"/>
+                        <button name="action_inactivate" string="Inactivar" type="object" 
+                                invisible="state == 'inactive'"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,active,inactive"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="sede_id"/>
+                            </group>
+                            <group>
+                                <field name="carrera_ids" widget="many2many_tags"/>
+                            </group>
+                            <group>
+                                <field name="activo"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Vista tree para carreras por sede -->
+        <record id="view_sgu_carrera_sede_list" model="ir.ui.view">
+            <field name="name">sgu.carrera.sede.list</field>
+            <field name="model">sgu.carrera.sede</field>
+            <field name="arch" type="xml">
+                <list string="Carreras por Sede" decoration-success="state=='active'" decoration-muted="state=='inactive'" decoration-info="state=='draft'">
+                    <field name="sede_id"/>
+                    <field name="carrera_ids" widget="many2many_tags"/>
+                    <field name="activo"/>
+                    <field name="state"/>
+                </list>
+            </field>
+        </record>
+
+        <!-- Vista search para carreras por sede -->
+        <record id="view_sgu_carrera_sede_search" model="ir.ui.view">
+            <field name="name">sgu.carrera.sede.search</field>
+            <field name="model">sgu.carrera.sede</field>
+            <field name="arch" type="xml">
+                <search string="Buscar carreras por sede">
+                    <field name="sede_id"/>
+                    <field name="carrera_ids"/>
+                    <filter string="Activas" name="active" domain="[('activo', '=', True)]"/>
+                    <filter string="Inactivas" name="inactive" domain="[('activo', '=', False)]"/>
+                    <separator/>
+                    <filter string="Borrador" name="draft" domain="[('state', '=', 'draft')]"/>
+                    <filter string="Activo" name="active_state" domain="[('state', '=', 'active')]"/>
+                    <filter string="Inactivo" name="inactive_state" domain="[('state', '=', 'inactive')]"/>
+                    <group expand="0" string="Agrupar por">
+                        <filter name="group_by_sede" string="Sede" context="{'group_by': 'sede_id'}"/>
+                        <filter name="group_by_state" string="Estado" context="{'group_by': 'state'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!-- Acción para carreras por sede -->
+        <record id="action_sgu_carrera_sede" model="ir.actions.act_window">
+            <field name="name">Carreras por Sede</field>
+            <field name="res_model">sgu.carrera.sede</field>
+            <field name="view_mode">list,form</field>
+            <field name="search_view_id" ref="view_sgu_carrera_sede_search"/>
+            <field name="context">{'search_default_active': 1}</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Registrar una nueva asignación de carreras a sede
+                </p>
+            </field>
+        </record>
+    </data>
+</odoo>

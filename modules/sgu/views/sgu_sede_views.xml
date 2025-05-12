@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Vista de formulario para sede -->
+        <record id="view_sgu_sede_form" model="ir.ui.view">
+            <field name="name">sgu.sede.form</field>
+            <field name="model">sgu.sede</field>
+            <field name="arch" type="xml">
+                <form string="Sede">
+                    <sheet>
+                        <field name="logo" widget="image" class="oe_avatar"/>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only"/>
+                            <h1><field name="name" placeholder="Nombre de la sede"/></h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="codigo_sede"/>
+                                <field name="correo_sede"/>
+                                <field name="telefono_sede"/>
+                                <field name="active"/>
+                            </group>
+                            <group>
+                                <field name="institucion_id"/>
+                                <field name="direccion_sede"/>
+                                <field name="estado_id"/>
+                                <field name="municipio" invisible="not estado_id"/>
+                                <field name="parroquia" invisible="not municipio"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Vista tree para sedes -->
+        <record id="view_sgu_sede_tree" model="ir.ui.view">
+            <field name="name">sgu.sede.list</field>
+            <field name="model">sgu.sede</field>
+            <field name="arch" type="xml">
+                <list string="Sedes">
+                    <field name="name"/>
+                    <field name="codigo_sede"/>
+                    <field name="institucion_id"/>
+                    <field name="telefono_sede"/>
+                    <field name="correo_sede"/>
+                    <field name="active"/>
+                </list>
+            </field>
+        </record>
+
+        <!-- Vista search para sedes -->
+        <record id="view_sgu_sede_search" model="ir.ui.view">
+            <field name="name">sgu.sede.search</field>
+            <field name="model">sgu.sede</field>
+            <field name="arch" type="xml">
+                <search string="Buscar sedes">
+                    <field name="name" string="Sede" filter_domain="[('name', 'ilike', self)]"/>
+                    <field name="codigo_sede"/>
+                    <field name="institucion_id"/>
+                    <filter string="Activas" name="active" domain="[('active', '=', True)]"/>
+                    <filter string="Inactivas" name="inactive" domain="[('active', '=', False)]"/>
+                    <group expand="0" string="Agrupar por">
+                        <filter name="group_by_institucion" string="Institución" context="{'group_by': 'institucion_id'}"/>
+                        <filter name="group_by_estado" string="Estado" context="{'group_by': 'estado_id'}"/>
+                        <filter name="group_by_active" string="Estado Activo" context="{'group_by': 'active'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!-- Acción para sedes -->
+        <record id="action_sgu_sede" model="ir.actions.act_window">
+            <field name="name">Sedes</field>
+            <field name="res_model">sgu.sede</field>
+            <field name="view_mode">list,form</field>
+            <field name="search_view_id" ref="view_sgu_sede_search"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Crear una nueva sede
+                </p>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Define el formato de papel y las configuraciones para el reporte -->
+        <record id="paperformat_sgu_constancia" model="report.paperformat">
+            <field name="name">Constancia SGU</field>
+            <field name="default" eval="False"/>
+            <field name="format">Letter</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">50</field>
+            <field name="margin_bottom">20</field>
+            <field name="margin_left">15</field>
+            <field name="margin_right">15</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">45</field>
+            <field name="dpi">90</field>
+        </record>
+        
+        <!-- Define el reporte para la constancia de inscripción -->
+        <record id="action_report_sgu_constancia_inscripcion" model="ir.actions.report">
+            <field name="name">Constancia de Inscripción</field>
+            <field name="model">sgu.inscripcion</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">sgu.constancia_inscripcion_report</field>
+            <field name="report_file">sgu.constancia_inscripcion_report</field>
+            <field name="binding_model_id" ref="model_sgu_inscripcion"/>
+            <field name="binding_type">report</field>
+            <field name="paperformat_id" ref="paperformat_sgu_constancia"/>
+        </record>
+        
+        <!-- Define el reporte para la constancia de estudio -->
+        <record id="action_report_sgu_constancia_estudio" model="ir.actions.report">
+            <field name="name">Constancia de Estudio</field>
+            <field name="model">sgu.usuarios</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">sgu.constancia_estudio_report</field>
+            <field name="report_file">sgu.constancia_estudio_report</field>
+            <field name="binding_model_id" ref="model_sgu_usuarios"/>
+            <field name="binding_type">report</field>
+            <field name="paperformat_id" ref="paperformat_sgu_constancia"/>
+        </record>
+        
+        <!-- Template para constancia de inscripción -->
+        <template id="constancia_inscripcion_report">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <t t-call="web.external_layout">
+                        <div class="page">
+                            <div class="row text-center mb-4">
+                                <div class="col-12">
+                                    <h2>CONSTANCIA DE INSCRIPCIÓN</h2>
+                                </div>
+                            </div>
+                            
+                            <div class="row mb-4">
+                                <div class="col-12">
+                                    <p>
+                                        Por medio de la presente, se hace constar que el ciudadano/a 
+                                        <strong t-field="doc.aspirante_id.primer_nombre"/> 
+                                        <strong t-field="doc.aspirante_id.segundo_nombre"/> 
+                                        <strong t-field="doc.aspirante_id.primer_apellido"/> 
+                                        <strong t-field="doc.aspirante_id.segundo_apellido"/>, 
+                                        titular de la cédula de identidad <strong t-field="doc.aspirante_id.cedula"/>,
+                                        ha sido formalmente inscrito en nuestra institución para el período académico
+                                        <strong t-field="doc.proceso_id.periodo_id.name"/>.
+                                    </p>
+                                </div>
+                            </div>
+                            
+                            <div class="row mb-4">
+                                <div class="col-6">
+                                    <strong>Datos de la inscripción:</strong>
+                                    <ul class="list-unstyled mt-2">
+                                        <li><strong>Número de inscripción:</strong> <span t-field="doc.numero_inscripcion"/></li>
+                                        <li><strong>Número de expediente:</strong> <span t-field="doc.numero_expediente"/></li>
+                                        <li><strong>Fecha de inscripción:</strong> <span t-field="doc.fecha_inscripcion"/></li>
+                                    </ul>
+                                </div>
+                                <div class="col-6">
+                                    <strong>Programa académico:</strong>
+                                    <ul class="list-unstyled mt-2">
+                                        <li><strong>Carrera:</strong> <span t-field="doc.carrera_id.name"/></li>
+                                        <li><strong>Sede:</strong> <span t-field="doc.sede_id.name"/></li>
+                                        <li><strong>Sección:</strong> <span t-field="doc.seccion_id.codigo"/></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <div class="row mb-4">
+                                <div class="col-12">
+                                    <strong>Documentación entregada:</strong>
+                                    <div class="row mt-2">
+                                        <div class="col-6">
+                                            <ul class="list-unstyled">
+                                                <li>
+                                                    <input type="checkbox" t-att-checked="doc.doc_cedula" disabled="disabled"/>
+                                                    <span> Cédula de identidad</span>
+                                                </li>
+                                                <li>
+                                                    <input type="checkbox" t-att-checked="doc.doc_titulo" disabled="disabled"/>
+                                                    <span> Título de bachiller</span>
+                                                </li>
+                                                <li>
+                                                    <input type="checkbox" t-att-checked="doc.doc_notas" disabled="disabled"/>
+                                                    <span> Notas certificadas</span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="col-6">
+                                            <ul class="list-unstyled">
+                                                <li>
+                                                    <input type="checkbox" t-att-checked="doc.doc_fotos" disabled="disabled"/>
+                                                    <span> Fotos tipo carnet</span>
+                                                </li>
+                                                <li>
+                                                    <input type="checkbox" t-att-checked="doc.doc_partida" disabled="disabled"/>
+                                                    <span> Partida de nacimiento</span>
+                                                </li>
+                                                <li>
+                                                    <input type="checkbox" t-att-checked="doc.registro_opsu_entregado" disabled="disabled"/>
+                                                    <span> Registro OPSU</span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row mb-4">
+                                <div class="col-12">
+                                    <p>
+                                        La presente constancia se expide a solicitud del interesado, 
+                                        en la ciudad de <span t-field="doc.sede_id.name"/> 
+                                        a los <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%d')"/> días 
+                                        del mes de <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%B')"/> 
+                                        de <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y')"/>.
+                                    </p>
+                                </div>
+                            </div>
+                            
+                            <div class="row mt-5 pt-5">
+                                <div class="col-6 text-center">
+                                    <hr style="width: 60%; margin: 0 auto;"/>
+                                    <p>Firma del funcionario</p>
+                                    <p><span t-field="doc.usuario_inscripcion_id.name"/></p>
+                                </div>
+                                <div class="col-6 text-center">
+                                    <hr style="width: 60%; margin: 0 auto;"/>
+                                    <p>Sello de la institución</p>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+        
+        <!-- Template para constancia de estudio -->
+        <template id="constancia_estudio_report">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <t t-call="web.external_layout">
+                        <div class="page">
+                            <div class="row text-center mb-4">
+                                <div class="col-12">
+                                    <h2>CONSTANCIA DE ESTUDIO</h2>
+                                </div>
+                            </div>
+                            
+                            <div class="row mb-4">
+                                <div class="col-12">
+                                    <p>
+                                        Por medio de la presente, se hace constar que el ciudadano/a 
+                                        <strong t-field="doc.primer_nombre"/> 
+                                        <strong t-field="doc.segundo_nombre"/> 
+                                        <strong t-field="doc.primer_apellido"/> 
+                                        <strong t-field="doc.segundo_apellido"/>, 
+                                        titular de la cédula de identidad <strong t-field="doc.cedula"/>,
+                                        es estudiante regular de nuestra institución durante el período académico actual.
+                                    </p>
+                                </div>
+                            </div>
+                            
+                            <div class="row mb-4">
+                                <div class="col-12">
+                                    <p>
+                                        La presente constancia se expide a solicitud del interesado, 
+                                        en la ciudad de ____________________ 
+                                        a los <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%d')"/> días 
+                                        del mes de <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%B')"/> 
+                                        de <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y')"/>.
+                                    </p>
+                                </div>
+                            </div>
+                            
+                            <div class="row mt-5 pt-5">
+                                <div class="col-6 text-center">
+                                    <hr style="width: 60%; margin: 0 auto;"/>
+                                    <p>Firma del funcionario autorizado</p>
+                                </div>
+                                <div class="col-6 text-center">
+                                    <hr style="width: 60%; margin: 0 auto;"/>
+                                    <p>Sello de la institución</p>
+                                </div>
+                            </div>
+                            
+                            <div class="row mt-5">
+                                <div class="col-12 small text-center">
+                                    <p>Esta constancia tiene una validez de 30 días a partir de la fecha de expedición</p>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

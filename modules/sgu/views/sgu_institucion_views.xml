@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Vista de formulario para institucion -->
+        <record id="view_sgu_institucion_form" model="ir.ui.view">
+            <field name="name">sgu.institucion.form</field>
+            <field name="model">sgu.institucion</field>
+            <field name="arch" type="xml">
+                <form string="Institución">
+                    <sheet>
+                        <field name="logo" widget="image" class="oe_avatar"/>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only"/>
+                            <h1><field name="name" placeholder="Nombre de la institución"/></h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="codigo"/>
+                                <field name="email"/>
+                                <field name="telefono"/>
+                                <field name="active"/>
+                            </group>
+                            <group>
+                                <field name="company_id" groups="base.group_multi_company"/>
+                                <field name="direccion"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Descripción">
+                                <field name="descripcion" placeholder="Descripción de la institución..."/>
+                            </page>
+                            <page string="Sedes">
+                                <field name="sede_ids">
+                                    <list editable="bottom">
+                                        <field name="name"/>
+                                        <field name="codigo_sede"/>
+                                        <field name="telefono_sede"/>
+                                        <field name="correo_sede"/>
+                                        <field name="estado_id"/>
+                                        <field name="active"/>
+                                    </list>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+
+        <!-- Acción para instituciones -->
+        <record id="action_sgu_institucion" model="ir.actions.act_window">
+            <field name="name">Instituciones</field>
+            <field name="res_model">sgu.institucion</field>
+            <field name="view_mode">form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Crear una nueva institución
+                </p>
+            </field>
+        </record>
+    </data>
+</odoo>

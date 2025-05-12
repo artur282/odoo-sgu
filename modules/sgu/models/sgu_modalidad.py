@@ -1,9 +1,15 @@
-from odoo import models, fields
+# -*- coding: utf-8 -*-
 
-class SguModalidad(models.Model):
-    _name = 'sgu_modalidad'
-    _description = 'Modalidades de la institución'
+from odoo import models, fields, api
+
+class Modalidad(models.Model):
+    _name = 'sgu.modalidad'
+    _description = 'Modalidad de estudio (semestral, trimestral, anual)'
     _rec_name = 'modalidad'
 
-    modalidad = fields.Char(string='Modalidad', required=True)
-    active = fields.Boolean(default=True, required=True)
+    modalidad = fields.Char('Modalidad', required=True)
+    descripcion = fields.Text('Descripción')
+    active = fields.Boolean('Activo', default=True)
+
+    # Relaciones
+    carrera_ids = fields.One2many('sgu.carrera', 'modalidad_id', 'Carreras')

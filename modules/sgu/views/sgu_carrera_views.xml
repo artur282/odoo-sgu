@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Vista de formulario para carreras -->
+        <record id="view_sgu_carrera_form" model="ir.ui.view">
+            <field name="name">sgu.carrera.form</field>
+            <field name="model">sgu.carrera</field>
+            <field name="arch" type="xml">
+                <form string="Carrera/Programa">
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only"/>
+                            <h1><field name="name" placeholder="Nombre de la carrera"/></h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="codigo"/>
+                                <field name="modalidad_id"/>
+                                <field name="nivel_academico_id"/>
+                                <field name="area_id"/>
+                                <field name="active"/>
+                            </group>
+                            <group>
+                                <field name="descripcion"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Sedes">
+                                <field name="sede_ids">
+                                    <list editable="bottom">
+                                        <field name="sede_id"/>
+                                        <field name="activo"/>
+                                        <field name="state"/>
+                                        <button name="action_activate" string="Activar" type="object" 
+                                                icon="fa-check" invisible="state == 'active'"/>
+                                        <button name="action_inactivate" string="Inactivar" type="object" 
+                                                icon="fa-times" invisible="state == 'inactive'"/>
+                                    </list>
+                                </field>
+                            </page>
+                            <page string="Pensums">
+                                <field name="pensum_ids">
+                                    <list>
+                                        <field name="name"/>
+                                        <field name="fecha_aprobacion"/>
+                                        <field name="vigente"/>
+                                    </list>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Vista tree para carreras -->
+        <record id="view_sgu_carrera_tree" model="ir.ui.view">
+            <field name="name">sgu.carrera.list</field>
+            <field name="model">sgu.carrera</field>
+            <field name="arch" type="xml">
+                <list string="Carreras/Programas">
+                    <field name="name"/>
+                    <field name="codigo"/>
+                    <field name="nivel_academico_id"/>
+                    <field name="modalidad_id"/>
+                    <field name="area_id"/>
+                    <field name="active"/>
+                </list>
+            </field>
+        </record>
+
+        <!-- Vista search para carreras -->
+        <record id="view_sgu_carrera_search" model="ir.ui.view">
+            <field name="name">sgu.carrera.search</field>
+            <field name="model">sgu.carrera</field>
+            <field name="arch" type="xml">
+                <search string="Buscar carreras">
+                    <field name="name" string="Carrera" filter_domain="[('name', 'ilike', self)]"/>
+                    <field name="codigo"/>
+                    <field name="nivel_academico_id"/>
+                    <field name="modalidad_id"/>
+                    <field name="area_id"/>
+                    <filter string="Activas" name="active" domain="[('active', '=', True)]"/>
+                    <filter string="Inactivas" name="inactive" domain="[('active', '=', False)]"/>
+                    <group expand="0" string="Agrupar por">
+                        <filter name="group_by_nivel" string="Nivel Académico" context="{'group_by': 'nivel_academico_id'}"/>
+                        <filter name="group_by_modalidad" string="Modalidad" context="{'group_by': 'modalidad_id'}"/>
+                        <filter name="group_by_area" string="Área" context="{'group_by': 'area_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!-- Acción para carreras -->
+        <record id="action_sgu_carrera" model="ir.actions.act_window">
+            <field name="name">Carreras/Programas</field>
+            <field name="res_model">sgu.carrera</field>
+            <field name="view_mode">list,form</field>
+            <field name="search_view_id" ref="view_sgu_carrera_search"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Crear una nueva carrera o programa
+                </p>
+            </field>
+        </record>
+    </data>
+</odoo>

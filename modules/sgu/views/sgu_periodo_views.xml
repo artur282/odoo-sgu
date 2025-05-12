@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Vista de formulario para periodos académicos -->
+        <record id="view_sgu_periodo_form" model="ir.ui.view">
+            <field name="name">sgu.periodo.form</field>
+            <field name="model">sgu.periodo</field>
+            <field name="arch" type="xml">
+                <form string="Periodo Académico">
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only"/>
+                            <h1><field name="name" placeholder="Nombre del periodo"/></h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="anio"/>
+                                <field name="periodo"/>
+                                <field name="modalidad"/>
+                                <field name="active"/>
+                            </group>
+                            <group>
+                                <field name="fecha_inicio"/>
+                                <field name="fecha_fin"/>
+                                <field name="descripcion"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Procesos">
+                                <field name="proceso_ids">
+                                    <list>
+                                        <field name="name"/>
+                                        <field name="tipo"/>
+                                        <field name="fecha_inicio"/>
+                                        <field name="fecha_fin"/>
+                                        <field name="state"/>
+                                    </list>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Vista tree para periodos académicos -->
+        <record id="view_sgu_periodo_tree" model="ir.ui.view">
+            <field name="name">sgu.periodo.list</field>
+            <field name="model">sgu.periodo</field>
+            <field name="arch" type="xml">
+                <list string="Periodos Académicos" decoration-info="active">
+                    <field name="name"/>
+                    <field name="anio"/>
+                    <field name="periodo"/>
+                    <field name="modalidad"/>
+                    <field name="fecha_inicio"/>
+                    <field name="fecha_fin"/>
+                    <field name="active"/>
+                </list>
+            </field>
+        </record>
+
+        <!-- Vista search para periodos académicos -->
+        <record id="view_sgu_periodo_search" model="ir.ui.view">
+            <field name="name">sgu.periodo.search</field>
+            <field name="model">sgu.periodo</field>
+            <field name="arch" type="xml">
+                <search string="Buscar periodos académicos">
+                    <field name="name" string="Periodo" filter_domain="[('name', 'ilike', self)]"/>
+                    <field name="anio"/>
+                    <field name="periodo"/>
+                    <filter string="Activos" name="active" domain="[('active', '=', True)]"/>
+                    <filter string="Inactivos" name="inactive" domain="[('active', '=', False)]"/>
+                    <group expand="0" string="Agrupar por">
+                        <filter name="group_by_anio" string="Año" context="{'group_by': 'anio'}"/>
+                        <filter name="group_by_modalidad" string="Modalidad" context="{'group_by': 'modalidad'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!-- Acción para periodos académicos -->
+        <record id="action_sgu_periodo" model="ir.actions.act_window">
+            <field name="name">Periodos Académicos</field>
+            <field name="res_model">sgu.periodo</field>
+            <field name="view_mode">list,form</field>
+            <field name="search_view_id" ref="view_sgu_periodo_search"/>
+            <field name="context">{'search_default_active': 1}</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Crear un nuevo periodo académico
+                </p>
+            </field>
+        </record>
+    </data>
+</odoo>

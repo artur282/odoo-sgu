@@ -1,0 +1,11 @@
+cedula    , primer_nombre, segundo_nombre, primer_apellido, segundo_apellido, carrera               , sede          , genero, email                       , telefono
+V-25487654, María        , Alejandra     , González       , Rodríguez       , Ingeniería Informática, Caracas       , F     , mariagonzalez@example.com   , 0414-5551234
+V-26753198, Carlos       , Eduardo       , Martínez       , Fernández       , Medicina              , Maracaibo     , M     , carlosmartinez@example.com  , 0412-6667890
+V-24685321, Ana          , Sofía         , Pérez          , López           , Derecho               , Valencia      , F     , anaperez@example.com        , 0416-7778901
+V-27531864, Juan         , Diego         , Hernández      , Díaz            , Arquitectura          , Barquisimeto  , M     , juanhernandez@example.com   , 0424-8889012
+V-23567891, Luisa        , Carolina      , Ramírez        , Torres          , Psicología            , Mérida        , F     , luisaramirez@example.com    , 0414-9990123
+V-25671892, José         , Miguel        , Silva          , Morales         , Ingeniería Civil      , San Cristóbal , M     , josesilva@example.com       , 0426-1112345
+V-24987612, Gabriela     ,               , Castillo       , Blanco          , Administración        , Puerto La Cruz, F     , gabrielacastillo@example.com, 0412-2223456
+V-26543215, Roberto      ,               , Vargas         , Mendoza         , Contaduría            , Ciudad Bolívar, M     , robertovargas@example.com   , 0416-3334567
+V-23456781, Valentina    , Isabel        , Rojas          , Castro          , Ingeniería Industrial , Porlamar      , F     , valentinarojas@example.com  , 0424-4445678
+V-27654328, Pedro        , Antonio       , Flores         , Rivas           , Economía              , Coro          , M     , pedroflores@example.com     , 0414-5556789

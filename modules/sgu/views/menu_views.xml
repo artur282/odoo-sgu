@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Menú raíz del SGU -->
+        <menuitem id="menu_sgu_root" name="SGU" sequence="10" web_icon="sgu,static/img/icon.png"/>
+        
+        <!-- Menú principal de configuración -->
+        <menuitem id="menu_sgu_config" name="Configuración" parent="menu_sgu_root" sequence="100"/>
+        
+        <!-- Submenús de configuración -->
+        <menuitem id="menu_sgu_institucion" name="Instituciones" parent="menu_sgu_config" 
+                  action="action_sgu_institucion" sequence="10"/>
+        <menuitem id="menu_sgu_sede" name="Sedes" parent="menu_sgu_config" 
+                  action="action_sgu_sede" sequence="20"/>
+        <menuitem id="menu_sgu_nivel_academico" name="Niveles Académicos" parent="menu_sgu_config" 
+                  action="action_sgu_nivel_academico" sequence="30"/>
+        <menuitem id="menu_sgu_modalidad" name="Modalidades" parent="menu_sgu_config" 
+                  action="action_sgu_modalidad" sequence="40"/>
+        <menuitem id="menu_sgu_area" name="Áreas" parent="menu_sgu_config" 
+                  action="action_sgu_area" sequence="50"/>
+        <menuitem id="menu_sgu_autoridad" name="Autoridades" parent="menu_sgu_config" 
+                  action="action_sgu_autoridad" sequence="60"/>
+        
+        <!-- Menú principal de carreras y programas -->
+        <menuitem id="menu_sgu_carreras" name="Carreras y Programas" parent="menu_sgu_root" sequence="20"/>
+        
+        <!-- Submenús de carreras -->
+        <menuitem id="menu_sgu_carrera_list" name="Carreras" parent="menu_sgu_carreras" 
+                  action="action_sgu_carrera" sequence="10"/>
+        <menuitem id="menu_sgu_carrera_sede" name="Carreras por Sede" parent="menu_sgu_carreras" 
+                  action="action_sgu_carrera_sede" sequence="20"/>
+        <menuitem id="menu_sgu_pensum" name="Pensums" parent="menu_sgu_carreras" 
+                  action="action_sgu_pensum" sequence="30"/>
+        
+        <!-- Menú principal de períodos y procesos -->
+        <menuitem id="menu_sgu_periodos" name="Períodos y Procesos" parent="menu_sgu_root" sequence="30"/>
+        
+        <!-- Submenús de períodos -->
+        <menuitem id="menu_sgu_periodo_list" name="Períodos Académicos" parent="menu_sgu_periodos" 
+                  action="action_sgu_periodo" sequence="10"/>
+        <menuitem id="menu_sgu_proceso_list" name="Procesos Académicos" parent="menu_sgu_periodos" 
+                  action="action_sgu_proceso" sequence="20"/>
+        
+        <!-- Menú principal de admisión -->
+        <menuitem id="menu_sgu_admision" name="Admisión" parent="menu_sgu_root" sequence="40"/>
+        
+        <!-- Submenús de admisión -->
+        <menuitem id="menu_sgu_aspirante_list" name="Aspirantes" parent="menu_sgu_admision" 
+                  action="action_sgu_aspirante" sequence="10"/>
+        <menuitem id="menu_sgu_inscripcion_list" name="Inscripciones" parent="menu_sgu_admision" 
+                  action="action_sgu_inscripcion" sequence="30"/>
+        
+        <!-- Submenús de importación -->
+        <menuitem id="menu_sgu_importar_opsu" name="Importar Listado OPSU" parent="menu_sgu_admision" 
+                  action="action_sgu_importar_opsu_wizard" sequence="40"/>
+        <menuitem id="menu_sgu_importar_aprobados" name="Importar Casos Aprobados" parent="menu_sgu_admision" 
+                  action="action_sgu_importar_aprobados_wizard" sequence="50"/>
+                  
+        <!-- Menú principal de gestión académica -->
+        <menuitem id="menu_sgu_gestion" name="Gestión Académica" parent="menu_sgu_root" sequence="50"/>
+        
+        <!-- Submenús de gestión académica -->
+        <menuitem id="menu_sgu_seccion_list" name="Secciones" parent="menu_sgu_gestion" 
+                  action="action_sgu_seccion" sequence="10"/>
+        <menuitem id="menu_sgu_horario_list" name="Horarios" parent="menu_sgu_gestion" 
+                  action="action_sgu_horario" sequence="20"/>
+        
+        <!-- Menú principal de usuarios -->
+        <menuitem id="menu_sgu_usuarios" name="Usuarios" parent="menu_sgu_root" sequence="60"/>
+        
+        <!-- Submenús de usuarios -->
+        <menuitem id="menu_sgu_usuario_list" name="Usuarios del Sistema" parent="menu_sgu_usuarios" 
+                  action="action_sgu_usuarios" sequence="10"/>
+    </data>
+</odoo>
