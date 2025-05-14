@@ -64,4 +64,13 @@ class Sede(models.Model):
 
     # Relaciones
     institucion_id = fields.Many2one('sgu.institucion', 'Institución', required=True)
-    carrera_ids = fields.One2many('sgu.carrera.sede', 'sede_id', string='Carreras')
+    
+    # Relación One2many al modelo pivot
+    carrera_sede_ids = fields.One2many('sgu.carrera.sede', 'sede_id', string='Programas ofrecidos')
+    
+    # Campo computado para obtener solo las carreras
+    carrera_ids = fields.Many2many('sgu.carrera', string='Carreras disponibles', compute='_compute_carrera_ids', store=False)
+    
+    def _compute_carrera_ids(self):
+        for sede in self:
+            sede.carrera_ids = sede.carrera_sede_ids.mapped('carrera_id')

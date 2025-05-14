@@ -8,22 +8,24 @@
             <field name="arch" type="xml">
                 <form string="Carrera en Sede">
                     <header>
-                        <button name="action_activate" string="Activar" type="object" 
-                                class="oe_highlight" invisible="state == 'active'"/>
-                        <button name="action_inactivate" string="Inactivar" type="object" 
-                                invisible="state == 'inactive'"/>
-                        <field name="state" widget="statusbar" statusbar_visible="draft,active,inactive"/>
+                        <field name="active" invisible="1"/>
+                        <button name="toggle_active" type="object" 
+                                class="oe_highlight" 
+                                invisible="active"
+                                string="Activar"/>
+                        <button name="toggle_active" type="object" 
+                                invisible="not active"
+                                string="Inactivar"/>
                     </header>
                     <sheet>
                         <group>
                             <group>
-                                <field name="sede_id"/>
+                                <field name="carrera_id" options="{'no_create': True}"/>
+                                <field name="sede_id" options="{'no_create': True}"/>
+                                <field name="active" readonly="1" invisible="not id"/>
                             </group>
                             <group>
-                                <field name="carrera_ids" widget="many2many_tags"/>
-                            </group>
-                            <group>
-                                <field name="activo"/>
+                                <field name="observaciones" placeholder="Ingrese observaciones adicionales..."/>
                             </group>
                         </group>
                     </sheet>
@@ -36,11 +38,11 @@
             <field name="name">sgu.carrera.sede.list</field>
             <field name="model">sgu.carrera.sede</field>
             <field name="arch" type="xml">
-                <list string="Carreras por Sede" decoration-success="state=='active'" decoration-muted="state=='inactive'" decoration-info="state=='draft'">
+                <list string="Carreras por Sede" decoration-muted="active == False">
+                    <field name="display_name" string="Carrera en Sede"/>
+                    <field name="carrera_id"/>
                     <field name="sede_id"/>
-                    <field name="carrera_ids" widget="many2many_tags"/>
-                    <field name="activo"/>
-                    <field name="state"/>
+                    <field name="active" string="Activo"/>
                 </list>
             </field>
         </record>
@@ -51,17 +53,14 @@
             <field name="model">sgu.carrera.sede</field>
             <field name="arch" type="xml">
                 <search string="Buscar carreras por sede">
+                    <field name="carrera_id"/>
                     <field name="sede_id"/>
-                    <field name="carrera_ids"/>
-                    <filter string="Activas" name="active" domain="[('activo', '=', True)]"/>
-                    <filter string="Inactivas" name="inactive" domain="[('activo', '=', False)]"/>
+                    <filter string="Activas" name="active" domain="[('active', '=', True)]"/>
+                    <filter string="Inactivas" name="inactive" domain="[('active', '=', False)]"/>
                     <separator/>
-                    <filter string="Borrador" name="draft" domain="[('state', '=', 'draft')]"/>
-                    <filter string="Activo" name="active_state" domain="[('state', '=', 'active')]"/>
-                    <filter string="Inactivo" name="inactive_state" domain="[('state', '=', 'inactive')]"/>
                     <group expand="0" string="Agrupar por">
+                        <filter name="group_by_carrera" string="Carrera" context="{'group_by': 'carrera_id'}"/>
                         <filter name="group_by_sede" string="Sede" context="{'group_by': 'sede_id'}"/>
-                        <filter name="group_by_state" string="Estado" context="{'group_by': 'state'}"/>
                     </group>
                 </search>
             </field>

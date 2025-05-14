@@ -25,19 +25,6 @@
                             </group>
                         </group>
                         <notebook>
-                            <page string="Sedes">
-                                <field name="sede_ids">
-                                    <list editable="bottom">
-                                        <field name="sede_id"/>
-                                        <field name="activo"/>
-                                        <field name="state"/>
-                                        <button name="action_activate" string="Activar" type="object" 
-                                                icon="fa-check" invisible="state == 'active'"/>
-                                        <button name="action_inactivate" string="Inactivar" type="object" 
-                                                icon="fa-times" invisible="state == 'inactive'"/>
-                                    </list>
-                                </field>
-                            </page>
                             <page string="Pensums">
                                 <field name="pensum_ids">
                                     <list>

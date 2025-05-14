@@ -16,9 +16,15 @@ class Carrera(models.Model):
     modalidad_id = fields.Many2one('sgu.modalidad', 'Modalidad')
     nivel_academico_id = fields.Many2one('sgu.nivel.academico', 'Nivel Académico')
     area_id = fields.Many2one('sgu.area', 'Área')
-    sede_ids = fields.Many2many('sgu.carrera.sede', string='Sedes disponibles', compute='_compute_sede_ids', store=False)
+    
+    # Relación One2many al modelo pivot
+    carrera_sede_ids = fields.One2many('sgu.carrera.sede', 'carrera_id', string='Sedes donde se imparte')
+    
+    # Campo computado para obtener solo las sedes
+    sede_ids = fields.Many2many('sgu.sede', string='Sedes disponibles', compute='_compute_sede_ids', store=False)
     
     def _compute_sede_ids(self):
         for carrera in self:
-            carrera.sede_ids = self.env['sgu.carrera.sede'].search([('carrera_ids', 'in', carrera.id)])
+            carrera.sede_ids = carrera.carrera_sede_ids.mapped('sede_id')
+    
     pensum_ids = fields.One2many('sgu.pensum', 'carrera_id', 'Pensums')

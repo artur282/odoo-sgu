@@ -1,33 +1,43 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models, fields, api
+from odoo import models, fields, api, _
+from odoo.exceptions import ValidationError
 
 class CarreraSede(models.Model):
     _name = 'sgu.carrera.sede'
-    _description = 'Asignación carreras a sedes'
-    _rec_name = 'sede_id'
+    _description = 'Relación entre Carreras y Sedes'
+    _rec_name = 'display_name'
 
-    carrera_ids = fields.Many2many('sgu.carrera', string='Carreras', required=True)
-    sede_id = fields.Many2one('sgu.sede', 'Sede', required=True)
-    activo = fields.Boolean('Activo', default=True)
-    state = fields.Selection([
-        ('draft', 'Borrador'),
-        ('active', 'Activo'),
-        ('inactive', 'Inactivo')
-    ], string='Estado', default='draft')
+    # Campos relacionales
+    carrera_id = fields.Many2one('sgu.carrera', 'Carrera', required=True, ondelete='cascade')
+    sede_id = fields.Many2one('sgu.sede', 'Sede', required=True, ondelete='cascade')
     
-    # Restricción de unicidad por sede
+    # Campos computados
+    display_name = fields.Char('Nombre', compute='_compute_display_name', store=True)
+    
+    # Campos adicionales que se pueden agregar a la relación
+    active = fields.Boolean('Activo', default=True)
+    observaciones = fields.Text('Observaciones')
+    
+    @api.depends('carrera_id.name', 'sede_id.name')
+    def _compute_display_name(self):
+        for record in self:
+            if record.carrera_id and record.sede_id:
+                record.display_name = f"{record.carrera_id.name}-{record.sede_id.name}"
+            else:
+                record.display_name = False
+    
+    # Restricción SQL para garantizar la unicidad de la combinación (carrera_id, sede_id)
     _sql_constraints = [
-        ('sede_unique', 'unique(sede_id)', 
-         'Esta sede ya tiene asignadas carreras. Edite el registro existente.')
+        ('carrera_sede_unique', 'unique(carrera_id, sede_id)', 
+         'Esta carrera ya está asignada a esta sede')
     ]
     
-    def action_activate(self):
-        """Activar la relación carrera-sede"""
-        for record in self:
-            record.state = 'active'
+    # Relaciones adicionales al modelo pivot
+    # Nota: Para usar estas relaciones, los modelos sgu.proceso y sgu.horario
+    # deben tener un campo Many2one que apunte a este modelo, por ejemplo:
+    # carrera_sede_id = fields.Many2one('sgu.carrera.sede', 'Carrera en Sede')
     
-    def action_inactivate(self):
-        """Inactivar la relación carrera-sede"""
-        for record in self:
-            record.state = 'inactive'
+    # Como referencia para futuras implementaciones:
+    # proceso_ids = fields.One2many('sgu.proceso', 'carrera_sede_id', 'Procesos')
+    # horario_ids = fields.One2many('sgu.horario', 'carrera_sede_id', 'Horarios')
