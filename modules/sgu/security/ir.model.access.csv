@@ -1,5 +1,5 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_sgu_institucion_super,sgu.institucion.super,model_sgu_institucion,sgu.group_sgu_super_usuario,1,1,1,1
+
 access_sgu_sede_super,sgu.sede.super,model_sgu_sede,sgu.group_sgu_super_usuario,1,1,1,1
 access_sgu_nivel_academico_super,sgu.nivel.academico.super,model_sgu_nivel_academico,sgu.group_sgu_super_usuario,1,1,1,1
 access_sgu_modalidad_super,sgu.modalidad.super,model_sgu_modalidad,sgu.group_sgu_super_usuario,1,1,1,1
@@ -15,12 +15,11 @@ access_sgu_horario_super,sgu.horario.super,model_sgu_horario,sgu.group_sgu_super
 access_sgu_seccion_super,sgu.seccion.super,model_sgu_seccion,sgu.group_sgu_super_usuario,1,1,1,1
 access_sgu_usuarios_super,sgu.usuarios.super,model_sgu_usuarios,sgu.group_sgu_super_usuario,1,1,1,1
 access_sgu_aspirante_super,sgu.aspirante.super,model_sgu_aspirante,sgu.group_sgu_super_usuario,1,1,1,1
-access_sgu_preinscripcion_super,sgu.preinscripcion.super,model_sgu_preinscripcion,sgu.group_sgu_super_usuario,1,1,1,1
 access_sgu_inscripcion_super,sgu.inscripcion.super,model_sgu_inscripcion,sgu.group_sgu_super_usuario,1,1,1,1
 access_sgu_importar_opsu_wizard_super,sgu.importar.opsu.wizard.super,model_sgu_importar_opsu_wizard,sgu.group_sgu_super_usuario,1,1,1,1
 access_sgu_importar_aprobados_wizard_super,sgu.importar.aprobados.wizard.super,model_sgu_importar_aprobados_wizard,sgu.group_sgu_super_usuario,1,1,1,1
 
-access_sgu_institucion_admin,sgu.institucion.admin,model_sgu_institucion,sgu.group_sgu_usuario_admin,1,1,1,0
+
 access_sgu_sede_admin,sgu.sede.admin,model_sgu_sede,sgu.group_sgu_usuario_admin,1,1,1,0
 access_sgu_nivel_academico_admin,sgu.nivel.academico.admin,model_sgu_nivel_academico,sgu.group_sgu_usuario_admin,1,1,1,0
 access_sgu_modalidad_admin,sgu.modalidad.admin,model_sgu_modalidad,sgu.group_sgu_usuario_admin,1,1,1,0
@@ -31,13 +30,12 @@ access_sgu_proceso_admin,sgu.proceso.admin,model_sgu_proceso,sgu.group_sgu_usuar
 access_sgu_usuarios_admin,sgu.usuarios.admin,model_sgu_usuarios,sgu.group_sgu_usuario_admin,1,1,1,0
 access_sgu_autoridad_admin,sgu.autoridad.admin,model_sgu_autoridad,sgu.group_sgu_usuario_admin,1,1,1,0
 
-access_sgu_institucion_operador,sgu.institucion.operador,model_sgu_institucion,sgu.group_sgu_operador_admin,1,0,0,0
+
 access_sgu_sede_operador,sgu.sede.operador,model_sgu_sede,sgu.group_sgu_operador_admin,1,0,0,0
 access_sgu_carrera_operador,sgu.carrera.operador,model_sgu_carrera,sgu.group_sgu_operador_admin,1,0,0,0
 access_sgu_periodo_operador,sgu.periodo.operador,model_sgu_periodo,sgu.group_sgu_operador_admin,1,0,0,0
 access_sgu_proceso_operador,sgu.proceso.operador,model_sgu_proceso,sgu.group_sgu_operador_admin,1,0,0,0
 access_sgu_aspirante_operador,sgu.aspirante.operador,model_sgu_aspirante,sgu.group_sgu_operador_admin,1,1,1,0
-access_sgu_preinscripcion_operador,sgu.preinscripcion.operador,model_sgu_preinscripcion,sgu.group_sgu_operador_admin,1,1,1,0
 access_sgu_inscripcion_operador,sgu.inscripcion.operador,model_sgu_inscripcion,sgu.group_sgu_operador_admin,1,1,1,0
 access_sgu_seccion_operador,sgu.seccion.operador,model_sgu_seccion,sgu.group_sgu_operador_admin,1,0,0,0
 access_sgu_horario_operador,sgu.horario.operador,model_sgu_horario,sgu.group_sgu_operador_admin,1,0,0,0

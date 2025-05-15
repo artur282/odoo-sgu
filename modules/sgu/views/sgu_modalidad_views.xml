@@ -13,7 +13,7 @@
                             <h1><field name="modalidad" placeholder="Nombre de la modalidad"/></h1>
                         </div>
                         <group>
-                            <field name="descripcion"/>
+                            <field name="descripcion" placeholder='Descripcion'/>
                             <field name="active"/>
                         </group>
                         <notebook>

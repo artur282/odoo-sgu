@@ -3,28 +3,20 @@
 from odoo import models, fields, api
 
 class Institucion(models.Model):
-    _name = 'sgu.institucion'
-    _description = 'Institución educativa'
-    _rec_name = 'name'
+    _inherit = 'res.company'
+    _description = 'Institución Universitaria (extiende res.company)'
 
-    name = fields.Char('Nombre', required=True)
+    
     codigo = fields.Char('Código', required=True)
-    direccion = fields.Text('Dirección')
-    telefono = fields.Char('Teléfono')
-    email = fields.Char('Correo electrónico')
     descripcion = fields.Html(string='Descripción')
-    logo = fields.Binary('Logo')
-    active = fields.Boolean('Activo', default=True)
-    company_id = fields.Many2one('res.company', 'Compañía', default=lambda self: self.env.company)
 
-    # Relaciones
+    
+    # name: Ya está en res.company
+    # direccion: Sustituido por los campos de dirección de res.company (street, city, etc.)
+    # telefono: Sustituido por el campo 'phone' de res.company
+    # email: Sustituido por el campo 'email' de res.company
+    # logo: Sustituido por los campos de imagen de res.company (image_1920, etc.)
+    # active: Ya está en res.company
+
+    # --- Relación---
     sede_ids = fields.One2many('sgu.sede', 'institucion_id', 'Sedes')
-
-    # se actualiza el nombre de la compañía asociada
-    def write(self, vals):
-        res = super().write(vals)
-        if 'name' in vals:
-            for record in self:
-                if record.company_id:
-                    record.company_id.name = record.name
-        return res

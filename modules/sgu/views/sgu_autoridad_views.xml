@@ -21,9 +21,9 @@
                                 <field name="active"/>
                             </group>
                             <group>
-                                <field name="fecha_inicio_cargo"/>
-                                <field name="fecha_fin_cargo"/>
-                                <field name="telefono"/>
+                                <field name="fecha_inicio_cargo" placeholder="Fecha de inicio"/>
+                                <field name="fecha_fin_cargo" placeholder="Fecha de fin"/>
+                                <field name="telefono" placeholder="Teléfono"/>
                                 <field name="puede_firmar_documentos"/>
                             </group>
                         </group>

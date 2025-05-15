@@ -63,7 +63,7 @@ class Sede(models.Model):
     parroquia = fields.Selection(selection='_get_parroquias_selection', string='Parroquia')
 
     # Relaciones
-    institucion_id = fields.Many2one('sgu.institucion', 'Institución', required=True)
+    institucion_id = fields.Many2one('res.company', 'Institución', required=True)
     
     # Relación One2many al modelo pivot
     carrera_sede_ids = fields.One2many('sgu.carrera.sede', 'sede_id', string='Programas ofrecidos')

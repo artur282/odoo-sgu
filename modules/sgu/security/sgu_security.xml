@@ -33,7 +33,7 @@
         <!-- Reglas de registro para cada grupo -->
         <record id="rule_sgu_all_super_usuario" model="ir.rule">
             <field name="name">Super usuario puede ver y editar todo</field>
-            <field name="model_id" ref="model_sgu_institucion"/>
+            <field name="model_id" ref="base.model_res_company"/>
             <field name="domain_force">[(1, '=', 1)]</field>
             <field name="groups" eval="[(4, ref('group_sgu_super_usuario'))]"/>
             <field name="perm_read" eval="True"/>

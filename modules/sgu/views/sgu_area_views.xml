@@ -14,12 +14,12 @@
                         </div>
                         <group>
                             <group>
-                                <field name="codigo"/>
-                                <field name="telefono"/>
+                                <field name="codigo" placeholder="Código del área"/>
+                                <field name="telefono" placeholder="Teléfono del área"/>
                                 <field name="active"/>
                             </group>
                             <group>
-                                <field name="descripcion"/>
+                                <field name="descripcion" placeholder="Descripción del área"/>
                             </group>
                         </group>
                         <notebook>

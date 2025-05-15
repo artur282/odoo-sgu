@@ -20,7 +20,6 @@
     'data': [
         'security/sgu_security.xml',
         'security/ir.model.access.csv',
-        'data/sgu_sequence_data.xml',
         'views/sgu_institucion_views.xml',
         'views/sgu_sede_views.xml',
         'views/sgu_nivel_academico_views.xml',

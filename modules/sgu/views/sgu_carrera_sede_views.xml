@@ -20,8 +20,8 @@
                     <sheet>
                         <group>
                             <group>
-                                <field name="carrera_id" options="{'no_create': True}"/>
-                                <field name="sede_id" options="{'no_create': True}"/>
+                                <field name="carrera_id" options="{'no_create': True}" placeholder='Nombre de la carrera'/>
+                                <field name="sede_id" options="{'no_create': True}" placeholder='Nombre de la sede'/>
                                 <field name="active" readonly="1" invisible="not id"/>
                             </group>
                             <group>

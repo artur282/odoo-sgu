@@ -22,30 +22,30 @@
                         <group>
                             <group string="Datos personales">
                                 <field name="primer_nombre"/>
-                                <field name="segundo_nombre"/>
+                                <field name="segundo_nombre" placeholder="Segundo nombre"/>
                                 <field name="primer_apellido"/>
-                                <field name="segundo_apellido"/>
-                                <field name="genero"/>
-                                <field name="fecha_nacimiento"/>
-                                <field name="etnia"/>
+                                <field name="segundo_apellido" placeholder="Segundo apellido"/>
+                                <field name="genero" placeholder="Género"/>
+                                <field name="fecha_nacimiento" placeholder="Fecha de nacimiento"/>
+                                <field name="etnia" placeholder="Etnia"/>
                                 <field name="discapacidad"/>
                                 <field name="tipo_discapacidad" invisible="not discapacidad"/>
                             </group>
                             <group string="Datos de contacto">
-                                <field name="email"/>
-                                <field name="telefono"/>
-                                <field name="phone"/>
-                                <field name="mobile"/>
-                                <field name="direccion_completa"/>
-                                <field name="contacto_emergencia"/>
+                                <field name="email" placeholder="Correo electrónico"/>
+                                <field name="telefono" placeholder="Teléfono"/>
+                                <field name="phone" placeholder="Teléfono"/>
+                                <field name="mobile" placeholder="Teléfono móvil"/>
+                                <field name="direccion_completa" placeholder="Dirección completa"/>
+                                <field name="contacto_emergencia" placeholder="Contacto de emergencia"/>
                             </group>
                         </group>
                         <group string="Datos académicos">
-                            <field name="tipo_asignacion"/>
+                            <field name="tipo_asignacion" placeholder="Tipo de asignación"/>
                             <field name="codigo_opsu" invisible="tipo_asignacion != 'opsu'"/>
                             <field name="carrera_id"/>
                             <field name="sede_id"/>
-                            <field name="active"/>
+                            <field name="active" placeholder="Activo"/>
                         </group>
                         <notebook>
                             <page string="Inscripciones" invisible="state in ['registrado', 'preinscrito']">
@@ -75,7 +75,7 @@
                       decoration-primary="state=='preinscrito'" 
                       decoration-success="state=='inscrito'" 
                       decoration-muted="state=='estudiante'">
-                    <field name="cedula"/>
+                    <field name="cedula" />
                     <field name="primer_nombre"/>
                     <field name="primer_apellido"/>
                     <field name="carrera_id"/>

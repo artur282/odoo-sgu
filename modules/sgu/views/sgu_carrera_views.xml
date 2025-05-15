@@ -21,7 +21,7 @@
                                 <field name="active"/>
                             </group>
                             <group>
-                                <field name="descripcion"/>
+                                <field name="descripcion" placeholder="Descripción de la carrera"/>
                             </group>
                         </group>
                         <notebook>

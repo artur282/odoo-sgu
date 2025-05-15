@@ -13,7 +13,7 @@
                             <h1><field name="nivel" placeholder="Nombre del nivel académico"/></h1>
                         </div>
                         <group>
-                            <field name="descripcion"/>
+                            <field name="descripcion" placeholder='Descripcion' />
                             <field name="active"/>
                         </group>
                         <notebook>
