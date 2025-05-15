@@ -1,0 +1,30 @@
+<odoo>
+    <record id="view_sgu_pensum_form" model="ir.ui.view">
+        <field name="name">sgu.pensum.form</field>
+        <field name="model">sgu.pensum</field>
+        <field name="arch" type="xml">
+            <form string="Pensum Universitario">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="codigo_principal"/>
+                        <field name="modalidad"/>
+                        <field name="nivel_academico"/>
+                        <field name="carrera"/>
+                        <field name="period_count"/>
+                         </group>
+                                         <div class="oe_title">
+                    <h2>Asignaturas Registradas</h2>
+                    <field name="assignment_table" widget="html"/>
+                </div>
+                    </sheet>
+            </form>
+        </field>
+    </record>
+
+     <record id="action_pensum_client" model="ir.actions.client">
+      <field name="name">Pensum Dinámico</field>
+      <field name="tag">sgu.PensumWidget</field>
+    </record>
+
+</odoo>
