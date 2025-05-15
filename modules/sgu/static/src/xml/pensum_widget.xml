@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates>
+  <t t-name="sgu.PensumWidgetTemplate" owl="1">
+    <div class="o_pensum_widget">
+      <h2>Configuración de Pensum</h2>
+
+      <div class="o_form_buttons">
+        <button type="button"
+                class="btn btn-primary"
+                t-on-click="_onSavePensum">Guardar</button>
+        <button type="button"
+                class="btn btn-secondary"
+                t-on-click="_onNewPensum">Nuevo Pensum</button>
+      </div>
+      <div class="clearfix"/>
+
+      <div class="section" id="basicConfig">
+<!-- Selectores modificados -->
+<label>Modalidad:
+<select id="modalidadSelect" t-ref="modalidadSelect" t-on-change="_onModalidadChange">
+    <option value="">Seleccione una modalidad</option>
+    <t t-foreach="state.modalidades" t-as="mod" t-key="mod.id">
+        <option t-att-value="mod.id" t-esc="mod.modalidad"/>
+    </t>
+</select>
+</label>
+
+<label>Nivel Académico:
+    <select id="nivelSelect" t-ref="nivelSelect" t-on-change="_onBasicConfigChange">
+        <option value="">Seleccione un nivel</option>
+        <t t-foreach="state.niveles" t-as="nivel" t-key="nivel.id">
+            <option t-att-value="nivel.id" t-esc="nivel.nivel"/>
+        </t>
+    </select>
+</label>
+
+<label>Carrera:
+    <select id="carreraSelect" t-ref="carreraSelect" t-on-change="_onBasicConfigChange">
+        <option value="">Seleccione una carrera</option>
+        <t t-foreach="state.carreras" t-as="carrera" t-key="carrera.id">
+            <option t-att-value="carrera.id" t-esc="carrera.carrera"/>
+        </t>
+    </select>
+</label>
+<label>
+    <input type="checkbox" 
+           t-model="state.isTrimestreMode" 
+           t-on-change="_toggleTrimestreElements"/>
+    Modo Trayecto
+</label>
+        <label>Código:
+          <input type="number"
+                 id="codigoPrincipal"
+                 t-ref="codigoPrincipalInput"
+                 t-model="state.codigo_principal"
+                 t-on-change="_onBasicConfigChange"/>
+        </label>
+      </div>
+
+      <div class="section" id="divisionConfig">
+        <button type="button"
+                class="button"
+                t-on-click="_decreasePeriods">-</button>
+        <span>Numeros:</span>
+        <span id="periodCount" t-esc="state.periodCount">1</span>
+        <button type="button"
+                class="button"
+                t-on-click="_increasePeriods">+</button>
+<label>Numero seleccionado:
+          <select id="divisionSelect"
+                  t-ref="divisionSelect"
+                  t-on-change="_onDivisionChange">
+                        <t t-foreach="Array.from({length: state.periodCount &gt; 0 ? state.periodCount : 0}, (_, i) => i + 1)" t-as="i" t-key="i">
+              <option t-att-value="i"
+                      t-esc="i"
+                      t-att-selected="state.selectedDivision === i ? 'selected' : null"/>
+            </t>
+          </select>
+        </label>
+      </div>
+
+      <div class="section" id="assignmentEntry">
+        <h3>Agregar Asignatura (División seleccionada: <span t-esc="state.selectedDivision"/>)</h3>
+        <label>Código:
+          <input type="number" id="inputCodigo" t-ref="inputCodigo"/>
+        </label>
+        <label>Asignatura:
+          <input type="text" id="inputAsignatura" t-ref="inputAsignatura"/>
+        </label>
+        <label>UC:
+          <input type="number" id="inputUC" t-ref="inputUC"/>
+        </label>
+        <label>H. Teóricas:
+          <input type="number" id="inputHT" t-ref="inputHT"/>
+        </label>
+        <label>H. Prácticas:
+          <input type="number" id="inputHP" t-ref="inputHP"/>
+        </label>
+        <label>Prelación Asignaturas:
+          <select id="inputPrelacionAsignaturas"
+                  multiple="multiple"
+                  size="3"
+                  t-ref="inputPrelacionAsignaturas"/>
+        </label>
+        <label>Prelación UC:
+          <input type="number"
+                 id="inputPrelacionUC"
+                 min="0"
+                 value="0"
+                 t-ref="inputPrelacionUC"/>
+        </label>
+<label id="prelacionGacetaLabel" t-ref="prelacionGacetaLabel" t-att-hidden="!state.isTrimestreMode">
+          Prelación Gaceta:
+          <input type="text" id="inputPrelacionGaceta" t-ref="inputPrelacionGaceta"/>
+        </label>
+
+<div class="trimestres" t-ref="trimestresDiv" t-att-hidden="!state.isTrimestreMode">
+          Trimestres:
+          <button type="button"
+                  data-tray="1"
+                  class="button tray-btn"
+                  t-att-class="{ 'btn-active': state.selectedTray.includes(1) }"
+                  t-on-click="_onTrayButtonClick">I</button>
+          <button type="button"
+                  data-tray="2"
+                  class="button tray-btn"
+                  t-att-class="{ 'btn-active': state.selectedTray.includes(2) }"
+                  t-on-click="_onTrayButtonClick">II</button>
+          <button type="button"
+                  data-tray="3"
+                  class="button tray-btn"
+                  t-att-class="{ 'btn-active': state.selectedTray.includes(3) }"
+                  t-on-click="_onTrayButtonClick">III</button>
+        </div>
+        
+
+        <button class="buttoncol"
+                type="button"
+                t-on-click="_addAssignment">Agregar Asignatura</button>
+      </div>
+
+      <div class="section" id="displaySection">
+        <h3>Tabla de Pensum</h3>
+         <div id="displayContainer">
+<t t-foreach="Array.from({length: state.periodCount &gt; 0 ? state.periodCount : 0}, (_, i) => i + 1)" t-as="divisionNum" t-key="divisionNum">
+<!-- Busca esta parte en tu XML -->
+<div class="division-header">
+<t t-esc="this.getDivisionLabel(state.modalidad?.modalidad, state.isTrimestreMode)"/>
+<t t-esc="divisionNum"/>
+</div>
+<t t-if="state.isTrimestreMode">
+               <t t-foreach="[1,2,3]" t-as="trimestreNum" t-key="trimestreNum">
+                 <div class="trayecto-header">
+                   Trimestre <t t-esc="trimestreNum"/>
+                 </div>
+                 <table>
+                   <thead>
+                     <tr>
+                       <th>Código</th>
+                       <th>Asignatura</th>
+                       <th>UC</th>
+                       <th>H. Teóricas</th>
+                       <th>H. Prácticas</th>
+                       <th>H. Totales</th>
+                        <th>Prelación</th> <!-- Añadir esta columna -->
+
+                     </tr>
+                   </thead>
+                   <tbody>
+                     <t t-foreach="state.rows" t-as="row" t-key="row_index">
+                     
+    <t t-if="row.division === divisionNum and row.trayectos.includes(trimestreNum)">
+
+                                                <t t-set="prelText" 
+                               t-value="`
+       Asigs: ${Array.isArray(row.prelAsigs) ? row.prelAsigs.join(', ') : row.prelAsigs || '-'}; 
+       UC: ${row.prelUC}; 
+       Gaceta: ${row.prelGaceta || '-'};
+   `"/>                                
+                          <tr>
+                           <td><t t-esc="row.codigo"/></td>
+                           <td><t t-esc="row.asignatura"/></td>
+                           <td><t t-esc="row.uc"/></td>
+                           <td><t t-esc="row.ht"/></td>
+                           <td><t t-esc="row.hp"/></td>
+                           <td><t t-esc="row.tot"/></td>
+                            <td><t t-esc="prelText"/></td> <!-- Mostrar prelText -->
+
+                         </tr>
+                       </t>
+                     </t>
+                   </tbody>
+                 </table>
+               </t>
+             </t>
+             <t t-else="">
+               <table>
+                 <thead>
+                   <tr>
+                     <th>Código</th>
+                     <th>Asignatura</th>
+                     <th>UC</th>
+                     <th>H. Teóricas</th>
+                     <th>H. Prácticas</th>
+                     <th>H. Totales</th>
+                     <th>Prelación</th>
+                   </tr>
+                 </thead>
+                 <tbody>
+                   <t t-foreach="state.rows" t-as="row" t-key="row_index">
+                     <t t-if="row.division === divisionNum">
+                       <t t-set="prelText"
+                              t-value="`Asigs: ${row.prelAsigs.join(', ') || '-'}; UC: ${row.prelUC}; Gaceta: ${row.prelGaceta || '-'};`"/>                       <tr>
+                         <td><t t-esc="row.codigo"/></td>
+                         <td><t t-esc="row.asignatura"/></td>
+                         <td><t t-esc="row.uc"/></td>
+                         <td><t t-esc="row.ht"/></td>
+                         <td><t t-esc="row.hp"/></td>
+                         <td><t t-esc="row.tot"/></td>
+                         <td><t t-esc="prelText"/></td>
+                       </tr>
+                     </t>
+                   </t>
+                 </tbody>
+               </table>
+             </t>
+           </t>
+         </div>
+      </div>
+    </div>
+  </t>
+</templates>

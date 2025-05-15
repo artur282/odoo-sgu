@@ -1,0 +1,268 @@
+/*static/css/pensum.css*/
+/* Estilos generales similares a Odoo 18 */
+body {
+    font-family: 'Lucida Grande', Helvetica, Verdana, Arial, sans-serif;
+    font-size: 13px;
+    color: #4c4c4c;
+    background-color: #f0eeee;
+    margin: 0;
+    padding: 20px;
+    line-height: 1.5;
+  }
+  
+  .hidden {
+    display: none !important;
+  }
+  
+  h2, h3 {
+    color: #7c7bad;
+    font-weight: normal;
+  }
+  
+  h2 {
+    font-size: 22px;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #e2e2e2;
+  }
+  
+  h3 {
+    font-size: 18px;
+    margin: 15px 0 10px 0;
+  }
+  
+  .section {
+    background: white;
+    border: 1px solid #e2e2e2;
+    border-radius: 3px;
+    padding: 15px;
+    margin-bottom: 20px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #666;
+  }
+  
+  /* Estilos para inputs */
+  input[type="text"],
+  input[type="number"],
+  select {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    font-size: 13px;
+    color: #4c4c4c;
+    background-color: #fff;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    transition: border 0.3s linear, box-shadow 0.3s linear;
+    margin-bottom: 15px;
+    box-sizing: border-box;
+  }
+  
+  input[type="text"]:focus,
+  input[type="number"]:focus,
+  select:focus {
+    border-color: #7c7bad;
+    outline: 0;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(124, 123, 173, 0.6);
+  }
+  
+  select[multiple] {
+    min-height: 80px;
+  }
+  
+  /* Estilos para botones */
+  .button {
+    background-color: #7c7bad;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 3px;
+    font-size: 13px;
+    cursor: pointer;
+    text-align: center;
+    display: inline-block;
+    margin: 0 5px 5px 0;
+    transition: background-color 0.3s;
+  }
+  
+  .button:hover {
+    background-color: #6b6a9c;
+    text-decoration: none;
+  }
+  
+  .button:active {
+    background-color: #5a598b;
+  }
+  
+  .buttoncol {
+    background-color: #7c7bad;
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 3px;
+    font-size: 13px;
+    cursor: pointer;
+    text-align: center;
+    display: block;
+    margin: 0 auto;
+    margin-top: 15px;
+    transition: background-color 0.3s;
+  }
+  
+  .buttoncol:hover {
+    background-color: #6b6a9c;
+  }
+  
+  .buttoncol:active {
+    background-color: #5a598b;
+  }
+  
+  /* Estilos para los botones de trimestres */
+  .tray-btn {
+    background-color: #f0f0f0;
+    color: #4c4c4c;
+    border: 1px solid #ccc;
+    padding: 5px 10px;
+    margin-right: 5px;
+  }
+  
+  .tray-btn:hover {
+    background-color: #e0e0e0;
+  }
+  
+  /* Estilos para la sección de contador de trayectos */
+  #divisionConfig {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  
+  #divisionConfig > * {
+    margin: 0;
+  }
+  
+  #periodCount {
+    font-weight: bold;
+    min-width: 20px;
+    text-align: center;
+  }
+  
+  /* Estilos para la tabla de pensum */
+  #displayContainer,
+  #displaySection{
+    min-width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+  }
+  
+  th, td {
+    border: 1px solid #e2e2e2;
+    padding: 8px 12px;
+    text-align: left;
+  }
+  
+  th {
+    background-color: #f8f8f8;
+    font-weight: bold;
+    color: #7c7bad;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  .button.tray-btn.btn-active {
+    box-shadow: 0 0 5px rgba(0,123,255,0.5);
+    transform: scale(1.05);
+  }
+  /* Agrega esto al final de tu archivo CSS */
+.o_pensum_widget {
+  max-height: 90vh;       /* Altura máxima del 90% del viewport */
+  overflow-y: auto;       /* Habilita scroll vertical */
+  padding: 20px;          /* Espaciado interno */
+  background: #f0eeee;    /* Fondo coherente con el body */
+}
+
+/* Opcional: Añadir scroll suave */
+html {
+  scroll-behavior: smooth;
+}
+  
+  /* Diseño responsive */
+  @media (min-width: 768px) {
+    .section {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 15px;
+    }
+    
+    #assignmentEntry > h3,
+    #displaySection > h3 {
+      grid-column: 1 / -1;
+    }
+    .buttoncol {
+      grid-column: 1 / -1;
+      width: auto;
+      max-width: 200px;
+    }
+    
+    #divisionConfig {
+      grid-template-columns: auto auto auto auto auto 1fr;
+    }
+  }
+  .trimestres{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+  }
+
+
+  .pensum-table-section {
+      margin: 20px 0;
+      border: 1px solid #e2e2e2;
+      border-radius: 3px;
+      padding: 15px;
+      background: white;
+  }
+  
+  .pensum-table-section h4 {
+      color: #7c7bad;
+      margin-bottom: 10px;
+  }
+  
+  .pensum-table-section table {
+      width: 100%;
+      border-collapse: collapse;
+  }
+  
+  .pensum-table-section th {
+      background-color: #f8f8f8;
+      color: #7c7bad;
+      padding: 8px 12px;
+  }
+  
+  .pensum-table-section td {
+      padding: 8px 12px;
+      border: 1px solid #e2e2e2;
+  }
+  
+  .pensum-table-section tr:nth-child(even) {
+      background-color: #f9f9f9;
+  }
