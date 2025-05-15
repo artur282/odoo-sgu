@@ -35,6 +35,7 @@
         'views/sgu_seccion_views.xml',
         'views/sgu_usuarios_views.xml',
         'views/sgu_aspirante_views.xml',
+        'views/pensum_action.xml',
 
         'views/sgu_inscripcion_views.xml',
         'wizards/sgu_importar_opsu_wizard_views.xml',
@@ -42,6 +43,13 @@
         'reports/sgu_inscripcion_report.xml',
         'views/menu_views.xml',
     ],
+        'assets': {
+        'web.assets_backend': [
+            'sgu/static/src/js/pensum_widget.js',
+            'sgu/static/src/xml/pensum_widget.xml',
+            'sgu/static/css/pensum.css',
+        ],
+    },
     'demo': [],
     'installable': True,
     'application': True,
