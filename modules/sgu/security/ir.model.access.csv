@@ -43,7 +43,10 @@ access_sgu_importar_opsu_wizard_operador,sgu.importar.opsu.wizard.operador,model
 access_sgu_importar_aprobados_wizard_operador,sgu.importar.aprobados.wizard.operador,model_sgu_importar_aprobados_wizard,sgu.group_sgu_operador_admin,1,1,1,0
 
 access_sgu_horario_estudiante,sgu.horario.estudiante,model_sgu_horario,sgu.group_sgu_estudiante,1,0,0,0
+
+
 access_sgu_seccion_estudiante,sgu.seccion.estudiante,model_sgu_seccion,sgu.group_sgu_estudiante,1,0,0,0
 access_sgu_usuarios_estudiante,sgu.usuarios.estudiante,model_sgu_usuarios,sgu.group_sgu_estudiante,1,1,0,0
+access_sgu_pensum,sgu.pensum.access,model_sgu_pensum,,1,1,1,1
 access_sgu_carrera_estudiante,sgu.carrera.estudiante,model_sgu_carrera,sgu.group_sgu_estudiante,1,0,0,0
 access_sgu_sede_estudiante,sgu.sede.estudiante,model_sgu_sede,sgu.group_sgu_estudiante,1,0,0,0
