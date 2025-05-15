@@ -1,0 +1,187 @@
+<odoo>
+  <data>
+
+    <!-- ===== Menú principal ===== -->
+    <menuitem id="menu_gestion_usuarios" name="Gestión de Usuarios" sequence="10"/>
+
+    <!-- Vista Tree Usuarios -->
+    <record id="view_usuarios_tree" model="ir.ui.view">
+      <field name="name">gestion.usuarios.list</field>
+      <field name="model">gestion.usuarios</field>
+      <field name="arch" type="xml">
+        <list string="Lista de Usuarios">
+          <field name="image_128" widget="image" class="oe_avatar_small"/>
+          <field name="cedula" string="Cédula"/>
+          <field name="name" string="Nombre Completo"/>
+          <field name="email" string="Correo"/>
+          <field name="telefono_m" string="Teléfono"/>
+          <field name="group_ids" string="Grupos" widget="many2many_tags"/>
+          <field name="status" string="Activo"/>
+        </list>
+      </field>
+    </record>
+
+    <!-- Vista Formulario Usuarios -->
+    <record id="view_usuarios_form" model="ir.ui.view">
+      <field name="name">gestion.usuarios.form</field>
+      <field name="model">gestion.usuarios</field>
+      <field name="arch" type="xml">
+        <form>
+          <sheet>
+            <div class="oe_title oe_profile_header">
+              <div class="oe_avatar_container">
+                <field name="image_1920" widget="image" 
+                  class="oe_avatar_medium" 
+                  options='{"preview_image": "image_128"}'/>
+              </div>
+              <div class="oe_profile_info">
+                <h1><field name="name"/></h1>
+                <h2 class="text-muted">
+                  <field name="email"/>
+                </h2>
+              </div>
+            </div>
+
+            <notebook>
+              <page string="Información Personal">
+                <group>
+                  <group string="Datos Básicos">
+                    <field name="cedula"/>
+                    <field name="primer_nombre"/>
+                    <field name="segundo_nombre"/>
+                    <field name="primer_apellido"/>
+                    <field name="segundo_apellido"/>
+                    <field name="sexo"/>
+                    <field name="fecha_nacimiento"/>
+                  </group>
+                  <group string="Contacto">
+                    <field name="email"/>
+                    <field name="telefono_l"/>
+                    <field name="telefono_m"/>
+                  </group>
+                </group>
+              </page>
+
+              <page string="Información Adicional">
+                <group>
+                  <group string="Características">
+                    <field name="etnia"/>
+                    <field name="discapacidad"/>
+                  </group>
+                  <group string="Configuración">
+                    <field name="group_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                    <field name="status"/>
+                    <field name="is_system_user"/>
+                  </group>
+                </group>
+              </page>
+            </notebook>
+          </sheet>
+          <div class="oe_chatter">
+            <!--<field name="message_follower_ids" widget="mail.followers"/>-->
+            <field name="message_ids" widget="mail.thread"/>
+          </div>
+        </form>
+      </field>
+    </record>
+
+    <!-- Acción y menú Usuarios -->
+    <record id="action_usuarios" model="ir.actions.act_window">
+      <field name="name">Usuarios</field>
+      <field name="res_model">gestion.usuarios</field>
+      <field name="view_mode">list,form</field>
+      <field name="view_id" ref="view_usuarios_tree"/>
+    </record>
+
+    <menuitem id="submenu_usuarios" name="Usuarios"
+      parent="menu_gestion_usuarios"
+      action="action_usuarios"/>
+
+    <!-- ===== Vistas de Grupos de Usuarios ===== -->
+    <record id="view_grupo_usuario_tree" model="ir.ui.view">
+      <field name="name">gestion.grupos.list</field>
+      <field name="model">gestion.grupos</field>
+      <field name="arch" type="xml">
+        <list string="Grupos de Usuarios">
+          <field name="name"/>
+          <field name="description"/>
+        </list>
+      </field>
+    </record>
+
+    <record id="view_grupo_usuario_form" model="ir.ui.view">
+      <field name="name">gestion.grupos.form</field>
+      <field name="model">gestion.grupos</field>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <form string="Grupos de Usuarios">
+          <group>
+            <field name="name"/>
+            <field name="description"/>
+          </group>
+        </form>
+      </field>
+    </record>
+
+    <!-- ===== Acción Grupos ===== -->
+    <record id="action_grupos" model="ir.actions.act_window">
+      <field name="name">Grupos de Usuarios</field>
+      <field name="res_model">gestion.grupos</field>
+      <field name="view_mode">list,form</field>
+      <field name="view_id" ref="view_grupo_usuario_tree"/>
+    </record>
+
+    <!-- ===== Submenú Grupos ===== -->
+    <menuitem id="submenu_grupos" name="Grupos de Usuarios"
+      parent="menu_gestion_usuarios"
+      action="action_grupos"/>
+
+    <!-- Vista Tree de Control de Acceso -->
+    <record id="view_control_acceso_tree" model="ir.ui.view">
+      <field name="name">gestion.acceso.control.list</field>
+      <field name="model">gestion.acceso.control</field>
+      <field name="arch" type="xml">
+        <list string="Controles de Acceso">
+          <field name="usuario_id"/>
+          <field name="grupo_ids" widget="many2many_tags"/>
+          <field name="permiso_ids" widget="many2many_tags"/>
+        </list>
+      </field>
+    </record>
+
+
+    <!-- Vista Formulario de Control de Acceso -->
+    <record id="view_control_acceso_form" model="ir.ui.view">
+      <field name="name">gestion.acceso.control.form</field>
+      <field name="model">gestion.acceso.control</field>
+      <field name="arch" type="xml">
+        <form string="Permisos por Usuario">
+          <sheet>
+            <group>
+              <field name="usuario_id"/>
+              <field name="grupo_ids" widget="many2many_tags" readonly="1"/>
+              <field name="permiso_ids" widget="many2many_tags"/>
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+
+    <!-- Acción para abrir la vista -->
+    <record id="action_control_acceso" model="ir.actions.act_window">
+      <field name="name">Permisos por Usuario</field>
+      <field name="res_model">gestion.acceso.control</field>
+      <field name="view_mode">list,form</field>
+      <field name="view_id" ref="view_control_acceso_tree"/>
+    </record>
+
+
+    <menuitem 
+      id="submenu_control_acceso" 
+      name="Permisos por Usuario"
+      parent="menu_gestion_usuarios"
+      action="action_control_acceso"
+      sequence="30"/>
+  </data>
+</odoo>

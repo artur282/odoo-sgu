@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Grupo de Estudiantes -->
+        <record id="grupo_estudiantes" model="gestion.grupos">
+            <field name="name">Estudiantes</field>
+            <field name="description">Grupo para estudiantes regulares</field>
+            <field name="color">1</field>
+        </record>
+
+        <!-- Grupo de Administradores -->
+        <record id="grupo_administradores" model="gestion.grupos">
+            <field name="name">Administradores</field>
+            <field name="description">Grupo para administradores del sistema</field>
+            <field name="color">2</field>
+        </record>
+
+        <!-- Usuario de ejemplo -->
+        <record id="usuario_juan" model="gestion.usuarios">
+            <field name="name">Juan Pérez</field>
+            <field name="email">juan@example.com</field>
+            <field name="group_ids" eval="[(6, 0, [ref('grupo_estudiantes')])]"/>
+        </record>
+
+        <!-- Otro usuario de ejemplo -->
+        <record id="usuario_admin" model="gestion.usuarios">
+            <field name="name">Administrador</field>
+            <field name="email">admin@example.com</field>
+            <field name="group_ids" eval="[(6, 0, [ref('grupo_administradores')])]"/>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,53 @@
+.control-acceso-kanban {
+    padding: 10px;
+    background: #f4f5f7;
+    font-family: 'Segoe UI', Roboto, sans-serif;
+}
+
+.permissions-table-container {
+    padding: 15px;
+}
+
+.permissions-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.permissions-table th,
+.permissions-table td {
+    padding: 10px 12px;
+    text-align: left;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.permissions-table th {
+    background: #f0f2f5;
+    color: #333;
+    font-weight: bold;
+}
+
+.permissions-table td {
+    color: #444;
+}
+
+.permissions-table tr:hover {
+    background-color: #f9f9f9;
+    transition: background-color 0.2s ease;
+}
+
+.control-acceso-form {
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    border: 1px solid #e0e0e0;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    transition: box-shadow 0.3s ease;
+}
+
+.control-acceso-form:hover {
+    box-shadow: 0 3px 8px rgba(0,0,0,0.08);
+}

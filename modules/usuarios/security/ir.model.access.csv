@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_gestion_usuarios,Acceso Usuarios,model_gestion_usuarios,,1,1,1,1
+access_gestion_grupos,Acceso Grupos,model_gestion_grupos,,1,1,1,1
+access_gestion_acceso_control,Acceso Control de Acceso,model_gestion_acceso_control,,1,1,1,1
