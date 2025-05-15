@@ -17,3 +17,4 @@ from . import sgu_seccion
 from . import sgu_usuarios
 from . import sgu_aspirante
 from . import sgu_inscripcion
+from . import pensum_model
