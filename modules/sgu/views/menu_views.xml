@@ -30,7 +30,7 @@
         <menuitem id="menu_sgu_carrera_sede" name="Carreras por Sede" parent="menu_sgu_carreras" 
                   action="action_sgu_carrera_sede" sequence="20"/>
         <menuitem id="menu_sgu_pensum" name="Pensums" parent="menu_sgu_carreras" 
-                  action="action_sgu_pensum" sequence="30"/>
+                  action="action_pensum_client" sequence="30"/>
         
         <!-- Menú principal de períodos y procesos -->
         <menuitem id="menu_sgu_periodos" name="Períodos y Procesos" parent="menu_sgu_root" sequence="30"/>
