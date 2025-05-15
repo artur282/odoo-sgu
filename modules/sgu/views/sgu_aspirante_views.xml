@@ -21,9 +21,9 @@
                         </div>
                         <group>
                             <group string="Datos personales">
-                                <field name="primer_nombre"/>
+                                <field name="primer_nombre" placeholder='Primer Nomber' />
                                 <field name="segundo_nombre" placeholder="Segundo nombre"/>
-                                <field name="primer_apellido"/>
+                                <field name="primer_apellido" placeholder='Primer Apellido' />
                                 <field name="segundo_apellido" placeholder="Segundo apellido"/>
                                 <field name="genero" placeholder="Género"/>
                                 <field name="fecha_nacimiento" placeholder="Fecha de nacimiento"/>

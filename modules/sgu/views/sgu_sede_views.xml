@@ -15,15 +15,15 @@
                         </div>
                         <group>
                             <group>
-                                <field name="codigo_sede"/>
-                                <field name="correo_sede"/>
-                                <field name="telefono_sede"/>
+                                <field name="codigo_sede" placeholder='Codigo de la sede' />
+                                <field name="correo_sede" placeholder='Correo electronico ' />
+                                <field name="telefono_sede" placeholder='Telefono de la sede' />
                                 <field name="active"/>
                             </group>
                             <group>
                                 <field name="institucion_id"/>
-                                <field name="direccion_sede"/>
-                                <field name="estado_id"/>
+                                <field name="direccion_sede" placeholder="Dirección de la sede"/>
+                                <field name="estado_id" placeholder="Estado"/>
                                 <field name="municipio" invisible="not estado_id"/>
                                 <field name="parroquia" invisible="not municipio"/>
                             </group>

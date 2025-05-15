@@ -14,10 +14,10 @@
                         </div>
                         <group>
                             <group>
-                                <field name="codigo"/>
-                                <field name="modalidad_id"/>
-                                <field name="nivel_academico_id"/>
-                                <field name="area_id"/>
+                                <field name="codigo" placeholder='Codigo de Carrera' />
+                                <field name="modalidad_id" placeholder='Modalidad' />
+                                <field name="nivel_academico_id" placeholder='Nivel academico' />
+                                <field name="area_id" placeholder='Area' />
                                 <field name="active"/>
                             </group>
                             <group>
